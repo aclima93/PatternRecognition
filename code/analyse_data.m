@@ -1,9 +1,10 @@
-function [ model, data_projection ] = analyse_data( X, y )
+function [ model, data_projection ] = analyse_data( X, y, labels)
 %ANALYSE_DATA 
 %   (http://www.mathworks.com/help/stats/principal-component-analysis-pca.html)
 %
 %   X == data
 %   y == class
+%   labels == String labels for data features
 %
 %   - Plot the data
 %   - Plot the normalized data
@@ -17,10 +18,13 @@ function [ model, data_projection ] = analyse_data( X, y )
         figure
         hold on
         scatter(1:num_data, X(:,j))
-        plot(1:num_data, y)
+        scatter(1:num_data, y)
+        title(labels(j))
         hold off
     end
 
+    pause;
+    
     % Normalize data
     [~, ~, norm_X] = scalestd(num_data, X);
 
@@ -29,7 +33,7 @@ function [ model, data_projection ] = analyse_data( X, y )
         figure
         hold on
         scatter(1:num_data, norm_X(i,:))
-        plot(1:num_data, y)
+        scatter(1:num_data, y)
         hold off
     end
 
