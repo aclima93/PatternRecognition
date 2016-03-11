@@ -13,31 +13,35 @@ function [ model, data_projection ] = analyse_data( X, y, labels)
 
     [num_data, num_features] = size(X)
 
+    close all
+    
     % Plot features of data
     for j = 1:num_features
         figure
         hold on
         scatter(1:num_data, X(:,j))
-        scatter(1:num_data, y)
         title(labels(j))
         hold off
     end
 
     pause;
+    close all;
     
     % Normalize data
     [~, ~, norm_X] = scalestd(num_data, X);
-
+    
     % Plot normalized data
-    for i = 1:norm_X
+    for j = 1:num_features
         figure
         hold on
-        scatter(1:num_data, norm_X(i,:))
-        scatter(1:num_data, y)
+        scatter(1:num_data, norm_X(:,j))
         title(labels(j))
         hold off
     end
 
+    pause;
+    close all;
+    
     % PCA
     model = pca(norm_X);
 
