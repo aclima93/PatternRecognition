@@ -34,6 +34,7 @@ function [ model, data_projection ] = analyse_data( X, y, labels)
         hold on
         scatter(1:num_data, norm_X(i,:))
         scatter(1:num_data, y)
+        title(labels(j))
         hold off
     end
 
