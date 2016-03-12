@@ -32,3 +32,7 @@ This research employed a binary variable, default payment (Yes = 1, No = 0), as 
 	- . . .;
 	- X23 = amount paid in April, 2005. 
 
+
+#TODO
+- histograma dos valores de cada feature
+- testes de correlação de cada feature com a classificação
