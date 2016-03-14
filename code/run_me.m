@@ -4,4 +4,4 @@ close all
 data = load('dataset.mat');
 
 % analyse dataset
-[model, out_data] = analyse_data(data.X, data.y, data.labels);
+[model, out_data] = pricipal_component_analysis(data.X, data.y, data.labels);

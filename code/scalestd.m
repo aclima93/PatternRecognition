@@ -1,11 +1,16 @@
-function [ mu, s, normalized_X ] = scalestd( num_data, X )
+function [ mu, s, normalized_X ] = scalestd( X )
 %SCALESTD
 %   Normalizes data distribution
 
-    mu = mean(X, 2);
-    s = std(X, [], 2);
+[num_data, ~] = size(X);
 
-    normalized_X = ( X - repmat(mu, 1, num_data)) ./ repmat(s, 1, num_data);
+% mean of each feature (column)
+mu = mean(X);
+
+% standard deviation of each feature (column)
+s = std(X);
+
+% (X - mu) / s --> for each sample --> normalized population data
+normalized_X = ( X - repmat(mu, num_data, 1)) ./ repmat(s, num_data, 1);
 
 end
-
