@@ -12,9 +12,10 @@ plot_data(norm_X, labels);
 % ----------------------------
 % Principal Component Analysis
 disp('PCA of raw data');
-model = pricipal_component_analysis(X, labels);
+pricipal_component_analysis(X, labels);
+
 disp('PCA of normalized data');
-model = pricipal_component_analysis(norm_X, labels);
+pricipal_component_analysis(norm_X, labels);
 
 % ---------------------------------------
 % Principal Component Analysis Classifier
