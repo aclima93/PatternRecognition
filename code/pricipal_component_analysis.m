@@ -4,7 +4,6 @@ function [ ] = pricipal_component_analysis( X, labels )
 %   Perform PCA (Principal Component Analysis) of the data and plot with the
 %   corresponding model
 
-
 % get covariance matrix of data
 cov_X = cov(X);
 
@@ -16,7 +15,20 @@ ax.YTickLabel = labels;
 ax.XTickLabelRotation = 90;
 xlabel('Feature')
 ylabel('Feature')
-title('Covariance Matrix')
+title('Feature Covariance')
+
+% get correlation matrix of data
+cor_X = corrcoef(X);
+
+figure
+imagesc(cor_X)
+ax = gca;
+ax.XTickLabel = labels;
+ax.YTickLabel = labels;
+ax.XTickLabelRotation = 90;
+xlabel('Feature')
+ylabel('Feature')
+title('Feature Correlation')
 
 % perform PCA based on covariance matrix of fata
 [coeff, latent, explained] = pcacov(cov_X);
@@ -31,14 +43,25 @@ indexAt90Percent = find(pc_cumsum >= 0.9, 1, 'first');
 figure
 hold on
 plot(pc_cumsum)
-plot([1, indexAt90Percent], [0.9, 0.9], 'red')
+plot([0, indexAt90Percent], [0.9, 0.9], 'red')
 plot([indexAt90Percent, indexAt90Percent], [0, 0.9], 'red')
 hold off
 ylabel('Explanation Percentage')
-xlabel('Number of PCs considered')
-title('Cummulative explanation percentage of Principal Components')
+xlabel('Number of Components considered')
+title('Cummulative explanation percentage of Components')
+
+% plot the coefficients that each component attributes to each feature
+figure
+surf(coeff)
+ax = gca;
+ax.YTickLabel = labels;
+ylabel('Feature')
+xlabel('Principal Component')
+zlabel('Feature Coefficient')
+title('Linearized Component Feature Coefficients')
 
 % Plot the data pattern according to the PCA model
+%model = pca(X);
 %data_projection = linproj(X, model);
 %figure
 %ppatterns(data_projection);
