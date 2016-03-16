@@ -1,30 +1,30 @@
-function [ ] = pricipal_component_analysis( X, labels )
+function [ ] = pricipal_component_analysis( data )
 %ANALYSE_DATA
 %   (http://www.mathworks.com/help/stats/principal-component-analysis-pca.html)
 %   Perform PCA (Principal Component Analysis) of the data and plot with the
 %   corresponding model
 
 % get covariance matrix of data
-cov_X = cov(X);
+cov_X = cov(data.X);
 
 figure
 imagesc(cov_X)
 ax = gca;
-ax.XTickLabel = labels;
-ax.YTickLabel = labels;
+ax.XTickLabel = data.labels;
+ax.YTickLabel = data.labels;
 ax.XTickLabelRotation = 90;
 xlabel('Feature')
 ylabel('Feature')
 title('Feature Covariance')
 
 % get correlation matrix of data
-cor_X = corrcoef(X);
+cor_X = corrcoef(data.X);
 
 figure
 imagesc(cor_X)
 ax = gca;
-ax.XTickLabel = labels;
-ax.YTickLabel = labels;
+ax.XTickLabel = data.labels;
+ax.YTickLabel = data.labels;
 ax.XTickLabelRotation = 90;
 xlabel('Feature')
 ylabel('Feature')
@@ -54,19 +54,19 @@ title('Cummulative explanation percentage of Components')
 figure
 surf(coeff)
 ax = gca;
-ax.YTickLabel = labels;
+ax.YTickLabel = data.labels;
 ylabel('Feature')
 xlabel('Principal Component')
 zlabel('Feature Coefficient')
 title('Linearized Component Feature Coefficients')
 
 % Plot the data pattern according to the PCA model
-%model = pca(X);
-%data_projection = linproj(X, model);
+%model = pca(data.X);
+%data_projection = linproj(data.X, model);
 %figure
 %ppatterns(data_projection);
 %xlabel('pc')
 %set(gca, 'ytick', [])
 
 end
-
+%EOF
