@@ -61,12 +61,12 @@ zlabel('Feature Coefficient')
 title('Linearized Component Feature Coefficients')
 
 % Plot the data pattern according to the PCA model
-%model = pca(data.X);
-%data_projection = linproj(data.X, model);
-%figure
-%ppatterns(data_projection);
-%xlabel('pc')
-%set(gca, 'ytick', [])
+model = pca(data.X);
+data_projection = linproj(data.X, model);
+figure
+ppatterns(data_projection);
+xlabel('pc')
+set(gca, 'ytick', [])
 
 end
 %EOF

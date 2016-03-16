@@ -5,7 +5,8 @@ close all
 % ------------------ %
 
 % get data from datasets
-data = load('dataset.mat');
+%data = load('dataset.mat');
+data = load('medium_dataset.mat');
 %data = load('small_dataset.mat');
 
 norm_data = normalize_data( data );
@@ -39,13 +40,14 @@ linear_discriminant_analysis(data);
 
 % ------------------
 % Euclidian Distance
+%d = sum((x-y).^2).^0.5;
 
 % -----------------------------
-% Normalized Euclidian Distance
+% Normalized Euclidian Distance (maybe don't do this one)
 
 % --------------------
 % Mahalanobis Distance
-
+%d = mahal(Y,X);
 
 
 
