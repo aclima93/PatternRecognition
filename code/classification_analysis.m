@@ -1,22 +1,23 @@
-function [  ] = classification_accuracy( true_values, predicted_values, positive_values, negative_values )
+function [ classification_performance ] = classification_analysis( true_values, predicted_values, positive_values, negative_values )
 %CLASSIFICATION_ACCURACY Summary of this function goes here
 %   True positive = correctly identified
 %   False positive = incorrectly identified
 %   True negative = correctly rejected
 %   False negative = incorrectly rejected
 
+close all;
 
 % --------------------------------------------------------
 % Calculate accuracy based on predicted and actual results
 
 for i = positive_values
     true_positives = length(find( true_values == i & predicted_values == i ));
-    false_positives = length(find( true_values == i & predicted_values ~= i ));
+    false_positives = length(find( true_values ~= i & predicted_values == i ));
 end
 
 for i = negative_values
     true_negatives = length(find( true_values == i & predicted_values == i ));
-    false_negatives = length(find( true_values == i & predicted_values ~= i ));
+    false_negatives = length(find( true_values ~= i & predicted_values == i ));
 end
 
 
@@ -25,14 +26,10 @@ end
 % ------------------- %
 
 % Table ilustrating Classification Accuracy
-f = figure;
-d = [true_positives, false_positives; false_negatives, true_negatives];
-cnames = {'Condition Positive','Condition Negative'};
-rnames = {'Predicted Condition Positive','Predicted Condition Negative'};
-t = uitable(f,'Data',d,'ColumnName',cnames,'RowName',rnames);
-% Set width and height
-t.Position(3) = t.Extent(3);
-t.Position(4) = t.Extent(4);
+%d = [true_positives, false_positives; false_negatives, true_negatives];
+%cnames = {'Condition Positive','Condition Negative'};
+%rnames = {'Predicted Condition Positive','Predicted Condition Negative'};
+%custom_table(d, cnames, rnames);
 
 population = length(predicted_values);
 
@@ -46,7 +43,7 @@ predicted_condition_negative = false_negatives + true_negatives;
 % True Condition Analysis
 
 % Accuracy of predictions
-ACC = (true_positives + true_negatives) / population;
+accuracy = (true_positives + true_negatives) / population;
 
 % True positive rate
 TPR = true_positives / (true_condition_positive);
@@ -60,8 +57,7 @@ FPR = false_positives / (true_condition_negative);
 % True negative rate
 TNR = true_negatives / (true_condition_negative);
 
-figure;
-bar(1:4, [TPR, FNR, FPR, TNR])
+%custom_pie_chart([TPR, FNR, FPR, TNR], {'TPR: ', 'FNR: ', 'FPR: ', 'TNR: '});
 
 % ----------------------------
 % Predicted Condition Analysis
@@ -81,8 +77,7 @@ FOR = false_negatives / predicted_condition_negative;
 % Negative predictive value
 NPV = true_negatives / predicted_condition_negative;
 
-figure;
-bar(1:4, [PPV, FDR, FOR, NPV])
+%custom_pie_chart([PPV, FDR, FOR, NPV], {'PPV: ', 'FDR: ', 'FOR: ', 'NPV: '});
 
 % -----------------------
 % Diagnostic Analysis
@@ -96,9 +91,7 @@ NLR = FNR / TNR;
 % Diagnostic odds ratio
 DOR = PLR / NLR;
 
-figure;
-bar(1:2, [PLR, NLR])
-
+classification_performance = struct('true_positives', true_positives, 'false_positives', false_positives, 'false_negatives', false_negatives, 'true_negatives', true_negatives, 'accuracy', accuracy, 'TPR', TPR, 'FNR', FNR, 'FPR', FPR, 'TNR', TNR, 'prevalence', prevalence, 'PPV', PPV, 'FDR', FDR, 'FOR', FOR, 'NPV', NPV, 'PLR', PLR, 'NLR', NLR, 'DOR', DOR);
 
 end
 %EOF
