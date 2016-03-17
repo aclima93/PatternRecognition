@@ -1,11 +1,9 @@
-function [ classification_performance ] = classification_analysis( true_values, predicted_values, positive_values, negative_values )
+function [ classification_performance ] = classification_performance_analysis( true_values, predicted_values, positive_values, negative_values )
 %CLASSIFICATION_ACCURACY Summary of this function goes here
 %   True positive = correctly identified
 %   False positive = incorrectly identified
 %   True negative = correctly rejected
 %   False negative = incorrectly rejected
-
-close all;
 
 % --------------------------------------------------------
 % Calculate accuracy based on predicted and actual results

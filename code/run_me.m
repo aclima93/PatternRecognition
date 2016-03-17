@@ -26,7 +26,7 @@ pca_out = pricipal_component_analysis(norm_data);
 % ----------------------------
 % Linear Discriminant Analysis
 disp('LDA of normalized data');
-lda_out = linear_discriminant_analysis(data);
+lda_out = linear_discriminant_analysis(norm_data);
 
 % ----------------- %
 % Feature Selection %
@@ -45,7 +45,7 @@ lda_out = linear_discriminant_analysis(data);
 %d = sum((x-y).^2).^0.5;
 
 % -----------------------------
-% Normalized Euclidian Distance (maybe don't do this one)
+% Normalized Euclidian Distance (maybe don't do this one because of assumption?)
 
 % --------------------
 % Mahalanobis Distance
@@ -56,6 +56,6 @@ lda_out = linear_discriminant_analysis(data);
 % -------------------------- %
 
 classout =  randi(2,1, data.num_data)-1; % TODO: change this to the classification output!
-cp_out = classification_analysis(data.y, classout, [1], [0]);
+cp_out = classification_performance_analysis(data.y, classout, [1], [0]);
 
 %EOF

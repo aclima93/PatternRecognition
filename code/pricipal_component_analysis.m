@@ -37,28 +37,29 @@ title('Feature Correlation')
 % Pcincipal Components considered
 pc_cumsum = cumsum(explained*100)./sum(explained*100);
 
-% and find the index where it crosses 90%
-indexAt90Percent = find(pc_cumsum >= 0.9, 1, 'first');
+% and find the index where it crosses p%
+p = 0.8;
+indexAtPercentage = find(pc_cumsum >= p, 1, 'first');
 
 figure
 hold on
 plot(pc_cumsum)
-plot([0, indexAt90Percent], [0.9, 0.9], 'red')
-plot([indexAt90Percent, indexAt90Percent], [0, 0.9], 'red')
+plot([0, indexAtPercentage], [p, p], 'red')
+plot([indexAtPercentage, indexAtPercentage], [0, p], 'red')
 hold off
 ylabel('Explanation Percentage')
 xlabel('Number of Components considered')
 title('Cummulative explanation percentage of Components')
 
 % plot the coefficients that each component attributes to each feature
-figure
-surf(coeff)
-ax = gca;
-ax.YTickLabel = data.labels;
-ylabel('Feature')
-xlabel('Principal Component')
-zlabel('Feature Coefficient')
-title('Linearized Component Feature Coefficients')
+%figure
+%surf(coeff)
+%ax = gca;
+%ax.YTickLabel = data.labels;
+%ylabel('Feature')
+%xlabel('Principal Component')
+%zlabel('Feature Coefficient')
+%title('Linearized Component Feature Coefficients')
 
 % Plot the data pattern according to the PCA model
 model = pca(data.X);
