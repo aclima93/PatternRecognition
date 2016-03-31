@@ -5,34 +5,36 @@ close all
 % ------------------ %
 
 % get data from datasets
-%data = load('data/dataset.mat');
+data = load('data/dataset.mat');
 %data = load('data/medium_dataset.mat');
-data = load('data/small_dataset.mat');
+%data = load('data/small_dataset.mat');
 
 norm_data = normalize_data( data );
 
-plot_data(data.X, data.labels);
-plot_data(norm_data.X, norm_data.labels);
+%plot_data(data.X, data.labels, data.dim, data.num_data);
+%plot_data(norm_data.X, norm_data.labels, norm_data.dim, norm_data.num_data);
 
-% ----------------- %
-% Feature Reduction %
-% ----------------- %
+% --------------------------- %
+% Feature Reduction/Selection %
+% --------------------------- %
+
+% Observe the correlations between features
+correlation_out = correlation(norm_data.X, norm_data.labels);
+
+% remove the ID feature
+%norm_redu_data = norm_data;
+%m = m(~ismember(1:size(m, 1), [3,9]), :);
+%norm_redu_data.X = norm_redu_data.X(~ismember(1:size(norm_redu_data.X, 1), [3,9]), :);
 
 % ----------------------------
 % Principal Component Analysis
 disp('PCA of normalized data');
-pca_out = pricipal_component_analysis(norm_data);
+pca_out = pricipal_component_analysis(norm_redu_data);
 
 % ----------------------------
 % Linear Discriminant Analysis
 disp('LDA of normalized data');
-lda_out = linear_discriminant_analysis(norm_data);
-
-% ----------------- %
-% Feature Selection %
-% ----------------- %
-
-% TODO
+lda_out = linear_discriminant_analysis(norm_redu_data);
 
 % --------------------------- %
 % Minimum Distance Classifier %

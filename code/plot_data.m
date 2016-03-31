@@ -1,4 +1,4 @@
-function [  ] = plot_data( X, labels )
+function [  ] = plot_data( X, labels , dim, num_data)
 %PLOT_DATA Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -10,11 +10,12 @@ close all;
 if PLOT == 1
     % Plot features of data
     disp('Plotting data...');
-    for j = 1:num_features
+    for j = 1:dim
         figure
         hold on
-        scatter(1:num_data, X(:,j))
-        title(labels(j))
+        scatter(1:num_data, X(j,:))
+        t = title(labels(j));
+        set(t, 'Interpreter', 'none')
         hold off
     end
     pause;
