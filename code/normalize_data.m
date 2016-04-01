@@ -9,4 +9,4 @@ norm_data = data;
 norm_data.X = norm_X;
 
 end
-
+%EOF

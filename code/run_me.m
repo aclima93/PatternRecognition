@@ -6,8 +6,6 @@ close all
 
 % get data from datasets
 data = load('data/dataset.mat');
-%data = load('data/medium_dataset.mat');
-%data = load('data/small_dataset.mat');
 
 norm_data = normalize_data( data );
 
@@ -18,23 +16,45 @@ norm_data = normalize_data( data );
 % Feature Reduction/Selection %
 % --------------------------- %
 
-% Observe the correlations between features
-correlation_out = correlation(norm_data.X, norm_data.labels);
+% --------------------------------
+% Feature Reduction for Redundancy
 
-% remove the ID feature
-%norm_redu_data = norm_data;
-%m = m(~ismember(1:size(m, 1), [3,9]), :);
-%norm_redu_data.X = norm_redu_data.X(~ismember(1:size(norm_redu_data.X, 1), [3,9]), :);
+X_correlation_covariance_out = X_correlation_covariance(norm_data.X, norm_data.labels);
+redund_data = norm_data;
+
+% correlations above 90%
+idx_redund_X = find(X_correlation_covariance_out.correlation > 0.9);
+
+redund_data.X = redund_data.X(idx_redund_X);
+redund_data.labels = redund_data.labels(idx_redund_X);
+redund_data.dim = length(idx_redund_X);
+
+% ------------------------------------------------------
+% Feature Reduction for Correlation with Expected Output
+
+Xy_correlation_covariance_out = Xy_correlation_covariance(norm_data.X, norm_data.y, norm_data.labels);
+redu_data = norm_data;
+
+% correlations above 50%
+idx_redu_X = find(Xy_correlation_covariance_out.correlation > 0.5);
+
+redu_data.X = redu_data.X(idx_redu_X);
+redu_data.labels = redu_data.labels(idx_redu_X);
+redu_data.dim = length(idx_redu_X);
+
+% ------------------------------------------------------
+% TODO: perform Kruskal-Wallis test and discard features 
+% with p-score above 0.5
 
 % ----------------------------
 % Principal Component Analysis
 disp('PCA of normalized data');
-pca_out = pricipal_component_analysis(norm_redu_data);
+pca_out = pricipal_component_analysis(redund_data);
 
 % ----------------------------
 % Linear Discriminant Analysis
 disp('LDA of normalized data');
-lda_out = linear_discriminant_analysis(norm_redu_data);
+lda_out = linear_discriminant_analysis(redund_data);
 
 % --------------------------- %
 % Minimum Distance Classifier %

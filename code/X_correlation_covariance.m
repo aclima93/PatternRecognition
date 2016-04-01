@@ -1,4 +1,4 @@
-function [ correlation_covariance_out ] = correlation_covariance( X, labels )
+function [ X_correlation_covariance_out ] = X_correlation_covariance( X, labels )
 %CORRELATION Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -28,7 +28,7 @@ xlabel('Feature')
 ylabel('Feature')
 title('Feature Correlation')
 
-correlation_covariance_out = struct('covariance', cov_X, 'correlation', cor_X);
+X_correlation_covariance_out = struct('covariance', cov_X, 'correlation', cor_X);
 
 end
-
+%EOF

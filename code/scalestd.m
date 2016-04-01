@@ -14,3 +14,4 @@ s = std(X);
 normalized_X = ( X - repmat(mu, num_data, 1)) ./ repmat(s, num_data, 1);
 
 end
+%EOF
