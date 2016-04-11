@@ -12,8 +12,7 @@ ppatterns(data_projection);
 xlabel('pc')
 set(gca, 'ytick', [])
 
-pca_covariance = struct('coeff', coeff, 'latent', latent, 'explained', explained);
-pca_out = struct('covariance', cov_X, 'correlation', cor_X, 'pca_covariance', pca_covariance, 'pca_model', model, 'data_projection', data_projection);
+pca_out = struct('pca_model', model, 'data_projection', data_projection);
 
 end
 %EOF
