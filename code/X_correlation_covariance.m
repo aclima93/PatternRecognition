@@ -7,6 +7,7 @@ cov_X = cov(X');
 figure
 imagesc(cov_X)
 
+colorbar
 ax = gca;
 ax.XTickLabel = labels;
 ax.YTickLabel = labels;
@@ -20,6 +21,7 @@ cor_X = corrcoef(X');
 figure
 imagesc(cor_X)
 
+colorbar
 ax = gca;
 ax.XTickLabel = labels;
 ax.YTickLabel = labels;
