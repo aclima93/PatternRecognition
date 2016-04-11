@@ -20,38 +20,40 @@ norm_data = normalize_data( data );
 % Feature Reduction for Redundancy
 
 X_correlation_covariance_out = X_correlation_covariance(norm_data.X, norm_data.labels);
-redund_data = norm_data;
 
-% TODO:
-%{
-% correlations above 90%
-idx_redund_X = find(X_correlation_covariance_out.correlation > 0.9);
+% find features that represent other features for correlations above 90%
+redund_X_threshold = 0.9;
+[N, ~] = size(norm_data.X);
+representative = zeros(N,1);
+represented = zeros(N,1);
 
-redund_data.X = redund_data.X(idx_redund_X);
-redund_data.labels = redund_data.labels(idx_redund_X);
-redund_data.dim = length(idx_redund_X);
-%}
+for i = 1:N
+    if ~represented(i)
+        
+        cols = find(X_correlation_covariance_out.correlation(i,:) >= redund_X_threshold);
+        if ~isempty(cols)
+        
+            representative(i) = 1;
+            represented( cols(cols ~= i) ) = 1;
+        end
+    end
+end
+
+% features that represent other features for correlations above 90%
+idx_redund_X = find( representative == 1 );
 
 % ------------------------------------------------------
 % Feature Reduction for Correlation with Expected Output
 
 Xy_correlation_covariance_out = Xy_correlation_covariance(norm_data.X, norm_data.y, norm_data.labels);
-redu_data = norm_data;
 
-% TODO: 
-%{
 % correlations above 50%
-idx_redu_X = find(Xy_correlation_covariance_out.correlation > 0.5);
-
-redu_data.X = redu_data.X(idx_redu_X);
-redu_data.labels = redu_data.labels(idx_redu_X);
-redu_data.dim = length(idx_redu_X);
-%}
+idx_redu_X = find(Xy_correlation_covariance_out.correlation >= 0.5);
 
 % ------------------------------------------------------
 % TODO: perform Kruskal-Wallis test and discard features 
 % with p-score above 0.5
-kruskal_wallis_out = kruskal_wallis(norm_data.X, norm_data.y, norm_data.labels);
+%kruskal_wallis_out = kruskal_wallis(norm_data.X, norm_data.y, norm_data.labels);
 
 % ----------------------------
 % Principal Component Analysis
