@@ -48,22 +48,42 @@ idx_redund_X = find( representative == 1 );
 Xy_correlation_covariance_out = Xy_correlation_covariance(norm_data.X, norm_data.y, norm_data.labels);
 
 % correlations above 50%
-idx_redu_X = find(Xy_correlation_covariance_out.correlation >= 0.5);
+redu_X_threshold = 0.5;
+idx_redu_X = find(Xy_correlation_covariance_out.correlation >= redu_X_threshold);
 
-% ------------------------------------------------------
-% TODO: perform Kruskal-Wallis test and discard features 
-% with p-score above 0.5
-%kruskal_wallis_out = kruskal_wallis(norm_data.X, norm_data.y, norm_data.labels);
+% ----------------------------------------------------------------------
+% Kruskal-Wallis parametric test discard features with p-score above 0.5
+kruskal_wallis_out = kruskal_wallis(norm_data.X, norm_data.y, norm_data.labels);
+kw_threshold = 0.5;
+idx_kruskal_wallis = find(kruskal_wallis_out <= kw_threshold);
+
+% --------------------------------------
+% Feature Reduction with all suggestions
+
+if ~isempty(idx_redund_X) && ~isempty(idx_redu_X)
+    idx = intersect(idx_redund_X, idx_redu_X);
+elseif isempty(idx_redu_X)
+    idx = idx_redund_X;
+elseif isempty(idx_redund_X)
+    idx = idx_redu_X;
+else
+    idx = idx_kruskal_wallis;
+end
+idx = intersect( idx, idx_kruskal_wallis);
+redux_data = norm_data;
+redux_data.X = redux_data.X(idx, :); 
+redux_data.labels = redux_data.labels(idx); 
+redux_data.dim = length(idx); 
 
 % ----------------------------
 % Principal Component Analysis
 disp('PCA of normalized data');
-pca_out = pricipal_component_analysis(redund_data);
+pca_out = pricipal_component_analysis(redux_data);
 
 % ----------------------------
 % Linear Discriminant Analysis
 disp('LDA of normalized data');
-lda_out = linear_discriminant_analysis(redund_data);
+lda_out = linear_discriminant_analysis(redux_data);
 
 % --------------------------- %
 % Minimum Distance Classifier %

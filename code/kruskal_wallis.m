@@ -2,9 +2,25 @@ function [ kruskal_wallis_out ] = kruskal_wallis( X, y, labels )
 %KRUSKAL_WALLIS_ANALYSIS Summary of this function goes here
 %   Detailed explanation goes here
 
-[p,tbl,stats] = kruskalwallis(X, y);
+[N, ~] = size(X);
+kruskal_wallis_out = zeros(N, 1);
 
-kruskal_wallis_out = struct('p', p, 'ANOVA_table', tbl, 'statistics', stats);
+for i = 1:N
+    kruskal_wallis_out(i) = kruskalwallis(X(i, :), y, 'off');
+end
+
+% analysisng Kruskall-Wallis score for expected output
+%{
+figure;
+plot(kruskal_wallis_out)
+
+ax = gca;
+ax.XTickLabel = labels;
+ax.XTickLabelRotation = 90;
+xlabel('Feature')
+ylabel('Score')
+title('Kruskall-Wallis score for features with regard to Expected Output')
+%}
 
 end
 %EOF
