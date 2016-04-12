@@ -89,22 +89,15 @@ pca_out = pricipal_component_analysis(redux_data);
 disp('LDA of normalized data');
 lda_out = linear_discriminant_analysis(redux_data);
 
-% -------------------------------
-% Training and Test Dataset Split
-% -------------------------------
+% ------------------------------------ %
+% Dataset Split + Training and Testing %
+% ------------------------------------ %
 
-% random permutation of column indexes
-shuffle_idx = randperm(size( redux_data.X ,2));
-y = redux_data.y(suffle_idx);
-X = redux_data.X(suffle_idx);
+classifier_data = split_data(redux_data.X, redux_data.y);
 
-training_ratio = 0.3;
-train_X = X(:, 1:end*training_ratio);
-test_X = X(:, end*training_ratio:end);
-train_expected_y = y(:, 1:end*training_ratio);
-test_expected_y = y(:, end*training_ratio:end);
+% TODO: Train
 
-classifier_data = struct('train_X', train_X, 'test_X', test_X, 'train_expected_y', train_expected_y, 'test_expected_y', test_expected_y);
+% TODO: Test
 
 % --------------------------- %
 % Minimum Distance Classifier %
