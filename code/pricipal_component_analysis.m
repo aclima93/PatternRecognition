@@ -9,8 +9,7 @@ model = pca(data.X);
 data_projection = linproj(data.X, model);
 figure
 ppatterns(data_projection);
-xlabel('pc')
-set(gca, 'ytick', [])
+title('PCA')
 
 pca_out = struct('pca_model', model, 'data_projection', data_projection);
 

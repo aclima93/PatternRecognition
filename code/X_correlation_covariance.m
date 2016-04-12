@@ -14,7 +14,7 @@ ax.YTickLabel = labels;
 ax.XTickLabelRotation = 90;
 xlabel('Feature')
 ylabel('Feature')
-title('Feature Covariance') 
+title('Feature Covariance')
 
 % get correlation matrix of data
 cor_X = corrcoef(X');

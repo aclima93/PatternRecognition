@@ -7,6 +7,7 @@ model = lda(data);
 data_projection = linproj(data.X, model);
 figure
 ppatterns(data_projection);
+title('LDA')
 
 lda_out = struct('lda_model', model, 'data_projection', data_projection);
 
