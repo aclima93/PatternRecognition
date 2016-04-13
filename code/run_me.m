@@ -83,11 +83,13 @@ redux_data.dim = length(idx);
 % Principal Component Analysis
 disp('PCA of normalized data');
 pca_out = pricipal_component_analysis(redux_data);
+close all;
 
 % ----------------------------
 % Linear Discriminant Analysis
 disp('LDA of normalized data');
 lda_out = linear_discriminant_analysis(redux_data);
+close all;
 
 % ------------------------------------ %
 % Dataset Split + Training and Testing %
@@ -95,9 +97,11 @@ lda_out = linear_discriminant_analysis(redux_data);
 
 classifier_data = split_data(redux_data.X, redux_data.y);
 
-% TODO: Train
+% Train
+classifier = fitcdiscr(classifier_data.train_X', classifier_data.train_y');
 
-% TODO: Test
+% Test
+[predicted_y, score, cost] = predict(classifier, classifier_data.test_X');
 
 % --------------------------- %
 % Minimum Distance Classifier %
@@ -120,8 +124,9 @@ classifier_data = split_data(redux_data.X, redux_data.y);
 % Classification Performance %
 % -------------------------- %
 
-classout =  randi(2,1, data.num_data)-1; % TODO: change this to the classification output!
-cp_out = classification_performance_analysis(data.y, classout, [1], [0]);
+positive_values = [1];
+negative_values = [0];
+cp_out = classification_performance_analysis(classifier_data.test_y', predicted_y, positive_values, negative_values);
 
 % ------------------
 % Average Error Rate
