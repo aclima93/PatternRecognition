@@ -1,4 +1,4 @@
-function [ tta_out ] = train_test_analyse( X, y )
+function [ tta_out ] = train_test_analysis( X, y )
 %TRAIN_TEST_ANALYSE Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -38,6 +38,7 @@ classifier = fitcdiscr(classifier_data.train_X', classifier_data.train_y');
 
 positive_values = [1];
 negative_values = [0];
+% cpa: classification_performance_analysis
 cpa_out = classification_performance_analysis(classifier_data.test_y', predicted_y, positive_values, negative_values);
 
 % ------------------
@@ -49,7 +50,7 @@ cpa_out = classification_performance_analysis(classifier_data.test_y', predicted
 % ----------
 % ROC Curves
 
-tta_out = struct('expected_y', y, 'predicted_y', predicted_y', 'cp_out', cpa_out);
+tta_out = struct('expected_y', classifier_data.test_y, 'predicted_y', predicted_y', 'cpa_out', cpa_out);
 
 end
 

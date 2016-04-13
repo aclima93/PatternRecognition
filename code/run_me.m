@@ -99,30 +99,43 @@ close all;
 % Dataset Split + Training and Testing + Classification Performance %
 % ----------------------------------------------------------------- %
 
-tta = struct;
+% tta: train_test_analysis
+tta_out = struct;
 
 % Normalized Data
-tta.('norm_data') = train_test_analyse( norm_data.X, norm_data.y);
+tta_out.('norm_data') = train_test_analysis( norm_data.X, norm_data.y);
 
 % Reduced Data
-tta.('redux_data') = train_test_analyse( redux_data.X, redux_data.y);
+tta_out.('redux_data') = train_test_analysis( redux_data.X, redux_data.y);
 
 % PCA Data
 for i = 1:length(fieldnames(pca_out))
     temp = pca_out.(strcat('new_dim_', num2str(i)));
-    tta.(strcat('pca_data_', num2str(i))) = train_test_analyse( temp.data_projection, temp.y);
+    tta_out.(strcat('pca_data_', num2str(i))) = train_test_analysis( temp.data_projection, temp.y);
 end
 
 % LDA Data
 for i = 1:length(fieldnames(lda_out))
     temp = lda_out.(strcat('new_dim_', num2str(i)));
-    tta.(strcat('lda_data_', num2str(i))) = train_test_analyse( temp.data_projection, temp.y);
+    tta_out.(strcat('lda_data_', num2str(i))) = train_test_analysis( temp.data_projection, temp.y);
 end
 
 % --------------------------- %
 % Compare Performance Results %
 % --------------------------- %
 
+tta_labels = fieldnames(tta_out);
+cpa_labels = fieldnames( tta_out.( tta_labels{1} ).('cpa_out') );
+comparison_table = zeros(length(tta_labels), length(cpa_labels));
 
+for i = 1:length(tta_labels)
+    for j = 1:length(cpa_labels)
+   
+        comparison_table(i, j) = tta_out.( tta_labels{i} ).('cpa_out').( cpa_labels{j} );
+
+    end
+end
+
+% TODO: normalize each comparison_table column and display with imagesc
 
 %EOF
