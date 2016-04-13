@@ -95,12 +95,13 @@ close all;
 % Dataset Split + Training and Testing %
 % ------------------------------------ %
 
+% Split the data into stratified samples
 classifier_data = split_data(redux_data.X, redux_data.y);
 
-% Train
+% Train the classifier
 classifier = fitcdiscr(classifier_data.train_X', classifier_data.train_y');
 
-% Test
+% Test the classifier with remaining data
 [predicted_y, score, cost] = predict(classifier, classifier_data.test_X');
 
 % --------------------------- %
