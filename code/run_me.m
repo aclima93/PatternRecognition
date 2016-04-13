@@ -12,12 +12,12 @@ norm_data = normalize_data( data );
 %plot_data(data.X, data.labels, data.dim, data.num_data);
 %plot_data(norm_data.X, norm_data.labels, norm_data.dim, norm_data.num_data);
 
-% --------------------------- %
-% Feature Reduction/Selection %
-% --------------------------- %
+% ----------------- %
+% Feature Selection %
+% ----------------- %
 
 % --------------------------------
-% Feature Reduction for Redundancy
+% Feature Selection for Redundancy
 
 X_correlation_covariance_out = X_correlation_covariance(norm_data.X, norm_data.labels);
 
@@ -43,7 +43,7 @@ end
 idx_redund_X = find( representative == 1 );
 
 % ------------------------------------------------------
-% Feature Reduction for Correlation with Expected Output
+% Feature Selection for Correlation with Expected Output
 
 Xy_correlation_covariance_out = Xy_correlation_covariance(norm_data.X, norm_data.y, norm_data.labels);
 
@@ -62,7 +62,7 @@ kw_threshold = 0.05;
 idx_kruskal_wallis = find(kruskal_wallis_out <= kw_threshold);
 
 % --------------------------------------
-% Feature Reduction with all suggestions
+% Feature Selection with all suggestions
 
 if ~isempty(idx_redund_X) && ~isempty(idx_redu_X)
     idx = intersect(idx_redund_X, idx_redu_X);
@@ -79,6 +79,10 @@ redux_data.X = redux_data.X(idx, :);
 redux_data.labels = redux_data.labels(idx); 
 redux_data.dim = length(idx); 
 
+% ----------------- %
+% Feature Reduction %
+% ----------------- %
+
 % ----------------------------
 % Principal Component Analysis
 disp('PCA of normalized data');
@@ -91,52 +95,33 @@ disp('LDA of normalized data');
 lda_out = linear_discriminant_analysis(redux_data);
 close all;
 
-% ------------------------------------ %
-% Dataset Split + Training and Testing %
-% ------------------------------------ %
+% ----------------------------------------------------------------- %
+% Dataset Split + Training and Testing + Classification Performance %
+% ----------------------------------------------------------------- %
 
-% Split the data into stratified samples
-classifier_data = split_data(redux_data.X, redux_data.y);
+tta = struct;
 
-% Train the classifier
-classifier = fitcdiscr(classifier_data.train_X', classifier_data.train_y');
+% Normalized Data
+tta.('norm_data') = train_test_analyse( norm_data.X, norm_data.y);
 
-% Test the classifier with remaining data
-[predicted_y, score, cost] = predict(classifier, classifier_data.test_X');
+% Reduced Data
+tta.('redux_data') = train_test_analyse( redux_data.X, redux_data.y);
+
+% PCA Data
+for i = 1:length(fieldnames(pca_out))
+    temp = pca_out.(strcat('new_dim_', num2str(i)));
+    tta.(strcat('pca_data_', num2str(i))) = train_test_analyse( temp.data_projection, temp.y);
+end
+
+% LDA Data
+for i = 1:length(fieldnames(lda_out))
+    temp = lda_out.(strcat('new_dim_', num2str(i)));
+    tta.(strcat('lda_data_', num2str(i))) = train_test_analyse( temp.data_projection, temp.y);
+end
 
 % --------------------------- %
-% Minimum Distance Classifier %
+% Compare Performance Results %
 % --------------------------- %
-
-% TODO
-
-% ------------------
-% Euclidian Distance
-%d = sum((x-y).^2).^0.5;
-
-% -----------------------------
-% Normalized Euclidian Distance (maybe don't do this one because of assumption?)
-
-% --------------------
-% Mahalanobis Distance
-%d = mahal(Y,X);
-
-% -------------------------- %
-% Classification Performance %
-% -------------------------- %
-
-positive_values = [1];
-negative_values = [0];
-cp_out = classification_performance_analysis(classifier_data.test_y', predicted_y, positive_values, negative_values);
-
-% ------------------
-% Average Error Rate
-
-% ---------
-% F-measure
-
-% ----------
-% ROC Curves
 
 
 
