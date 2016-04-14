@@ -124,15 +124,25 @@ end
 % Compare Performance Results %
 % --------------------------- %
 
+% for each dataset
 tta_labels = fieldnames(tta_out);
-cpa_labels = fieldnames( tta_out.( tta_labels{1} ).('cpa_out') );
-comparison_table = zeros(length(tta_labels), length(cpa_labels));
+
+% for each classifier
+
+classifier_labels = fieldnames( tta_out.( tta_labels{1} ));
+
+% for each set of statistical results
+cpa_labels = fieldnames( tta_out.( tta_labels{1} ).( classifier_labels{1} ).('cpa_out') );
+
+comparison_table = zeros(length(tta_labels), length(classifier_labels), length(cpa_labels));
 
 for i = 1:length(tta_labels)
-    for j = 1:length(cpa_labels)
+    for j = 1:length(classifier_labels)
+        for k = 1:length(cpa_labels)
    
-        comparison_table(i, j) = tta_out.( tta_labels{i} ).('cpa_out').( cpa_labels{j} );
+            comparison_table(i, j, k) = tta_out.( tta_labels{i} ).( classifier_labels{j} ).('cpa_out').( cpa_labels{k} );
 
+        end
     end
 end
 

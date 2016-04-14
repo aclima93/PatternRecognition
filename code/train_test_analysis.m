@@ -2,6 +2,10 @@ function [ tta_out ] = train_test_analysis( X, y )
 %TRAIN_TEST_ANALYSE Summary of this function goes here
 %   Detailed explanation goes here
 
+tta_out = struct;
+positive_values = [1];
+negative_values = [0];
+
 % ------------------------------------ %
 % Dataset Split + Training and Testing %
 % ------------------------------------ %
@@ -9,21 +13,54 @@ function [ tta_out ] = train_test_analysis( X, y )
 % Split the data into stratified samples
 classifier_data = split_data(X, y);
 
+% --------------------------------------- %
+% Matlab's Linear Discriminant Classifier %
+% --------------------------------------- %
+
+% http://www.mathworks.com/help/stats/discriminant-analysis.html
+
 % Train the classifier
-classifier = fitcdiscr(classifier_data.train_X', classifier_data.train_y');
+classifier = fitcdiscr(classifier_data.train_X', classifier_data.train_y', 'DiscrimType', 'linear');
 
 % Test the classifier with remaining data
 [predicted_y, score, cost] = predict(classifier, classifier_data.test_X');
 
-% --------------------------- %
-% Minimum Distance Classifier %
-% --------------------------- %
+% Classification Performance
+cpa_out = classification_performance_analysis(classifier_data.test_y', predicted_y, positive_values, negative_values);
 
-% TODO
+tta_out.('mldc') = struct('expected_y', classifier_data.test_y, 'predicted_y', predicted_y', 'cpa_out', cpa_out);
 
-% ------------------
-% Euclidian Distance
-%d = sum((x-y).^2).^0.5;
+%{
+
+% TODO: not working for some reason
+
+% ------------------------------------------ %
+% Matlab's Quadratic Discriminant Classifier %
+% ------------------------------------------ %
+
+% http://www.mathworks.com/help/stats/discriminant-analysis.html
+
+% Train the classifier
+classifier = fitcdiscr(classifier_data.train_X', classifier_data.train_y', 'DiscrimType','quadratic');
+
+% Test the classifier with remaining data
+[predicted_y, score, cost] = predict(classifier, classifier_data.test_X');
+
+% Classification Performance
+cpa_out = classification_performance_analysis(classifier_data.test_y', predicted_y, positive_values, negative_values);
+
+tta_out.('mqdc') = struct('expected_y', classifier_data.test_y, 'predicted_y', predicted_y', 'cpa_out', cpa_out);
+%}
+
+% ---------------------------- %
+% Minimum Distance Classifiers %
+% ---------------------------- %
+
+% -----------------------------
+% Euclidian Linear Discriminant
+
+d = euclidean_distance(classifier_data.train_X, classifier_data.train_y);
+%predicted_y = closest centroid
 
 % -----------------------------
 % Normalized Euclidian Distance (maybe don't do this one because of assumption?)
@@ -32,14 +69,12 @@ classifier = fitcdiscr(classifier_data.train_X', classifier_data.train_y');
 % Mahalanobis Distance
 %d = mahal(Y,X);
 
-% -------------------------- %
-% Classification Performance %
-% -------------------------- %
 
-positive_values = [1];
-negative_values = [0];
-% cpa: classification_performance_analysis
-cpa_out = classification_performance_analysis(classifier_data.test_y', predicted_y, positive_values, negative_values);
+
+
+% !!!
+% BIG FAT TODO HERE
+% !!!
 
 % ------------------
 % Average Error Rate
@@ -49,8 +84,6 @@ cpa_out = classification_performance_analysis(classifier_data.test_y', predicted
 
 % ----------
 % ROC Curves
-
-tta_out = struct('expected_y', classifier_data.test_y, 'predicted_y', predicted_y', 'cpa_out', cpa_out);
 
 end
 
