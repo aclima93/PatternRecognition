@@ -1,4 +1,4 @@
-function [ classification_performance ] = classification_performance_analysis( true_values, predicted_values, positive_values, negative_values )
+function [ classification_performance ] = classification_performance_analysis( expected_y, predicted_y, positive_values, negative_values )
 %CLASSIFICATION_ACCURACY Summary of this function goes here
 %   True positive = correctly identified
 %   False positive = incorrectly identified
@@ -9,13 +9,13 @@ function [ classification_performance ] = classification_performance_analysis( t
 % Calculate accuracy based on predicted and actual results
 
 for i = positive_values
-    true_positives = length(find( true_values == i & predicted_values == i ));
-    false_positives = length(find( true_values ~= i & predicted_values == i ));
+    true_positives = length(find( expected_y == i & predicted_y == i ));
+    false_positives = length(find( expected_y ~= i & predicted_y == i ));
 end
 
 for i = negative_values
-    true_negatives = length(find( true_values == i & predicted_values == i ));
-    false_negatives = length(find( true_values ~= i & predicted_values == i ));
+    true_negatives = length(find( expected_y == i & predicted_y == i ));
+    false_negatives = length(find( expected_y ~= i & predicted_y == i ));
 end
 
 
@@ -29,7 +29,7 @@ end
 %rnames = {'Predicted Condition Positive','Predicted Condition Negative'};
 %custom_table(d, cnames, rnames);
 
-population = length(predicted_values);
+population = length(predicted_y);
 
 true_condition_positive = true_positives + false_negatives;
 true_condition_negative = false_positives + true_negatives;

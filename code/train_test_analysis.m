@@ -26,7 +26,7 @@ classifier = fitcdiscr(classifier_data.train_X', classifier_data.train_y', 'Disc
 [predicted_y, score, cost] = predict(classifier, classifier_data.test_X');
 
 % Classification Performance
-cpa_out = classification_performance_analysis(classifier_data.test_y', predicted_y, positive_values, negative_values);
+cpa_out = classification_performance_analysis(classifier_data.test_y, predicted_y', positive_values, negative_values);
 
 tta_out.('mldc') = struct('expected_y', classifier_data.test_y, 'predicted_y', predicted_y', 'cpa_out', cpa_out);
 
@@ -47,7 +47,7 @@ classifier = fitcdiscr(classifier_data.train_X', classifier_data.train_y', 'Disc
 [predicted_y, score, cost] = predict(classifier, classifier_data.test_X');
 
 % Classification Performance
-cpa_out = classification_performance_analysis(classifier_data.test_y', predicted_y, positive_values, negative_values);
+cpa_out = classification_performance_analysis(classifier_data.test_y, predicted_y, positive_values, negative_values);
 
 tta_out.('mqdc') = struct('expected_y', classifier_data.test_y, 'predicted_y', predicted_y', 'cpa_out', cpa_out);
 %}
@@ -59,8 +59,12 @@ tta_out.('mqdc') = struct('expected_y', classifier_data.test_y, 'predicted_y', p
 % -----------------------------
 % Euclidian Linear Discriminant
 
-d = euclidean_distance(classifier_data.train_X, classifier_data.train_y);
-%predicted_y = closest centroid
+predicted_y = euclidean_discriminant(classifier_data.train_X, classifier_data.train_y, classifier_data.test_X);
+
+% Classification Performance
+cpa_out = classification_performance_analysis(classifier_data.test_y, predicted_y, positive_values, negative_values);
+
+tta_out.('edc') = struct('expected_y', classifier_data.test_y, 'predicted_y', predicted_y, 'cpa_out', cpa_out);
 
 % -----------------------------
 % Normalized Euclidian Distance (maybe don't do this one because of assumption?)
@@ -73,7 +77,7 @@ d = euclidean_distance(classifier_data.train_X, classifier_data.train_y);
 
 
 % !!!
-% BIG FAT TODO HERE
+% big fat TODO here
 % !!!
 
 % ------------------
