@@ -4,11 +4,11 @@ function [ predicted_y ] = mahalanobis_discriminant( X, y, test_X)
 
 k = unique(y);
 
-[num_dim, num_samples] = size(X);
+[num_dim, ~] = size(X);
+[~, num_samples_test_X] = size(test_X);
 num_classes = length(k);
 
 m = zeros(num_dim, num_classes);
-%d = zeros(num_classes, num_samples);
 g = zeros(num_classes);
 
 for i = 1:num_classes
@@ -18,28 +18,19 @@ for i = 1:num_classes
     % class centroid
     m(:, i) = mean( X(:, idx ), 2 );
     
-    %d = mahal(X, y);
-    
-    %{
-    for j = 1:num_samples
-        % distance of samples to class centroids
-        d(i, j) = sum( (X(:, j) - m(:, i) ) .^2).^0.5 ;
-    end
-    %}
-   
-    %
-    % TODO: what did i calculate the distance for?
-    %
-
-    C_inv = inv( cov(m') );
-
-    % linear discriminate function
-    g(i) = dot(( C_inv * m(:, i)') , test_X) - 0.5*(m(:, i) * C_inv * m(:, i)');
-    
 end
 
-[~, M] = size(test_X);
-predicted_y = zeros(1, M);
+% inverse covariance matrix 
+C_inv = inv( cov(m') );
+
+for i = 1:num_classes    
+    % linear discriminate function
+    for j = 1:num_samples_test_X
+        g(i) = dot( (C_inv * m(:, i)) , test_X (:, j) ) - 0.5*(m(:, i)' * C_inv * m(:, i));
+    end
+end
+
+predicted_y = zeros(1, num_samples_test_X);
 predicted_y( g(1) >= g(2) ) = k(1);
 predicted_y( g(1) < g(2) ) = k(2);
 
