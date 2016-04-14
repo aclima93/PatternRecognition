@@ -69,9 +69,16 @@ tta_out.('edc') = struct('expected_y', classifier_data.test_y, 'predicted_y', pr
 % -----------------------------
 % Normalized Euclidian Distance (maybe don't do this one because of assumption?)
 
-% --------------------
-% Mahalanobis Distance
-%d = mahal(Y,X);
+% -------------------------------
+% Mahalanobis Linear Discriminant
+
+predicted_y = mahalanobis_discriminant(classifier_data.train_X, classifier_data.train_y, classifier_data.test_X);
+
+% Classification Performance
+cpa_out = classification_performance_analysis(classifier_data.test_y, predicted_y, positive_values, negative_values);
+
+tta_out.('mdc') = struct('expected_y', classifier_data.test_y, 'predicted_y', predicted_y, 'cpa_out', cpa_out);
+
 
 
 

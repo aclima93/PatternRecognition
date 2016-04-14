@@ -1,5 +1,5 @@
-function [ predicted_y ] = euclidean_discriminant( X, y, test_X)
-%euclidean_discriminant Summary of this function goes here
+function [ predicted_y ] = mahalanobis_discriminant( X, y, test_X)
+%mahalanobis_discriminant Summary of this function goes here
 %   Detailed explanation goes here
 
 k = unique(y);
@@ -17,7 +17,9 @@ for i = 1:num_classes
 
     % class centroid
     m(:, i) = mean( X(:, idx ), 2 );
-
+    
+    %d = mahal(X, y);
+    
     %{
     for j = 1:num_samples
         % distance of samples to class centroids
@@ -29,15 +31,17 @@ for i = 1:num_classes
     % TODO: what did i calculate the distance for?
     %
 
+    C_inv = inv( cov(m') );
+
     % linear discriminate function
-    g(i) = dot( m(:, i)' , test_X) + sum( m(:, i)).^2;
+    g(i) = dot(( C_inv * m(:, i)') , test_X) - 0.5*(m(:, i) * C_inv * m(:, i)');
     
 end
 
 [~, M] = size(test_X);
 predicted_y = zeros(1, M);
-predicted_y( g >= 0 ) = k(1);
-predicted_y( g < 0 ) = k(2);
+predicted_y( g(1) >= g(2) ) = k(1);
+predicted_y( g(1) < g(2) ) = k(2);
 
 end
 
