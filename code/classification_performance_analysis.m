@@ -18,6 +18,7 @@ for i = negative_values
     false_negatives = length(find( expected_y ~= i & predicted_y == i ));
 end
 
+condition_analysis = [true_positives, false_positives, false_negatives, true_negatives];
 
 % ------------------- %
 % Analysis of results %
@@ -55,6 +56,8 @@ FPR = false_positives / (true_condition_negative);
 % True negative rate
 TNR = true_negatives / (true_condition_negative);
 
+true_condition = [TPR, FNR, FPR, TNR];
+
 %custom_pie_chart([TPR, FNR, FPR, TNR], {'TPR: ', 'FNR: ', 'FPR: ', 'TNR: '});
 
 % ----------------------------
@@ -75,6 +78,8 @@ FOR = false_negatives / predicted_condition_negative;
 % Negative predictive value
 NPV = true_negatives / predicted_condition_negative;
 
+predicted_condition = [PPV, FDR, FOR, NPV];
+
 %custom_pie_chart([PPV, FDR, FOR, NPV], {'PPV: ', 'FDR: ', 'FOR: ', 'NPV: '});
 
 % -----------------------
@@ -89,7 +94,9 @@ NLR = FNR / TNR;
 % Diagnostic odds ratio
 DOR = PLR / NLR;
 
-classification_performance = struct('true_positives', true_positives, 'false_positives', false_positives, 'false_negatives', false_negatives, 'true_negatives', true_negatives, 'accuracy', accuracy, 'TPR', TPR, 'FNR', FNR, 'FPR', FPR, 'TNR', TNR, 'prevalence', prevalence, 'PPV', PPV, 'FDR', FDR, 'FOR', FOR, 'NPV', NPV, 'PLR', PLR, 'NLR', NLR, 'DOR', DOR);
+diagnostic_analysis = [PLR, NLR, DOR];
+
+classification_performance = struct('condition_analysis', condition_analysis, 'accuracy', accuracy, 'true_condition', true_condition, 'prevalence', prevalence, 'predicted_condition', predicted_condition, 'diagnostic_analysis', diagnostic_analysis);
 
 end
 %EOF
