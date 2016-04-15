@@ -4,6 +4,7 @@
 
 % for each dataset
 tta_labels = fieldnames(tta_out);
+num_tta_labels = length(tta_labels);
 
 % for each classifier
 
@@ -14,7 +15,9 @@ num_classifier_labels = length(classifier_labels);
 %cpa_label_groups = {'Condition Analysis', 'Accuracy' 'True Condition', 'Prevalence', 'Predicted Condition', 'Diagnostic Analysis'};
 %cpa_labels = {'True Positives', 'False Positives', 'False Negatives', 'True Negatives', 'Accuracy', 'True Positive Rate', 'False Negative Rate', 'False Positive Rate', 'True Negative Rate', 'Prevalence', 'Positive Likelyhood Ratio', 'Negative Likelyhood Ratio', 'Diagnostic Odds Ratio'};
 
-for i = 1:length(tta_labels)
+best_tta_cpa_accuracy = zeros(num_tta_labels, num_classifier_labels);
+
+for i = 1:num_tta_labels
 
     first_stats = tta_out.( tta_labels{i} ).( classifier_labels{1} ).cpa_out;
     
@@ -30,13 +33,19 @@ for i = 1:length(tta_labels)
         stats = tta_out.( tta_labels{i} ).( classifier_labels{j} ).cpa_out;
         
         condition_analysis(j,:) = stats.condition_analysis;
-        accuracy(j, :) = stats.accuracy;
+        accuracy(j) = stats.accuracy;
         true_condition(j,:) = stats.true_condition;
-        prevalence(j, :) = stats.prevalence;
+        prevalence(j) = stats.prevalence;
         predicted_condition(j,:) = stats.predicted_condition;
         diagnostic_analysis(j,:) = stats.diagnostic_analysis;
         
     end
+    
+    % Chalk up the best accuracy
+    [~, best_j] = max(accuracy);
+    best_tta_cpa_accuracy(i, best_j) = best_tta_cpa_accuracy(i, best_j) + 1;
+    
+    %{
     
     % --------------------
     % Colormap Comparisons
@@ -101,9 +110,20 @@ for i = 1:length(tta_labels)
     xlabel('Classifier')
     ylabel('Prevalence')
     plot(prevalence)
-    
-    % Chalk up the best in each category
-    
+        
     close all;
+    %}
     
 end
+
+figure;
+title('Best Accuracy')
+ax = gca;
+ax.XTickLabel = tta_labels;
+ax.YTickLabel = classifier_labels;
+xlabel('Data Model')
+ylabel('Classifier')
+zlabel('Count')
+bar3(best_tta_cpa_accuracy);
+
+%EOF
