@@ -13,6 +13,10 @@ negative_values = [0];
 % Split the data into stratified samples
 classifier_data = split_data(X, y);
 
+
+% TODO: MAtlab functions will without a doubt be better so we will onyl test them with regard to the final results
+
+%{
 % --------------------------------------- %
 % Matlab's Linear Discriminant Classifier %
 % --------------------------------------- %
@@ -29,7 +33,7 @@ classifier = fitcdiscr(classifier_data.train_X', classifier_data.train_y', 'Disc
 cpa_out = classification_performance_analysis(classifier_data.test_y, predicted_y', positive_values, negative_values);
 
 tta_out.('mldc') = struct('expected_y', classifier_data.test_y, 'predicted_y', predicted_y', 'cpa_out', cpa_out);
-
+%}
 %{
 
 % TODO: not working for some reason

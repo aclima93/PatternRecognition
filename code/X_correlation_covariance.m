@@ -11,6 +11,8 @@ colorbar
 ax = gca;
 ax.XTickLabel = labels;
 ax.YTickLabel = labels;
+ax.YTick = 1:length(ax.YTickLabel);
+ax.XTick = 1:length(ax.XTickLabel);
 ax.XTickLabelRotation = 90;
 xlabel('Feature')
 ylabel('Feature')

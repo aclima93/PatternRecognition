@@ -30,6 +30,7 @@ hold off
 ax = gca;
 ax.XTickLabel = labels;
 ax.XTickLabelRotation = 90;
+ax.XTick = 1:length(ax.XTickLabel);
 xlabel('Feature')
 ylabel('Score')
 title('Feature Correlation and Covariance with regard to Expected Output')

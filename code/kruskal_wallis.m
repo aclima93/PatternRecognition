@@ -16,6 +16,7 @@ plot(kruskal_wallis_out)
 
 ax = gca;
 ax.XTickLabel = labels;
+ax.XTick = 1:length(ax.XTickLabel);
 ax.XTickLabelRotation = 90;
 xlabel('Feature')
 ylabel('Score')

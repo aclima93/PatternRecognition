@@ -59,6 +59,7 @@ elseif isempty(idx_redund_X)
 else
     idx = idx_kruskal_wallis;
 end
+
 idx = intersect( idx, idx_kruskal_wallis);
 redux_data = norm_data;
 redux_data.X = redux_data.X(idx, :); 
