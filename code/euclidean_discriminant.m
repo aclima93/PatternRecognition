@@ -8,7 +8,6 @@ k = unique(y);
 [~, num_samples_test_X] = size(test_X);
 num_classes = length(k);
 
-m = zeros(num_dim, num_classes);
 g = zeros(num_classes);
 
 for i = 1:num_classes
@@ -16,11 +15,12 @@ for i = 1:num_classes
     idx = ( y == k(i) );
 
     % class centroid
-    m(:, i) = mean( X(:, idx ), 2 );
+    m_k = mean( X(:, idx ), 2 );
+    w_k0 = m_k' * m_k;
 
     % linear discriminate function    
     for j = 1:num_samples_test_X
-        g(i) = dot( m(:, i) , test_X(:, j) ) + sum( m(:, i)).^2;
+        g(i) = dot( m_k , test_X(:, j) ) + w_k0;
     end
         
 end
