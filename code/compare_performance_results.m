@@ -2,6 +2,10 @@
 % Compare Performance Results %
 % --------------------------- %
 
+% TODO: run 30 times each simulation
+iteration = 0;
+simulation_path = sprintf('images/run_%d/performance', iteration);
+
 % for each dataset
 tta_labels = fieldnames(tta_out);
 num_tta_labels = length(tta_labels);
@@ -51,7 +55,7 @@ ax.YTick = 1:length(ax.YTickLabel);
 ylabel('Data Model')
 xlabel('Classifier')
 
-save_png(path, 'accuracy'); close all;
+save_png(simulation_path, 'accuracy'); close all;
 
 % Prevalence
 figure('Visible','off')
@@ -67,7 +71,7 @@ ax.YTick = 1:length(ax.YTickLabel);
 ylabel('Data Model')
 xlabel('Classifier')
 
-save_png(path, 'prevalence'); close all;
+save_png(simulation_path, 'prevalence'); close all;
 
 % Sensitivity
 figure('Visible','off')
@@ -83,7 +87,7 @@ ax.YTick = 1:length(ax.YTickLabel);
 ylabel('Data Model')
 xlabel('Classifier')
 
-save_png(path, 'sensitivity'); close all;
+save_png(simulation_path, 'sensitivity'); close all;
 
 % Specificity
 figure('Visible','off')
@@ -99,6 +103,6 @@ ax.YTick = 1:length(ax.YTickLabel);
 ylabel('Data Model')
 xlabel('Classifier')
 
-save_png(path, 'specificity'); close all;
+save_png(simulation_path, 'specificity'); close all;
 
 %EOF

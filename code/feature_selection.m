@@ -13,14 +13,14 @@ redund_X_threshold = 0.9;
 representative = zeros(N,1);
 represented = zeros(N,1);
 
-for i = 1:N
-    if ~represented(i)
+for n = 1:N
+    if ~represented(n)
         
-        cols = find(X_correlation_covariance_out.correlation(i,:) >= redund_X_threshold);
+        cols = find(X_correlation_covariance_out.correlation(n,:) >= redund_X_threshold);
         if ~isempty(cols)
         
-            representative(i) = 1;
-            represented( cols(cols ~= i) ) = 1;
+            representative(n) = 1;
+            represented( cols(cols ~= n) ) = 1;
         end
     end
 end
