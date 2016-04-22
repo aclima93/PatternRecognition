@@ -24,12 +24,6 @@ condition_analysis = [true_positives, false_positives, false_negatives, true_neg
 % Analysis of results %
 % ------------------- %
 
-% Table ilustrating Classification Accuracy
-%d = [true_positives, false_positives; false_negatives, true_negatives];
-%cnames = {'Condition Positive','Condition Negative'};
-%rnames = {'Predicted Condition Positive','Predicted Condition Negative'};
-%custom_table(d, cnames, rnames);
-
 population = length(predicted_y);
 
 true_condition_positive = true_positives + false_negatives;
@@ -58,8 +52,6 @@ TNR = true_negatives / (true_condition_negative);
 
 true_condition = [TPR, FNR, FPR, TNR];
 
-%custom_pie_chart([TPR, FNR, FPR, TNR], {'TPR: ', 'FNR: ', 'FPR: ', 'TNR: '});
-
 % ----------------------------
 % Predicted Condition Analysis
 
@@ -79,8 +71,6 @@ FOR = false_negatives / predicted_condition_negative;
 NPV = true_negatives / predicted_condition_negative;
 
 predicted_condition = [PPV, FDR, FOR, NPV];
-
-%custom_pie_chart([PPV, FDR, FOR, NPV], {'PPV: ', 'FDR: ', 'FOR: ', 'NPV: '});
 
 % -----------------------
 % Diagnostic Analysis

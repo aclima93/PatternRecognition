@@ -4,7 +4,6 @@ function [ predicted_y ] = euclidean_discriminant( X, y, test_X)
 
 k = unique(y);
 
-[num_dim, ~] = size(X);
 [~, num_samples_test_X] = size(test_X);
 num_classes = length(k);
 

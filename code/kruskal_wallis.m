@@ -10,7 +10,6 @@ for i = 1:N
 end
 
 % analysisng Kruskall-Wallis score for expected output
-%{
 figure;
 plot(kruskal_wallis_out)
 
@@ -21,7 +20,6 @@ ax.XTickLabelRotation = 90;
 xlabel('Feature')
 ylabel('Score')
 title('Kruskall-Wallis score for features with regard to Expected Output')
-%}
 
 end
 %EOF
