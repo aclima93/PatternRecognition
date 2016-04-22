@@ -85,11 +85,7 @@ tta_out.('mdc') = struct('expected_y', classifier_data.test_y, 'predicted_y', pr
 
 
 
-
-
-% !!!
-% big fat TODO here
-% !!!
+% TODO
 
 % ------------------
 % Average Error Rate

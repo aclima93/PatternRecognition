@@ -37,10 +37,6 @@ Xy_correlation_covariance_out = Xy_correlation_covariance(norm_data.X, norm_data
 redu_X_threshold = 0.5;
 idx_redu_X = find(Xy_correlation_covariance_out.correlation >= redu_X_threshold);
 
-% -----
-% TODO: Kruskal-Wallis results are shitty, at best...
-% -----
-
 % ----------------------------------------------------------------------
 % Kruskal-Wallis parametric test discard features with p-score above 0.5
 kruskal_wallis_out = kruskal_wallis(norm_data.X, norm_data.y, norm_data.labels);
