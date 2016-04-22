@@ -1,4 +1,11 @@
-close all
+close all;
+clear;
+clc;
+
+global SAVE_FIG_FLAG
+SAVE_FIG_FLAG = 1;
+
+global NORMALIZE_FLAG FEATURE_SELECTION_FLAG FEATURE_REDUCTION_FLAG
 
 NORMALIZE_FLAG = 1;
 FEATURE_SELECTION_FLAG = 1;
@@ -47,9 +54,11 @@ end
 % Dataset Split + Training and Testing + Classification Performance %
 % ----------------------------------------------------------------- %
 
+global TRAINING_RATIO;
+
 TRAINING_RATIO = 0.7;
 
-tta_out = train_test_analysis( data.X, data.y, TRAINING_RATIO);
+tta_out = train_test_analysis( data.X, data.y);
 
 % ------------------- %
 % Performance Results %

@@ -25,8 +25,12 @@ for i = 1:num_classes
 end
 
 predicted_y = zeros(1, num_samples_test_X);
+%{
 predicted_y( g >= 0 ) = k(1);
 predicted_y( g < 0 ) = k(2);
+%}
+predicted_y( g(1) >= g(2) ) = k(1);
+predicted_y( g(1) < g(2) ) = k(2);
 
 end
 

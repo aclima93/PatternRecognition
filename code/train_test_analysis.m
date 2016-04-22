@@ -1,4 +1,4 @@
-function [ tta_out ] = train_test_analysis( X, y, training_ratio )
+function [ tta_out ] = train_test_analysis( X, y )
 %TRAIN_TEST_ANALYSE Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -11,7 +11,7 @@ negative_values = [0];
 % ------------------------------------ %
 
 % Split the data into stratified samples
-classifier_data = split_data(X, y, training_ratio);
+classifier_data = split_data(X, y);
 
 
 % TODO: MAtlab functions will without a doubt be better so we will onyl test them with regard to the final results

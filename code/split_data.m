@@ -1,8 +1,10 @@
-function [ classifier_data ] = split_data( X, y, training_ratio )
+function [ classifier_data ] = split_data( X, y )
 %SPLIT_DATA Create a stratified training dataset
 % 70% of 0 class samples and 70% of 1 class samples for training and 
 % vice versa for testing. Random sampling can bias the classifier's
 % prediction.
+
+global TRAINING_RATIO
 
 train_X = [];
 test_X = [];
@@ -19,8 +21,8 @@ for class_label = unique(y)
     % indexes of stratifyed data per class label
     % eg: 70% of 0s + 70% of 1s, 30% of 0s + 30% of 1s
     idx = find( y == class_label);
-    train_idx = idx(:, 1:round(end*training_ratio));
-    test_idx = idx(:, round(end*training_ratio)+1:end);
+    train_idx = idx(:, 1:round(end*TRAINING_RATIO));
+    test_idx = idx(:, round(end*TRAINING_RATIO)+1:end);
     
     if isempty(train_X)
         

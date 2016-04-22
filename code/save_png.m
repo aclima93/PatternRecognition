@@ -2,7 +2,7 @@ function save_png( path, filename )
 %SAVE_PNG Summary of this function goes here
 %   Detailed explanation goes here
 
-SAVE_FIG_FLAG = 0;
+global SAVE_FIG_FLAG
 
 if SAVE_FIG_FLAG
 
