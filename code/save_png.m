@@ -2,9 +2,9 @@ function save_png( path, filename )
 %SAVE_PNG Summary of this function goes here
 %   Detailed explanation goes here
 
-SAVE_FIG = 0;
+SAVE_FIG_FLAG = 0;
 
-if SAVE_FIG
+if SAVE_FIG_FLAG
 
     filepath = sprintf('%s/%s.png', char(path), char(filename));
 

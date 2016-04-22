@@ -4,7 +4,7 @@
 
 % TODO: run 30 times each simulation
 iteration = 0;
-simulation_path = sprintf('images/run_%d/performance', iteration);
+simulation_path = sprintf('images/simulations/run_%d', iteration);
 
 % for each dataset
 tta_labels = fieldnames(tta_out);
@@ -51,7 +51,6 @@ ax = gca;
 ax.YTickLabel = tta_labels;
 ax.XTickLabel = classifier_labels;
 ax.XTick = 1:length(ax.XTickLabel);
-ax.YTick = 1:length(ax.YTickLabel);
 ylabel('Data Model')
 xlabel('Classifier')
 
@@ -67,7 +66,6 @@ ax = gca;
 ax.YTickLabel = tta_labels;
 ax.XTickLabel = classifier_labels;
 ax.XTick = 1:length(ax.XTickLabel);
-ax.YTick = 1:length(ax.YTickLabel);
 ylabel('Data Model')
 xlabel('Classifier')
 
@@ -83,7 +81,6 @@ ax = gca;
 ax.YTickLabel = tta_labels;
 ax.XTickLabel = classifier_labels;
 ax.XTick = 1:length(ax.XTickLabel);
-ax.YTick = 1:length(ax.YTickLabel);
 ylabel('Data Model')
 xlabel('Classifier')
 
@@ -99,7 +96,6 @@ ax = gca;
 ax.YTickLabel = tta_labels;
 ax.XTickLabel = classifier_labels;
 ax.XTick = 1:length(ax.XTickLabel);
-ax.YTick = 1:length(ax.YTickLabel);
 ylabel('Data Model')
 xlabel('Classifier')
 
