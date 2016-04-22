@@ -47,8 +47,8 @@ kruskal_wallis_out = kruskal_wallis(norm_data.X, norm_data.y, norm_data.labels);
 kw_threshold = 0.05;
 idx_kruskal_wallis = find(kruskal_wallis_out <= kw_threshold);
 
-% --------------------------------------
-% Feature Selection with all suggestions
+% --------------------------
+% Merging Feature Selections
 
 if ~isempty(idx_redund_X) && ~isempty(idx_redu_X)
     idx = intersect(idx_redund_X, idx_redu_X);
