@@ -12,9 +12,11 @@ for new_dim = 1:data.dim
     data_projection = linproj(data.X, model);
     
     % Plot the data pattern according to the PCA model
-    figure
+    figure('Visible','off')
     ppatterns(data_projection);
     title( strcat('PCA ', num2str(new_dim)) )
+    
+    save_png('images/feature_reduction/PCA', strcat('PCA_', num2str(new_dim))); close all;
 
     pca_out.(strcat('new_dim_', num2str(new_dim))) = struct('model', model, 'data_projection', data_projection, 'y', data.y);
     

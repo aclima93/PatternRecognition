@@ -22,11 +22,12 @@ for i = 1:N
 end
 
 % analysisng covariance with expected output
-figure;
+figure('Visible','off')
 hold on
 plot(cov_Xy)
 plot(cor_Xy)
 hold off
+
 ax = gca;
 ax.XTickLabel = labels;
 ax.XTickLabelRotation = 90;
@@ -35,6 +36,8 @@ xlabel('Feature')
 ylabel('Score')
 title('Feature Correlation and Covariance with regard to Expected Output')
 legend('covariance', 'correlation')
+
+save_png('images/feature_selection', 'Xy_cor_cov'); close all;
 
 Xy_correlation_covariance_out = struct('covariance', cov_Xy, 'correlation', cor_Xy);
 

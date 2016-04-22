@@ -38,7 +38,7 @@ for i = 1:num_tta_labels
 end
 
 % Accuracy
-figure;
+figure('Visible','off')
 imagesc(accuracy)
 colorbar
 
@@ -51,8 +51,10 @@ ax.YTick = 1:length(ax.YTickLabel);
 ylabel('Data Model')
 xlabel('Classifier')
 
+save_png(path, 'accuracy'); close all;
+
 % Prevalence
-figure;
+figure('Visible','off')
 imagesc(prevalence)
 colorbar
 
@@ -65,8 +67,10 @@ ax.YTick = 1:length(ax.YTickLabel);
 ylabel('Data Model')
 xlabel('Classifier')
 
+save_png(path, 'prevalence'); close all;
+
 % Sensitivity
-figure;
+figure('Visible','off')
 imagesc(sensitivity)
 colorbar
 
@@ -79,8 +83,10 @@ ax.YTick = 1:length(ax.YTickLabel);
 ylabel('Data Model')
 xlabel('Classifier')
 
+save_png(path, 'sensitivity'); close all;
+
 % Specificity
-figure;
+figure('Visible','off')
 imagesc(specificity)
 colorbar
 
@@ -92,5 +98,7 @@ ax.XTick = 1:length(ax.XTickLabel);
 ax.YTick = 1:length(ax.YTickLabel);
 ylabel('Data Model')
 xlabel('Classifier')
+
+save_png(path, 'specificity'); close all;
 
 %EOF

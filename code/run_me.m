@@ -1,18 +1,19 @@
 close all
 
+% TODO: Add GUI + flags that define what gets done in each step
+% eg: flag for normalizing data
+
 % ------------------ %
 % Data Preprocessing %
 % ------------------ %
 
 % get data from datasets
 data = load('data/dataset.mat');
+plot_data(data.X, data.labels, data.dim, data.num_data);
 
 % Normalize data
 disp('Normalizing data...');
 norm_data = normalize_data(data);
-
-%plot_data(data.X, data.labels, data.dim, data.num_data);
-%plot_data(norm_data.X, norm_data.labels, norm_data.dim, norm_data.num_data);
 
 % ----------------- %
 % Feature Selection %
