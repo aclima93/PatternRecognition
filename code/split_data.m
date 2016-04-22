@@ -1,10 +1,9 @@
-function [ classifier_data ] = split_data( X, y )
+function [ classifier_data ] = split_data( X, y, training_ratio )
 %SPLIT_DATA Create a stratified training dataset
 % 70% of 0 class samples and 70% of 1 class samples for training and 
 % vice versa for testing. Random sampling can bias the classifier's
 % prediction.
 
-training_ratio = 0.7;
 train_X = [];
 test_X = [];
 train_y = [];

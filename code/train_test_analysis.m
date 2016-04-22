@@ -1,4 +1,4 @@
-function [ tta_out ] = train_test_analysis( X, y )
+function [ tta_out ] = train_test_analysis( X, y, training_ratio )
 %TRAIN_TEST_ANALYSE Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -11,12 +11,11 @@ negative_values = [0];
 % ------------------------------------ %
 
 % Split the data into stratified samples
-classifier_data = split_data(X, y);
+classifier_data = split_data(X, y, training_ratio);
 
 
 % TODO: MAtlab functions will without a doubt be better so we will onyl test them with regard to the final results
 
-%{
 % --------------------------------------- %
 % Matlab's Linear Discriminant Classifier %
 % --------------------------------------- %
@@ -33,7 +32,7 @@ classifier = fitcdiscr(classifier_data.train_X', classifier_data.train_y', 'Disc
 cpa_out = classification_performance_analysis(classifier_data.test_y, predicted_y', positive_values, negative_values);
 
 tta_out.('mldc') = struct('expected_y', classifier_data.test_y, 'predicted_y', predicted_y', 'cpa_out', cpa_out);
-%}
+
 %{
 
 % TODO: not working for some reason

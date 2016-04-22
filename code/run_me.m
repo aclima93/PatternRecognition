@@ -47,19 +47,14 @@ end
 % Dataset Split + Training and Testing + Classification Performance %
 % ----------------------------------------------------------------- %
 
-% tta: train_test_analysis
-tta_out = struct;
-reduction_data_labels = fieldnames(reduction_data);
+TRAINING_RATIO = 0.7;
 
-for i = 1:length(reduction_data_labels)
-    data = reduction_data.(reduction_data_labels{i});
-    tta_out.(reduction_data_labels{i}) = train_test_analysis( data.X, data.y);
-end
+tta_out = train_test_analysis( data.X, data.y, TRAINING_RATIO);
 
-% --------------------------- %
-% Compare Performance Results %
-% --------------------------- %
+% ------------------- %
+% Performance Results %
+% ------------------- %
 
-run('compare_performance_results');
+run('performance_results');
 
 %EOF
