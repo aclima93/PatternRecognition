@@ -1,69 +1,80 @@
-close all;
-clear;
-clc;
+
+
+% TODO: connect GUI choices to global flags
+
+global UI_MODE
+UI_MODE = 1;
 
 global SAVE_FIG_FLAG
 SAVE_FIG_FLAG = 1;
 
-global NORMALIZE_FLAG FEATURE_SELECTION_FLAG FEATURE_REDUCTION_FLAG
+% -------------- %
+% Pre-Processing %
+% -------------- %
 
+global VISUALIZE_DATA_FLAG
+VISUALIZE_DATA_FLAG = 0;
+
+global NORMALIZE_FLAG 
 NORMALIZE_FLAG = 1;
-FEATURE_SELECTION_FLAG = 1;
-FEATURE_REDUCTION_FLAG = 1;
-
-if ~exist('images', 'dir')
-    rmdir('images', 's')
-end
-    
-% ------------------ %
-% Data Preprocessing %
-% ------------------ %
-
-% get data from datasets
-original_data = load('data/dataset.mat');
-data = original_data;
-plot_data(data.X, data.labels, data.dim, data.num_data);
-
-% --------------
-% Normalize data
-if NORMALIZE_FLAG
-    disp('Normalizing data...');
-    norm_data = normalize_data(data);
-    data = norm_data;
-end
 
 % ----------------- %
 % Feature Selection %
 % ----------------- %
 
-if FEATURE_SELECTION_FLAG
-    disp('Performing feature selection...');
-    run('feature_selection');
-end
+global FEATURE_SELECTION_FLAG 
+FEATURE_SELECTION_FLAG = 1;
+
+global X_COR_COV_FLAG
+global X_COR_COV_THRESHOLD_FLAG
+X_COR_COV_FLAG = 1;
+X_COR_COV_THRESHOLD_FLAG = 0.9;
+
+global XY_COR_COV_FLAG
+global XY_COR_COV_THRESHOLD_FLAG
+XY_COR_COV_FLAG = 1;
+XY_COR_COV_THRESHOLD_FLAG = 0.5;
+
+global KRUSKAL_WALLIS_FLAG
+global KRUSKAL_WALLIS_THRESHOLD_FLAG
+KRUSKAL_WALLIS_FLAG = 1;
+KRUSKAL_WALLIS_THRESHOLD_FLAG = 0.05;
 
 % ----------------- %
 % Feature Reduction %
 % ----------------- %
 
-if FEATURE_REDUCTION_FLAG
-    disp('Performing feature reduction...');
-    run('feature_reduction');
-end
+global FEATURE_REDUCTION_FLAG
+FEATURE_REDUCTION_FLAG = 1;
 
-% ----------------------------------------------------------------- %
-% Dataset Split + Training and Testing + Classification Performance %
-% ----------------------------------------------------------------- %
+global PCA_FLAG LDA_FLAG PCA_LDA_FLAG LDA_PCA_FLAG
+PCA_FLAG = 0;
+LDA_FLAG = 0;
+PCA_LDA_FLAG = 1;
+LDA_PCA_FLAG = 0;
 
-global TRAINING_RATIO;
+global KAISER_TEST_FLAG KAISER_TEST_THRESHOLD 
+KAISER_TEST_FLAG = 1;
+KAISER_TEST_THRESHOLD = 1;
 
-TRAINING_RATIO = 0.7;
-
-tta_out = train_test_analysis( data.X, data.y);
+global SCREE_TEST_FLAG SCREE_TEST_THRESHOLD;
+SCREE_TEST_FLAG = 0;
+SCREE_TEST_THRESHOLD = 0.90;
 
 % ------------------- %
 % Performance Results %
 % ------------------- %
 
-run('performance_results');
+global TRAINING_RATIO;
+TRAINING_RATIO = 0.7;
 
-%EOF
+global MATLAB_LDC_FLAG
+global EDC_FLAG
+global MDC_FLAG
+MATLAB_LDC_FLAG = 0;
+EDC_FLAG = 1;
+MDC_FLAG = 0;
+
+% TODO: set flags for multiple tests
+
+run('main_script');

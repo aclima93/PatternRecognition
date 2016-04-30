@@ -13,25 +13,25 @@ negative_values = [0];
 % Split the data into stratified samples
 classifier_data = split_data(X, y);
 
-
-% TODO: MAtlab functions will without a doubt be better so we will onyl test them with regard to the final results
+% TODO: Matlab functions will without a doubt be better so we will only test them with regard to the final results
 
 % --------------------------------------- %
 % Matlab's Linear Discriminant Classifier %
 % --------------------------------------- %
-
 % http://www.mathworks.com/help/stats/discriminant-analysis.html
 
-% Train the classifier
-classifier = fitcdiscr(classifier_data.train_X', classifier_data.train_y', 'DiscrimType', 'linear');
+if MATLAB_LDC_FLAG
+    % Train the classifier
+    classifier = fitcdiscr(classifier_data.train_X', classifier_data.train_y', 'DiscrimType', 'linear');
 
-% Test the classifier with remaining data
-[predicted_y, score, cost] = predict(classifier, classifier_data.test_X');
+    % Test the classifier with remaining data
+    [predicted_y, score, cost] = predict(classifier, classifier_data.test_X');
 
 % Classification Performance
 cpa_out = classification_performance_analysis(classifier_data.test_y, predicted_y', positive_values, negative_values);
 
-tta_out.('mldc') = struct('expected_y', classifier_data.test_y, 'predicted_y', predicted_y', 'cpa_out', cpa_out);
+    tta_out.('mldc') = struct('expected_y', classifier_data.test_y, 'predicted_y', predicted_y', 'cpa_out', cpa_out);
+end
 
 %{
 
@@ -62,12 +62,14 @@ tta_out.('mqdc') = struct('expected_y', classifier_data.test_y, 'predicted_y', p
 % -----------------------------
 % Euclidian Linear Discriminant
 
-predicted_y = euclidean_discriminant(classifier_data.train_X, classifier_data.train_y, classifier_data.test_X);
+if EDC_FLAG
+    predicted_y = euclidean_discriminant(classifier_data.train_X, classifier_data.train_y, classifier_data.test_X);
 
 % Classification Performance
 cpa_out = classification_performance_analysis(classifier_data.test_y, predicted_y, positive_values, negative_values);
 
-tta_out.('edc') = struct('expected_y', classifier_data.test_y, 'predicted_y', predicted_y, 'cpa_out', cpa_out);
+    tta_out.('edc') = struct('expected_y', classifier_data.test_y, 'predicted_y', predicted_y, 'cpa_out', cpa_out);
+end
 
 % -----------------------------
 % Normalized Euclidian Distance (maybe don't do this one because of assumption?)
@@ -75,14 +77,14 @@ tta_out.('edc') = struct('expected_y', classifier_data.test_y, 'predicted_y', pr
 % -------------------------------
 % Mahalanobis Linear Discriminant
 
-predicted_y = mahalanobis_discriminant(classifier_data.train_X, classifier_data.train_y, classifier_data.test_X);
+if MDC_FLAG
+    predicted_y = mahalanobis_discriminant(classifier_data.train_X, classifier_data.train_y, classifier_data.test_X);
 
 % Classification Performance
 cpa_out = classification_performance_analysis(classifier_data.test_y, predicted_y, positive_values, negative_values);
 
-tta_out.('mdc') = struct('expected_y', classifier_data.test_y, 'predicted_y', predicted_y, 'cpa_out', cpa_out);
-
-
+    tta_out.('mdc') = struct('expected_y', classifier_data.test_y, 'predicted_y', predicted_y, 'cpa_out', cpa_out);
+end
 
 % TODO
 

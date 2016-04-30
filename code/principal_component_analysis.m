@@ -4,8 +4,8 @@ function [ pca_data ] = principal_component_analysis( data )
 %   Perform PCA (Principal Component Analysis) of the data and plot with the
 %   corresponding model
 
-global KAISER_TEST_FLAG KAISER_TEST_THRESHOLD
-global SCREE_TEST_FLAG SCREE_TEST_THRESHOLD
+global KAISER_TEST_FLAG KAISER_TEST_THRESHOLD 
+global SCREE_TEST_FLAG SCREE_TEST_THRESHOLD;
 
 model = pca(data.X);
 data_projection = linproj(data.X, model);

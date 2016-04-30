@@ -2,9 +2,7 @@
 % Compare Performance Results %
 % --------------------------- %
 
-% TODO: run 30 times each simulation
-iteration = 0;
-simulation_path = sprintf('images/simulations/run_%d', iteration);
+global SIMULATION_PATH
 
 % for each classifier
 
@@ -42,7 +40,7 @@ ax.XTick = 1:length(ax.XTickLabel);
 ylabel('Data Model')
 xlabel('Classifier')
 
-save_png(simulation_path, 'accuracy'); close all;
+save_png(SIMULATION_PATH, 'accuracy'); close all;
 
 % Prevalence
 figure('Visible','off')
@@ -55,7 +53,7 @@ ax.XTick = 1:length(ax.XTickLabel);
 ylabel('Data Model')
 xlabel('Classifier')
 
-save_png(simulation_path, 'prevalence'); close all;
+save_png(SIMULATION_PATH, 'prevalence'); close all;
 
 % Sensitivity
 figure('Visible','off')
@@ -68,7 +66,7 @@ ax.XTick = 1:length(ax.XTickLabel);
 ylabel('Data Model')
 xlabel('Classifier')
 
-save_png(simulation_path, 'sensitivity'); close all;
+save_png(SIMULATION_PATH, 'sensitivity'); close all;
 
 % Specificity
 figure('Visible','off')
@@ -81,6 +79,6 @@ ax.XTick = 1:length(ax.XTickLabel);
 ylabel('Data Model')
 xlabel('Classifier')
 
-save_png(simulation_path, 'specificity'); close all;
+save_png(SIMULATION_PATH, 'specificity'); close all;
 
 %EOF

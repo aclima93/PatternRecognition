@@ -2,15 +2,12 @@
 % Feature Selection %
 % ----------------- %
 
-% GUI variables
-X_COR_COV_FLAG = 1;
-redund_X_threshold = 0.9;
-
-XY_COR_COV_FLAG = 1;
-redu_X_threshold = 0.5;
-
-KRUSKAL_WALLIS_FLAG = 1;
-kw_threshold = 0.05;
+global X_COR_COV_FLAG
+global X_COR_COV_THRESHOLD_FLAG
+global XY_COR_COV_FLAG
+global XY_COR_COV_THRESHOLD_FLAG
+global KRUSKAL_WALLIS_FLAG
+global KRUSKAL_WALLIS_THRESHOLD_FLAG
 
 % --------------------------------
 % Feature Selection for Redundancy
@@ -26,7 +23,7 @@ if X_COR_COV_FLAG
     for n = 1:N
         if ~represented(n)
 
-            cols = find(X_correlation_covariance_out.correlation(n,:) >= redund_X_threshold);
+            cols = find(X_correlation_covariance_out.correlation(n,:) >= X_COR_COV_THRESHOLD_FLAG);
             if ~isempty(cols)
 
                 representative(n) = 1;
@@ -44,7 +41,7 @@ end
 
 if XY_COR_COV_FLAG
     Xy_correlation_covariance_out = Xy_correlation_covariance(data.X, data.y, data.labels);
-    idx_redu_X = find(Xy_correlation_covariance_out.correlation >= redu_X_threshold);
+    idx_redu_X = find(Xy_correlation_covariance_out.correlation >= XY_COR_COV_THRESHOLD_FLAG);
 else
     idx_redu_X = [];
 end
@@ -54,7 +51,7 @@ end
 
 if KRUSKAL_WALLIS_FLAG
     kruskal_wallis_out = kruskal_wallis(data.X, data.y, data.labels);
-    idx_kruskal_wallis = find(kruskal_wallis_out <= kw_threshold);
+    idx_kruskal_wallis = find(kruskal_wallis_out <= KRUSKAL_WALLIS_THRESHOLD_FLAG);
 else
     idx_kruskal_wallis = [];
 end
