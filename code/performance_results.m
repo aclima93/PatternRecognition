@@ -33,11 +33,11 @@ end
 figure('Visible','off')
 plot(accuracy)
 
-title('Accuracy')
+title('Accuracy of Classifier')
 ax = gca;
 ax.XTickLabel = classifier_labels;
 ax.XTick = 1:length(ax.XTickLabel);
-ylabel('Data Model')
+ylabel('Accuracy')
 xlabel('Classifier')
 
 save_png(SIMULATION_PATH, 'accuracy'); close all;
@@ -46,11 +46,11 @@ save_png(SIMULATION_PATH, 'accuracy'); close all;
 figure('Visible','off')
 plot(prevalence)
 
-title('Prevalence')
+title('Prevalence of Classifier')
 ax = gca;
 ax.XTickLabel = classifier_labels;
 ax.XTick = 1:length(ax.XTickLabel);
-ylabel('Data Model')
+ylabel('Prevalence')
 xlabel('Classifier')
 
 save_png(SIMULATION_PATH, 'prevalence'); close all;
@@ -59,11 +59,11 @@ save_png(SIMULATION_PATH, 'prevalence'); close all;
 figure('Visible','off')
 plot(sensitivity)
 
-title('Sensitivity')
+title('Sensitivity of Classifier')
 ax = gca;
 ax.XTickLabel = classifier_labels;
 ax.XTick = 1:length(ax.XTickLabel);
-ylabel('Data Model')
+ylabel('Sensitivity')
 xlabel('Classifier')
 
 save_png(SIMULATION_PATH, 'sensitivity'); close all;
@@ -72,11 +72,11 @@ save_png(SIMULATION_PATH, 'sensitivity'); close all;
 figure('Visible','off')
 plot(specificity)
 
-title('Specificity')
+title('Specificity of Classifier')
 ax = gca;
 ax.XTickLabel = classifier_labels;
 ax.XTick = 1:length(ax.XTickLabel);
-ylabel('Data Model')
+ylabel('Specificity')
 xlabel('Classifier')
 
 save_png(SIMULATION_PATH, 'specificity'); close all;

@@ -1,8 +1,3 @@
-%{
-close all;
-clear;
-clc;
-%}
 
 global UI_MODE
 global DATASET_PATH
@@ -11,9 +6,23 @@ global NORMALIZE_FLAG
 global FEATURE_SELECTION_FLAG 
 global FEATURE_REDUCTION_FLAG
 
-if ~exist('../images', 'dir')
-    rmdir('../images', 's')
+global SIMULATION_PATH
+
+configuration_path = concat_flags();
+
+if UI_MODE
+    SIMULATION_PATH = sprintf('../images/UI/%s', configuration_path);
+else
+    SIMULATION_PATH = sprintf('../images/simulations/%s', configuration_path);
 end
+
+% delete previously obtained results for same configuration
+if exist(SIMULATION_PATH, 'dir')
+    rmdir(SIMULATION_PATH, 's')
+end
+mkdir(SIMULATION_PATH);
+
+
     
 % ------------------- %
 % Data Pre-Processing %
@@ -59,26 +68,12 @@ end
 
 tta_out = train_test_analysis( data.X, data.y);
 
+save( strcat(SIMULATION_PATH, '/results.mat'), 'tta_out');
+
 % ------------------- %
 % Performance Results %
 % ------------------- %
 
-global SIMULATION_PATH
-
-if UI_MODE
-    configuration_path = 'concat_all_flags';
-    SIMULATION_PATH = sprintf('../images/UI/%s', configuration_path);
-    run('performance_results');
-else
-    
-    iteration = 1;
-    % TODO: run 30 times each simulation
-    %for iteration = 1:30
-        configuration_path = 'concat_all_flags';
-        SIMULATION_PATH = sprintf('../images/simulations/%s/run_%d', configuration_path ,iteration);
-        run('performance_results');
-    %end
-end
-
+%run('performance_results');
 
 %EOF
