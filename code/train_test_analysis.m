@@ -27,8 +27,8 @@ if MATLAB_LDC_FLAG
     % Test the classifier with remaining data
     [predicted_y, score, cost] = predict(classifier, classifier_data.test_X');
 
-% Classification Performance
-cpa_out = classification_performance_analysis(classifier_data.test_y, predicted_y', positive_values, negative_values);
+    % Classification Performance
+    cpa_out = classification_performance_analysis(classifier_data.test_y, predicted_y', positive_values, negative_values);
 
     tta_out.('mldc') = struct('expected_y', classifier_data.test_y, 'predicted_y', predicted_y', 'cpa_out', cpa_out);
 end
@@ -65,8 +65,8 @@ tta_out.('mqdc') = struct('expected_y', classifier_data.test_y, 'predicted_y', p
 if EDC_FLAG
     predicted_y = euclidean_discriminant(classifier_data.train_X, classifier_data.train_y, classifier_data.test_X);
 
-% Classification Performance
-cpa_out = classification_performance_analysis(classifier_data.test_y, predicted_y, positive_values, negative_values);
+    % Classification Performance
+    cpa_out = classification_performance_analysis(classifier_data.test_y, predicted_y, positive_values, negative_values);
 
     tta_out.('edc') = struct('expected_y', classifier_data.test_y, 'predicted_y', predicted_y, 'cpa_out', cpa_out);
 end
@@ -80,8 +80,8 @@ end
 if MDC_FLAG
     predicted_y = mahalanobis_discriminant(classifier_data.train_X, classifier_data.train_y, classifier_data.test_X);
 
-% Classification Performance
-cpa_out = classification_performance_analysis(classifier_data.test_y, predicted_y, positive_values, negative_values);
+    % Classification Performance
+    cpa_out = classification_performance_analysis(classifier_data.test_y, predicted_y, positive_values, negative_values);
 
     tta_out.('mdc') = struct('expected_y', classifier_data.test_y, 'predicted_y', predicted_y, 'cpa_out', cpa_out);
 end
