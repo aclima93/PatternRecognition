@@ -2,6 +2,10 @@ function [ tta_out ] = train_test_analysis( X, y )
 %TRAIN_TEST_ANALYSE Summary of this function goes here
 %   Detailed explanation goes here
 
+global MATLAB_LDC_FLAG
+global EDC_FLAG
+global MDC_FLAG
+
 tta_out = struct;
 positive_values = [1];
 negative_values = [0];

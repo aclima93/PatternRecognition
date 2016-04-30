@@ -1,6 +1,6 @@
 function [ kruskal_wallis_out ] = kruskal_wallis( X, y, labels )
-%KRUSKAL_WALLIS_ANALYSIS Summary of this function goes here
-%   Detailed explanation goes here
+%KRUSKAL_WALLIS_ANALYSIS
+% http://support.minitab.com/en-us/minitab-express/1/help-and-how-to/modeling-statistics/anova/how-to/kruskal-wallis-test/interpret-the-results/key-results/
 
 [N, ~] = size(X);
 kruskal_wallis_out = zeros(N, 1);

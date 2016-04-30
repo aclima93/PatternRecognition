@@ -1,8 +1,11 @@
+%{
 close all;
 clear;
 clc;
+%}
 
 global UI_MODE
+global DATASET_PATH
 global VISUALIZE_DATA_FLAG
 global NORMALIZE_FLAG 
 global FEATURE_SELECTION_FLAG 
@@ -18,7 +21,7 @@ end
 
 % ------------
 % Load dataset
-original_data = load('../data/dataset.mat');
+original_data = load(DATASET_PATH);
 data = original_data;
 if VISUALIZE_DATA_FLAG
     plot_data(data.X, data.labels, data.dim, data.num_data);
@@ -60,7 +63,6 @@ tta_out = train_test_analysis( data.X, data.y);
 % Performance Results %
 % ------------------- %
 
-% TODO: run 30 times each simulation
 global SIMULATION_PATH
 
 if UI_MODE
@@ -68,11 +70,14 @@ if UI_MODE
     SIMULATION_PATH = sprintf('../images/UI/%s', configuration_path);
     run('performance_results');
 else
-    for iteration = 1:30
+    
+    iteration = 1;
+    % TODO: run 30 times each simulation
+    %for iteration = 1:30
         configuration_path = 'concat_all_flags';
         SIMULATION_PATH = sprintf('../images/simulations/%s/run_%d', configuration_path ,iteration);
         run('performance_results');
-    end
+    %end
 end
 
 
