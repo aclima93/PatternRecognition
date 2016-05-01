@@ -125,20 +125,26 @@ KRUSKAL_WALLIS_THRESHOLD_FLAG = str2double(get(handles.kruskal_wallis_edt, 'Stri
 global FEATURE_REDUCTION_FLAG
 FEATURE_REDUCTION_FLAG = get(handles.feature_reduction_chk, 'Value');
 
-% TODO: how do I check these ones?
-%
 global PCA_FLAG LDA_FLAG PCA_LDA_FLAG LDA_PCA_FLAG
-PCA_FLAG = 0;
-LDA_FLAG = 0;
-PCA_LDA_FLAG = 1;
-LDA_PCA_FLAG = 0;
-%
-global KAISER_CRITERIA_FLAG KAISER_CRITERIA_THRESHOLD
-KAISER_CRITERIA_FLAG = 1;
+item_list = get(handles.reduction_method_pop,'String');
+selected_item_value = get(handles.reduction_method_pop,'Value');
+selected_item_idx = item_list{selected_item_value};
+item_flags = zeros(1, length(item_list));
+item_flags(selected_item_idx) = 1;
+item_flags = num2cell(item_flags);
+[PCA_FLAG, LDA_FLAG, PCA_LDA_FLAG, LDA_PCA_FLAG] = item_flags{:};
+
+global KAISER_CRITERIA_FLAG SCREE_TEST_FLAG
+item_list = get(handles.additional_reduction_method_pop,'String');
+selected_item_value = get(handles.additional_reduction_method_pop,'Value');
+selected_item_idx = item_list{selected_item_value};
+item_flags = zeros(1, length(item_list));
+item_flags(selected_item_idx) = 1;
+item_flags = num2cell(item_flags);
+[KAISER_CRITERIA_FLAG, SCREE_TEST_FLAG, ~] = item_flags{:};
+
+global KAISER_CRITERIA_THRESHOLD SCREE_TEST_THRESHOLD
 KAISER_CRITERIA_THRESHOLD = str2double(get(handles.additional_reduction_method_edt, 'String'));
-%
-global SCREE_TEST_FLAG SCREE_TEST_THRESHOLD
-SCREE_TEST_FLAG = 0;
 SCREE_TEST_THRESHOLD = str2double(get(handles.additional_reduction_method_edt, 'String'));
 
 % ------------------- %
@@ -148,13 +154,17 @@ SCREE_TEST_THRESHOLD = str2double(get(handles.additional_reduction_method_edt, '
 global TRAINING_RATIO
 TRAINING_RATIO = str2double(get(handles.splitting_edt, 'String'));
 
-% TODO: how do I check these ones?
-global MATLAB_LDC_FLAG
-global EDC_FLAG
-global MDC_FLAG
-MATLAB_LDC_FLAG = 0;
-EDC_FLAG = 1;
-MDC_FLAG = 0;
+global STRATIFIED_FLAG
+STRATIFIED_FLAG = get(handles.splitting_chk, 'Value');
+
+global MATLAB_LDC_FLAG EDC_FLAG MDC_FLAG
+item_list = get(handles.classifier_pop,'String');
+selected_item_value = get(handles.classifier_pop,'Value');
+selected_item_idx = item_list{selected_item_value};
+item_flags = zeros(1, length(item_list));
+item_flags(selected_item_idx) = 1;
+item_flags = num2cell(item_flags);
+[MATLAB_LDC_FLAG, EDC_FLAG, MDC_FLAG] = item_flags{:};
 
 close all;
 clc;
@@ -196,33 +206,19 @@ set(handles.kruskal_wallis_edt, 'String', '0.05');
 
 set(handles.feature_reduction_chk, 'Value', 1);
 
-% TODO: how do I set these ones?
-global PCA_FLAG LDA_FLAG PCA_LDA_FLAG LDA_PCA_FLAG
-PCA_FLAG = 0;
-LDA_FLAG = 0;
-PCA_LDA_FLAG = 1;
-LDA_PCA_FLAG = 0;
-%
-global KAISER_CRITERIA_FLAG
-KAISER_CRITERIA_FLAG = 1;
-global SCREE_TEST_FLAG
-SCREE_TEST_FLAG = 0;
+set(handles.reduction_method_pop, 'Value', 1);
 
-set(handles.additional_reduction_method_edt, 'String', '0.90');
+set(handles.additional_reduction_method_pop, 'Value', 1);
+set(handles.additional_reduction_method_edt, 'String', '1');
 
 % ------------------- %
 % Performance Results %
 % ------------------- %
 
 set(handles.splitting_edt, 'String', '0.7');
+set(handles.splitting_chk, 'Value', 1);
 
-% TODO: how do I set these ones?
-global MATLAB_LDC_FLAG
-global EDC_FLAG
-global MDC_FLAG
-MATLAB_LDC_FLAG = 0;
-EDC_FLAG = 1;
-MDC_FLAG = 0;
+set(handles.additional_reduction_method_pop, 'Value', 1);
 
 
 
