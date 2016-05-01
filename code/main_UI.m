@@ -229,6 +229,13 @@ function feature_reduction_chk_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of feature_reduction_chk
+state = get(hObject,'Value');
+if state
+    state = 'on';
+else
+    state = 'off';
+end
+set(findall(handles.feature_reduction_pnl, '-property', 'enable'), 'enable', state);
 
 
 % --- Executes on button press in feature_selection_chk.
@@ -238,6 +245,13 @@ function feature_selection_chk_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of feature_selection_chk
+state = get(hObject,'Value');
+if state
+    state = 'on';
+else
+    state = 'off';
+end
+set(findall(handles.feature_selection_pnl, '-property', 'enable'), 'enable', state);
 
 
 % --- Executes on button press in kruskal_wallis_chk.
@@ -247,6 +261,13 @@ function kruskal_wallis_chk_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of kruskal_wallis_chk
+state = get(hObject,'Value');
+if state
+    state = 'on';
+else
+    state = 'off';
+end
+set(findall(handles.kruskal_wallis_edt, '-property', 'enable'), 'enable', state);
 
 
 % --- Executes on button press in cor_cov_x_chk.
@@ -256,6 +277,13 @@ function cor_cov_x_chk_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of cor_cov_x_chk
+state = get(hObject,'Value');
+if state
+    state = 'on';
+else
+    state = 'off';
+end
+set(findall(handles.cor_cov_x_edt, '-property', 'enable'), 'enable', state);
 
 
 % --- Executes on button press in cor_cov_xy_chk.
@@ -265,6 +293,13 @@ function cor_cov_xy_chk_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of cor_cov_xy_chk
+state = get(hObject,'Value');
+if state
+    state = 'on';
+else
+    state = 'off';
+end
+set(findall(handles.cor_cov_xy_edt, '-property', 'enable'), 'enable', state);
 
 
 
