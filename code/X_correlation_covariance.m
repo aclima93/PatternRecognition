@@ -2,6 +2,8 @@ function [ X_correlation_covariance_out ] = X_correlation_covariance( X, labels 
 %CORRELATION Summary of this function goes here
 %   Detailed explanation goes here
 
+global SIMULATION_PATH
+
 % get covariance matrix of data
 cov_X = cov(X');
 figure('Visible','off')
@@ -18,7 +20,7 @@ xlabel('Feature')
 ylabel('Feature')
 title('Feature Covariance')
 
-save_png('images/feature_selection', 'X_covariance'); close all;
+save_png(strcat(SIMULATION_PATH, '/feature_selection'), 'X_covariance'); close all;
 
 % get correlation matrix of data
 cor_X = corrcoef(X');
@@ -36,7 +38,7 @@ xlabel('Feature')
 ylabel('Feature')
 title('Feature Correlation')
 
-save_png('images/feature_selection', 'X_correlation'); close all;
+save_png(strcat(SIMULATION_PATH, '/feature_selection'), 'X_correlation'); close all;
 
 X_correlation_covariance_out = struct('covariance', cov_X, 'correlation', cor_X);
 

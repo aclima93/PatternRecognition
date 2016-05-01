@@ -2,6 +2,8 @@ function [ kruskal_wallis_out ] = kruskal_wallis( X, y, labels )
 %KRUSKAL_WALLIS_ANALYSIS
 % http://support.minitab.com/en-us/minitab-express/1/help-and-how-to/modeling-statistics/anova/how-to/kruskal-wallis-test/interpret-the-results/key-results/
 
+global SIMULATION_PATH
+
 [N, ~] = size(X);
 kruskal_wallis_out = zeros(N, 1);
 
@@ -21,7 +23,7 @@ xlabel('Feature')
 ylabel('Score')
 title('Kruskall-Wallis score for features with regard to Expected Output')
 
-save_png('images/feature_selection', 'kruskal_wallis'); close all;
+save_png(strcat(SIMULATION_PATH, '/feature_selection'), 'kruskal_wallis'); close all;
 
 end
 %EOF

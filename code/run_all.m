@@ -190,4 +190,12 @@ for NORMALIZE_FLAG = 0:1
     end
 end
 
+% ------------------- %
+% Performance Results %
+% ------------------- %
+
+% TODO: do not run 'performance_results' untill all simulations have been ran
+
+%run('performance_results');
+
 %EOF

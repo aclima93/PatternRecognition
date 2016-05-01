@@ -2,6 +2,22 @@
 % Compare Performance Results %
 % --------------------------- %
 
+
+% TODO
+%{
+% ------------------
+% Average Error Rate
+
+% ---------
+% F-measure
+
+% ----------
+% ROC Curves
+%}
+
+% TODO compare all the simulations, don't just plot for each one
+% individually. Do somethign smart!!!
+
 global SIMULATION_PATH
 
 % for each classifier

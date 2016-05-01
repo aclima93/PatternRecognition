@@ -90,16 +90,5 @@ if MDC_FLAG
     tta_out.('mdc') = struct('expected_y', classifier_data.test_y, 'predicted_y', predicted_y, 'cpa_out', cpa_out);
 end
 
-% TODO
-
-% ------------------
-% Average Error Rate
-
-% ---------
-% F-measure
-
-% ----------
-% ROC Curves
-
 end
 

@@ -21,8 +21,6 @@ if exist(SIMULATION_PATH, 'dir')
     rmdir(SIMULATION_PATH, 's')
 end
 mkdir(SIMULATION_PATH);
-
-
     
 % ------------------- %
 % Data Pre-Processing %
@@ -66,14 +64,9 @@ end
 % Dataset Split + Training and Testing + Classification Performance %
 % ----------------------------------------------------------------- %
 
+disp('Performing training and testing...');
 tta_out = train_test_analysis( data.X, data.y);
 
 save( strcat(SIMULATION_PATH, '/results.mat'), 'tta_out');
-
-% ------------------- %
-% Performance Results %
-% ------------------- %
-
-%run('performance_results');
 
 %EOF

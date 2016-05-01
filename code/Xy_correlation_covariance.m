@@ -2,6 +2,8 @@ function [ Xy_correlation_covariance_out ] = Xy_correlation_covariance( X, y, la
 %EXPECTED_OUTPUT_CORRELATION_COVARIANCE Summary of this function goes here
 %   Detailed explanation goes here
 
+global SIMULATION_PATH
+
 [N, ~] = size(X);
 
 cov_Xy = zeros(N, 1);
@@ -37,7 +39,7 @@ ylabel('Score')
 title('Feature Correlation and Covariance with regard to Expected Output')
 legend('covariance', 'correlation')
 
-save_png('images/feature_selection', 'Xy_cor_cov'); close all;
+save_png(strcat(SIMULATION_PATH, '/feature_selection'), 'Xy_cor_cov'); close all;
 
 Xy_correlation_covariance_out = struct('covariance', cov_Xy, 'correlation', cor_Xy);
 
