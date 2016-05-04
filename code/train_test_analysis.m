@@ -96,16 +96,16 @@ end
 if MATLAB_DT_FLAG
 
     % train the decision tree
-    tree = fitctree(classifier_data.train_X, classifier_data.train_y);
+    tree = fitctree(classifier_data.train_X', classifier_data.train_y');
     view(tree,'Mode','Graph');
     
     % test the decision tree    
-    predicted_y = predict(tree, classifier_data.test_X);
+    predicted_y = predict(tree, classifier_data.test_X');
         
     % Classification Performance
-    cpa_out = classification_performance_analysis(classifier_data.test_y, predicted_y);
+    cpa_out = classification_performance_analysis(classifier_data.test_y', predicted_y);
 
-    tta_out.('mdt') = struct('expected_y', classifier_data.test_y, 'predicted_y', predicted_y', 'cpa_out', cpa_out);
+    tta_out.('mdt') = struct('expected_y', classifier_data.test_y', 'predicted_y', predicted_y, 'cpa_out', cpa_out);
     
 end
 

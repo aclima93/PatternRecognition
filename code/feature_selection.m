@@ -59,17 +59,35 @@ end
 % --------------------------
 % Merging Feature Selections
 
-if ~isempty(idx_redund_X) && ~isempty(idx_redu_X)
-    idx = intersect(idx_redund_X, idx_redu_X);
-elseif isempty(idx_redu_X)
-    idx = idx_redund_X;
-elseif isempty(idx_redund_X)
-    idx = idx_redu_X;
+% no feature selection (default case)
+idx = 1:size(data.X, 1);
+
+if (isempty(idx_redund_X) + isempty(idx_redu_X) + isempty(idx_kruskal_wallis)) == 1
+    
+    % only one used, just use the union of them all
+    idx = union( union(idx_redund_X, idx_redu_X), idx_kruskal_wallis);
+    
 else
-    idx = idx_kruskal_wallis;
+    
+    if ~isempty(idx_redund_X) && ~isempty(idx_redu_X) && ~isempty(idx_kruskal_wallis)
+        % use all selection methods
+        idx = intersect(intersect(idx_redund_X, idx_redu_X), idx_kruskal_wallis);
+    
+    elseif isempty(idx_redund_X) && ~isempty(idx_redu_X) && ~isempty(idx_kruskal_wallis)
+        % Xy_cor and K-W
+        idx = intersect(idx_redu_X, idx_kruskal_wallis);
+    
+    elseif ~isempty(idx_redund_X) && isempty(idx_redu_X) && ~isempty(idx_kruskal_wallis)
+        % X_cor and K-W
+        idx = intersect(idx_redund_X, idx_kruskal_wallis);
+    
+    elseif ~isempty(idx_redund_X) && ~isempty(idx_redu_X) && isempty(idx_kruskal_wallis)
+        % X_cor and Xy_cor
+        idx = intersect(idx_redund_X, idx_redu_X);
+    end
+
 end
 
-idx = intersect( idx, idx_kruskal_wallis);
 redux_data = data;
 redux_data.X = redux_data.X(idx, :); 
 redux_data.labels = redux_data.labels(idx); 

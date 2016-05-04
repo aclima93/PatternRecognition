@@ -12,7 +12,7 @@ global SIMULATION_PATH
 if UI_MODE
     SIMULATION_PATH = '../images/UI';
 else
-    SIMULATION_PATH = sprintf('../images/simulations/%s', SIMULATION_COUNTER);
+    SIMULATION_PATH = sprintf('../images/simulations/%d', SIMULATION_COUNTER);
 end
 
 % delete previously obtained results for same configuration

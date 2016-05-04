@@ -3,7 +3,7 @@ function [ lda_data ] = linear_discriminant_analysis( data )
 %   Detailed explanation goes here
 
 % LDA -> new dim = num classes -1
-new_dim = length(unique(data.y));
+new_dim = length(unique(data.y)) - 1;
 
 model = lda(data, new_dim);
 data_projection = linproj(data.X, model);
