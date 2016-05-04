@@ -5,10 +5,9 @@ function [ tta_out ] = train_test_analysis( X, y )
 global MATLAB_LDC_FLAG
 global EDC_FLAG
 global MDC_FLAG
+global MATLAB_DT_FLAG
 
 tta_out = struct;
-positive_values = [1];
-negative_values = [0];
 
 % ------------------------------------ %
 % Dataset Split + Training and Testing %
@@ -32,7 +31,7 @@ if MATLAB_LDC_FLAG
     [predicted_y, score, cost] = predict(classifier, classifier_data.test_X');
 
     % Classification Performance
-    cpa_out = classification_performance_analysis(classifier_data.test_y, predicted_y', positive_values, negative_values);
+    cpa_out = classification_performance_analysis(classifier_data.test_y, predicted_y');
 
     tta_out.('mldc') = struct('expected_y', classifier_data.test_y, 'predicted_y', predicted_y', 'cpa_out', cpa_out);
 end
@@ -54,7 +53,7 @@ classifier = fitcdiscr(classifier_data.train_X', classifier_data.train_y', 'Disc
 [predicted_y, score, cost] = predict(classifier, classifier_data.test_X');
 
 % Classification Performance
-cpa_out = classification_performance_analysis(classifier_data.test_y, predicted_y, positive_values, negative_values);
+cpa_out = classification_performance_analysis(classifier_data.test_y, predicted_y);
 
 tta_out.('mqdc') = struct('expected_y', classifier_data.test_y, 'predicted_y', predicted_y', 'cpa_out', cpa_out);
 %}
@@ -70,7 +69,7 @@ if EDC_FLAG
     predicted_y = euclidean_discriminant(classifier_data.train_X, classifier_data.train_y, classifier_data.test_X);
 
     % Classification Performance
-    cpa_out = classification_performance_analysis(classifier_data.test_y, predicted_y, positive_values, negative_values);
+    cpa_out = classification_performance_analysis(classifier_data.test_y, predicted_y);
 
     tta_out.('edc') = struct('expected_y', classifier_data.test_y, 'predicted_y', predicted_y, 'cpa_out', cpa_out);
 end
@@ -85,9 +84,29 @@ if MDC_FLAG
     predicted_y = mahalanobis_discriminant(classifier_data.train_X, classifier_data.train_y, classifier_data.test_X);
 
     % Classification Performance
-    cpa_out = classification_performance_analysis(classifier_data.test_y, predicted_y, positive_values, negative_values);
+    cpa_out = classification_performance_analysis(classifier_data.test_y, predicted_y);
 
     tta_out.('mdc') = struct('expected_y', classifier_data.test_y, 'predicted_y', predicted_y, 'cpa_out', cpa_out);
+end
+
+% --------------------------- %
+% Matlab Binary Decision Tree %
+% --------------------------- %
+
+if MATLAB_DT_FLAG
+
+    % train the decision tree
+    tree = fitctree(classifier_data.train_X, classifier_data.train_y);
+    view(tree,'Mode','Graph');
+    
+    % test the decision tree    
+    predicted_y = predict(tree, classifier_data.test_X);
+        
+    % Classification Performance
+    cpa_out = classification_performance_analysis(classifier_data.test_y, predicted_y);
+
+    tta_out.('mdt') = struct('expected_y', classifier_data.test_y, 'predicted_y', predicted_y', 'cpa_out', cpa_out);
+    
 end
 
 end
