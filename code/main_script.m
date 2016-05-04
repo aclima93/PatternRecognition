@@ -6,14 +6,13 @@ global NORMALIZE_FLAG
 global FEATURE_SELECTION_FLAG 
 global FEATURE_REDUCTION_FLAG
 
+global SIMULATION_COUNTER
 global SIMULATION_PATH
 
-configuration_path = concat_flags();
-
 if UI_MODE
-    SIMULATION_PATH = sprintf('../images/UI/%s', configuration_path);
+    SIMULATION_PATH = '../images/UI';
 else
-    SIMULATION_PATH = sprintf('../images/simulations/%s', configuration_path);
+    SIMULATION_PATH = sprintf('../images/simulations/%s', SIMULATION_COUNTER);
 end
 
 % delete previously obtained results for same configuration
@@ -21,6 +20,8 @@ if exist(SIMULATION_PATH, 'dir')
     rmdir(SIMULATION_PATH, 's')
 end
 mkdir(SIMULATION_PATH);
+
+save_flags();
     
 % ------------------- %
 % Data Pre-Processing %

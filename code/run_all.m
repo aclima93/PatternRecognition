@@ -30,6 +30,7 @@ global TRAINING_RATIO
 global MATLAB_LDC_FLAG
 global EDC_FLAG
 global MDC_FLAG
+global MATLAB_DT_FLAG
 
 % debug var
 global SIMULATION_COUNTER
@@ -73,14 +74,14 @@ for NORMALIZE_FLAG = 0:1
         % Feature Reduction
         
         % Purpose: compare the results of different methods of feature reduction
-        permutations1 = num2cell(unique(perms([0,0,0,0,1]), 'rows'));
+        permutations1 = num2cell(unique(perms([1,0,0,0,0]), 'rows'));
         [r1,~] = size(permutations1);
         for i1 = 1:r1
             [~, PCA_FLAG, LDA_FLAG, PCA_LDA_FLAG, LDA_PCA_FLAG] = permutations1{i1,:};
             
             % Purpose: compare the results of different methods of 
             % additional feature reduction
-            permutations2 = num2cell(unique(perms([0,0,1]), 'rows'));
+            permutations2 = num2cell(unique(perms([1,0,0]), 'rows'));
             [r2,~] = size(permutations2);
             for i2 = 1:r2
                 [~, KAISER_CRITERIA_FLAG, SCREE_TEST_FLAG] = permutations2{i2,:};
@@ -89,10 +90,10 @@ for NORMALIZE_FLAG = 0:1
                 % Performance Results
                 
                 % Purpose: compare the results of different classifiers
-                permutations3 = num2cell(unique(perms([0,0,1]), 'rows'));
+                permutations3 = num2cell(unique(perms([1,0,0,0]), 'rows'));
                 [r3,~] = size(permutations3);
                 for i3 = 1:r3
-                    [MATLAB_LDC_FLAG, EDC_FLAG, MDC_FLAG] = permutations3{i3,:};
+                    [MATLAB_LDC_FLAG, EDC_FLAG, MDC_FLAG, MATLAB_DT_FLAG] = permutations3{i3,:};
                     
                     disp(SIMULATION_COUNTER)
                     
