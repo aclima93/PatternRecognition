@@ -30,6 +30,10 @@ else
     new_dim = data.dim;
 end
 
+if new_dim < 1
+    new_dim = 1;
+end
+
 pca_data = data;
 pca_data.X = data_projection(1:new_dim,:);
 pca_data.dim = new_dim;

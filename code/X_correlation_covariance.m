@@ -23,7 +23,7 @@ if VISUALIZE_DATA_FLAG
     ylabel('Feature')
     title('Feature Covariance')
     
-    save_png(strcat(SIMULATION_PATH, '/feature_selection'), 'X_covariance'); close all;
+    save_png(strcat(SIMULATION_PATH, '/feature_selection'), 'X_covariance');
 end
 
 % get correlation matrix of data
@@ -44,7 +44,7 @@ if VISUALIZE_DATA_FLAG
     ylabel('Feature')
     title('Feature Correlation')
     
-    save_png(strcat(SIMULATION_PATH, '/feature_selection'), 'X_correlation'); close all;
+    save_png(strcat(SIMULATION_PATH, '/feature_selection'), 'X_correlation');
 end
 
 X_correlation_covariance_out = struct('covariance', cov_X, 'correlation', cor_X);

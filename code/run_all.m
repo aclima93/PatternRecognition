@@ -1,4 +1,8 @@
 
+clear;
+close all;
+clc;
+
 global UI_MODE
 global SAVE_FIG_FLAG
 global DATASET_PATH

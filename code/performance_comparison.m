@@ -56,7 +56,7 @@ ax.XTick = 1:length(ax.XTickLabel);
 ylabel('Accuracy')
 xlabel('Classifier')
 
-save_png(SIMULATION_PATH, 'accuracy'); close all;
+save_png(SIMULATION_PATH, 'accuracy'); 
 
 % Prevalence
 figure('Visible','off')
@@ -69,7 +69,7 @@ ax.XTick = 1:length(ax.XTickLabel);
 ylabel('Prevalence')
 xlabel('Classifier')
 
-save_png(SIMULATION_PATH, 'prevalence'); close all;
+save_png(SIMULATION_PATH, 'prevalence'); 
 
 % Sensitivity
 figure('Visible','off')
@@ -82,7 +82,7 @@ ax.XTick = 1:length(ax.XTickLabel);
 ylabel('Sensitivity')
 xlabel('Classifier')
 
-save_png(SIMULATION_PATH, 'sensitivity'); close all;
+save_png(SIMULATION_PATH, 'sensitivity'); 
 
 % Specificity
 figure('Visible','off')
@@ -95,6 +95,6 @@ ax.XTick = 1:length(ax.XTickLabel);
 ylabel('Specificity')
 xlabel('Classifier')
 
-save_png(SIMULATION_PATH, 'specificity'); close all;
+save_png(SIMULATION_PATH, 'specificity'); 
 
 %EOF

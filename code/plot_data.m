@@ -11,7 +11,7 @@ for j = 1:dim
     scatter(1:num_data, X(j,:))
     t = title(labels(j));
     set(t, 'Interpreter', 'none')
-    save_png(strcat(SIMULATION_PATH, '/data'), labels(j)); close all;
+    save_png(strcat(SIMULATION_PATH, '/data'), labels(j));
 end
 
 end

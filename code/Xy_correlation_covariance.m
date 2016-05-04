@@ -41,7 +41,7 @@ if VISUALIZE_DATA_FLAG
     title('Feature Correlation and Covariance with regard to Expected Output')
     legend('covariance', 'correlation')
     
-    save_png(strcat(SIMULATION_PATH, '/feature_selection'), 'Xy_cor_cov'); close all;
+    save_png(strcat(SIMULATION_PATH, '/feature_selection'), 'Xy_cor_cov');
 end
 
 Xy_correlation_covariance_out = struct('covariance', cov_Xy, 'correlation', cor_Xy);

@@ -1,8 +1,13 @@
-function save_png( path, filename )
+function save_png( path, filename, handle )
 %SAVE_PNG Summary of this function goes here
 %   Detailed explanation goes here
 
+global UI_MODE
 global SAVE_FIG_FLAG
+
+if nargin < 3
+   handle = gcf;
+end
 
 if SAVE_FIG_FLAG
 
@@ -12,9 +17,12 @@ if SAVE_FIG_FLAG
       mkdir(path);
     end
 
-    saveas(gcf, filepath)
+    saveas(handle, filepath)
 
 end
 
+if ~UI_MODE
+    close(handle);
 end
 
+end

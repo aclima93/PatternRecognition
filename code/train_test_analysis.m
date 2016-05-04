@@ -2,6 +2,8 @@ function [ tta_out ] = train_test_analysis( X, y )
 %TRAIN_TEST_ANALYSE Summary of this function goes here
 %   Detailed explanation goes here
 
+global UI_MODE
+
 global MATLAB_LDC_FLAG
 global EDC_FLAG
 global MDC_FLAG
@@ -28,7 +30,7 @@ if MATLAB_LDC_FLAG
     classifier = fitcdiscr(classifier_data.train_X', classifier_data.train_y', 'DiscrimType', 'linear');
 
     % Test the classifier with remaining data
-    [predicted_y, score, cost] = predict(classifier, classifier_data.test_X');
+    [predicted_y, ~, ~] = predict(classifier, classifier_data.test_X');
 
     % Classification Performance
     cpa_out = classification_performance_analysis(classifier_data.test_y, predicted_y');
@@ -97,7 +99,10 @@ if MATLAB_DT_FLAG
 
     % train the decision tree
     tree = fitctree(classifier_data.train_X', classifier_data.train_y');
-    view(tree,'Mode','Graph');
+
+    if UI_MODE
+        view(tree,'Mode','Graph');
+    end
     
     % test the decision tree    
     predicted_y = predict(tree, classifier_data.test_X');

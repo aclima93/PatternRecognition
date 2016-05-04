@@ -25,7 +25,7 @@ if VISUALIZE_DATA_FLAG
     ylabel('Score')
     title('Kruskall-Wallis score for features with regard to Expected Output')
     
-    save_png(strcat(SIMULATION_PATH, '/feature_selection'), 'kruskal_wallis'); close all;
+    save_png(strcat(SIMULATION_PATH, '/feature_selection'), 'kruskal_wallis'); 
 end
 
 end
