@@ -1,4 +1,4 @@
-function [ classification_performance ] = classification_performance_analysis( expected_y, predicted_y, positive_values, negative_values )
+function [ classification_performance ] = classification_performance_analysis( expected_y, predicted_y )
 %CLASSIFICATION_ACCURACY Summary of this function goes here
 %   True positive = correctly identified
 %   False positive = incorrectly identified
@@ -8,17 +8,15 @@ function [ classification_performance ] = classification_performance_analysis( e
 % --------------------------------------------------------
 % Calculate accuracy based on predicted and actual results
 
-for i = positive_values
-    true_positives = length(find( expected_y == i & predicted_y == i ));
-    false_positives = length(find( expected_y ~= i & predicted_y == i ));
-end
+confusion_matrix = confusionmat(expected_y, predicted_y);
 
-for i = negative_values
-    true_negatives = length(find( expected_y == i & predicted_y == i ));
-    false_negatives = length(find( expected_y ~= i & predicted_y == i ));
-end
+% coherent payment
+false_negatives = confusion_matrix(1,1);
+true_negatives = confusion_matrix(1,2);
 
-condition_analysis = [true_positives, false_positives, false_negatives, true_negatives];
+% default payment
+true_positives = confusion_matrix(2,1);
+false_positives = confusion_matrix(2,2);
 
 % ------------------- %
 % Analysis of results %
@@ -86,7 +84,7 @@ DOR = PLR / NLR;
 
 diagnostic_analysis = [PLR, NLR, DOR];
 
-classification_performance = struct('condition_analysis', condition_analysis, 'accuracy', accuracy, 'true_condition', true_condition, 'prevalence', prevalence, 'predicted_condition', predicted_condition, 'diagnostic_analysis', diagnostic_analysis);
+classification_performance = struct('confusion_matrix', confusion_matrix, 'accuracy', accuracy, 'true_condition', true_condition, 'prevalence', prevalence, 'predicted_condition', predicted_condition, 'diagnostic_analysis', diagnostic_analysis);
 
 end
 %EOF

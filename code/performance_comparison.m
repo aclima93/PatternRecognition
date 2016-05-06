@@ -5,9 +5,6 @@
 
 % TODO
 %{
-% ------------------
-% Average Error Rate
-
 % ---------
 % F-measure
 

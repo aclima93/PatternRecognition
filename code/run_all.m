@@ -3,11 +3,6 @@ clear;
 close all;
 clc;
 
-global UI_MODE
-global SAVE_FIG_FLAG
-global DATASET_PATH
-global VISUALIZE_DATA_FLAG
-
 global NORMALIZE_FLAG
 
 global FEATURE_SELECTION_FLAG
@@ -36,30 +31,24 @@ global EDC_FLAG
 global MDC_FLAG
 global MATLAB_DT_FLAG
 
-% debug var
 global SIMULATION_COUNTER
 SIMULATION_COUNTER = 1;
 
 % Constant Variables
-UI_MODE = 0;
-SAVE_FIG_FLAG = 1;
-DATASET_PATH = '../data/dataset.mat';
-VISUALIZE_DATA_FLAG = 0;
-
 FEATURE_SELECTION_FLAG = 1;
 X_COR_COV_THRESHOLD_FLAG = 0.90;
 XY_COR_COV_THRESHOLD_FLAG = 0.25;
+KRUSKAL_WALLIS_THRESHOLD_FLAG = 0.05;
 
 FEATURE_REDUCTION_FLAG = 1;
 KAISER_CRITERIA_THRESHOLD = 1;
 SCREE_TEST_THRESHOLD = 0.90;
-KRUSKAL_WALLIS_THRESHOLD_FLAG = 0.05;
 
 STRATIFIED_FLAG = 1;
 TRAINING_RATIO = 0.70;
 
-% --------------
-% Pre-Processing
+% --------------------
+% Pre-Processing Tests
 
 % Purpose: compare normalized VS non-normalized results
 for NORMALIZE_FLAG = 0:1
@@ -90,8 +79,8 @@ for NORMALIZE_FLAG = 0:1
             for i2 = 1:r2
                 [~, KAISER_CRITERIA_FLAG, SCREE_TEST_FLAG] = permutations2{i2,:};
                 
-                % -------------------
-                % Performance Results
+                % ----------
+                % Classifier
                 
                 % Purpose: compare the results of different classifiers
                 permutations3 = num2cell(unique(perms([1,0,0,0]), 'rows'));
@@ -99,11 +88,9 @@ for NORMALIZE_FLAG = 0:1
                 for i3 = 1:r3
                     [MATLAB_LDC_FLAG, EDC_FLAG, MDC_FLAG, MATLAB_DT_FLAG] = permutations3{i3,:};
                     
-                    disp(SIMULATION_COUNTER)
-                    
                     % run for this configuration
+                    disp(SIMULATION_COUNTER)
                     run('main_script');
-                    
                     SIMULATION_COUNTER = SIMULATION_COUNTER + 1;
                     
                 end
@@ -111,6 +98,8 @@ for NORMALIZE_FLAG = 0:1
         end
     end
 end
+
+%}
 
 % ------------------- %
 % Performance Results %

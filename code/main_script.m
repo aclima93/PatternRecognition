@@ -9,10 +9,8 @@ global FEATURE_REDUCTION_FLAG
 global SIMULATION_COUNTER
 global SIMULATION_PATH
 
-if UI_MODE
-    SIMULATION_PATH = '../images/UI';
-else
-    SIMULATION_PATH = sprintf('../images/simulations/%d', SIMULATION_COUNTER);
+if ~UI_MODE
+    SIMULATION_PATH = sprintf('%s/%d', SIMULATION_PATH, SIMULATION_COUNTER);
 end
 
 % delete previously obtained results for same configuration
