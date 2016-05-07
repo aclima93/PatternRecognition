@@ -2,48 +2,44 @@
 % Compare Performance Results %
 % --------------------------- %
 
-
-% TODO
-%{
-% ---------
-% F-measure
-
-% ----------
-% ROC Curves
-%}
-
 % TODO compare all the simulations, don't just plot for each one
 % individually. Do somethign smart!!!
 
 global SIMULATION_PATH
 
-% for each classifier
+% for each simulation
 
-classifier_labels = fieldnames( tta_out );
-num_classifier_labels = length(classifier_labels);
+num_simulations = length(classifier_labels);
 
 % for each set of statistical results
 %cpa_label_groups = {'Condition Analysis', 'Accuracy' 'True Condition', 'Prevalence', 'Predicted Condition', 'Diagnostic Analysis'};
 %cpa_labels = {'True Positives', 'False Positives', 'False Negatives', 'True Negatives', 'Accuracy', 'True Positive Rate', 'False Negative Rate', 'False Positive Rate', 'True Negative Rate', 'Prevalence', 'Positive Likelyhood Ratio', 'Negative Likelyhood Ratio', 'Diagnostic Odds Ratio'};
 
-accuracy = zeros(num_classifier_labels, 1);
-prevalence = zeros(num_classifier_labels, 1);
-sensitivity = zeros(num_classifier_labels, 1);
-specificity = zeros(num_classifier_labels, 1);
+accuracy = zeros(num_simulations, 1);
+recall = zeros(num_simulations, 1);
+precision = zeros(num_simulations, 1);
+prevalence = zeros(num_simulations, 1);
+sensitivity = zeros(num_simulations, 1);
+specificity = zeros(num_simulations, 1);
     
-for i = 1:num_classifier_labels
+for i = 1:num_simulations
 
-    stats = tta_out.(classifier_labels{i}).cpa_out;
+    % TODO:
+    % go to folder
+    
+    stats = tta_out.cpa_out;
 
     accuracy(i) = stats.accuracy;
+    recall(i) = stats.recall;
+    precision(i) = stats.precision;
     prevalence(i) = stats.prevalence;
-    sensitivity(i) = stats.true_condition(1);
-    specificity(i) = stats.true_condition(4);
+    sensitivity(i) = stats.sensitivity;
+    specificity(i) = stats.specificity;
 
 end
 
 % Accuracy
-figure('Visible','off')
+figure;
 plot(accuracy)
 
 title('Accuracy of Classifier')
@@ -56,7 +52,7 @@ xlabel('Classifier')
 save_png(SIMULATION_PATH, 'accuracy'); 
 
 % Prevalence
-figure('Visible','off')
+figure;
 plot(prevalence)
 
 title('Prevalence of Classifier')
@@ -69,7 +65,7 @@ xlabel('Classifier')
 save_png(SIMULATION_PATH, 'prevalence'); 
 
 % Sensitivity
-figure('Visible','off')
+figure;
 plot(sensitivity)
 
 title('Sensitivity of Classifier')
@@ -82,7 +78,7 @@ xlabel('Classifier')
 save_png(SIMULATION_PATH, 'sensitivity'); 
 
 % Specificity
-figure('Visible','off')
+figure;
 plot(specificity)
 
 title('Specificity of Classifier')

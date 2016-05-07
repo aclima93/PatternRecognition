@@ -1,5 +1,5 @@
-function [ classification_performance ] = classification_performance_analysis( expected_y, predicted_y )
-%CLASSIFICATION_ACCURACY Summary of this function goes here
+function [ classification_performance ] = classification_analysis( expected_y, predicted_y )
+%CLASSIFICATION_ACCURACY Analysis of classification
 %   True positive = correctly identified
 %   False positive = incorrectly identified
 %   True negative = correctly rejected
@@ -8,15 +8,36 @@ function [ classification_performance ] = classification_performance_analysis( e
 % --------------------------------------------------------
 % Calculate accuracy based on predicted and actual results
 
-confusion_matrix = confusionmat(expected_y, predicted_y);
+[C,CM,IND,PER] = confusion(expected_y, predicted_y);
+
+% ----------------
+% confusion matrix
+figure;
+plotconfusion(expected_y, predicted_y);
+save_png(SIMULATION_PATH, 'confusion_matrix'); 
+
+% ----------
+% ROC Curves
+figure;
+plotroc(expected_y, predicted_y);
+save_png(SIMULATION_PATH, 'roc'); 
+
+% TODO
+%{
+% ---------
+% F-measure
+
+
+%}
+
 
 % coherent payment
-false_negatives = confusion_matrix(1,1);
-true_negatives = confusion_matrix(1,2);
+false_negatives = CM(1,1);
+true_negatives = CM(1,2);
 
 % default payment
-true_positives = confusion_matrix(2,1);
-false_positives = confusion_matrix(2,2);
+true_positives = CM(2,1);
+false_positives = CM(2,2);
 
 % ------------------- %
 % Analysis of results %
@@ -32,9 +53,6 @@ predicted_condition_negative = false_negatives + true_negatives;
 
 % -----------------------
 % True Condition Analysis
-
-% Accuracy of predictions
-accuracy = (true_positives + true_negatives) / population;
 
 % True positive rate
 TPR = true_positives / (true_condition_positive);
@@ -52,9 +70,6 @@ true_condition = [TPR, FNR, FPR, TNR];
 
 % ----------------------------
 % Predicted Condition Analysis
-
-% Prevalence
-prevalence = true_condition_positive / population;
 
 % Positive prediction value
 PPV = true_positives / predicted_condition_positive;
@@ -84,7 +99,21 @@ DOR = PLR / NLR;
 
 diagnostic_analysis = [PLR, NLR, DOR];
 
-classification_performance = struct('confusion_matrix', confusion_matrix, 'accuracy', accuracy, 'true_condition', true_condition, 'prevalence', prevalence, 'predicted_condition', predicted_condition, 'diagnostic_analysis', diagnostic_analysis);
+% ---------------------
+% Statistical Relevance
+accuracy = (true_positives + true_negatives) / population;
+
+precision = true_positives / false_positives;
+
+recall = true_positives / true_condition_positive;
+
+prevalence = true_condition_positive / population;
+
+sensitivity = TPR;
+
+specificity = TNR;
+
+classification_performance = struct('confusion_matrix', CM, 'accuracy', accuracy, 'precision', precision, 'recall', recall, 'prevalence', prevalence, 'sensitivity', sensitivity, 'specificity', specificity, 'true_condition', true_condition, 'predicted_condition', predicted_condition, 'diagnostic_analysis', diagnostic_analysis);
 
 end
 %EOF

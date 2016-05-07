@@ -64,8 +64,6 @@ end
 % ----------------------------------------------------------------- %
 
 disp('Performing training and testing...');
-tta_out = train_test_analysis( data.X, data.y);
-
-save( strcat(SIMULATION_PATH, '/results.mat'), 'tta_out');
+train_test_analysis( data.X, data.y);
 
 %EOF

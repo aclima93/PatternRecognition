@@ -149,8 +149,8 @@ MATLAB_DT_FLAG = 0;
 % Performance Results %
 % ------------------- %
 
-% TODO: do not run 'performance_results' untill all simulations have been ran
+% TODO: do not run 'performance_comparison' untill all simulations have been ran
 
-%run('performance_results');
+%run('performance_comparison');
 
 %EOF
