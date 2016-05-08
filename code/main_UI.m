@@ -57,11 +57,6 @@ handles.output = hObject;
 % Update handles structure
 guidata(hObject, handles);
 
-%initialize_gui(hObject, handles, false);
-
-% UIWAIT makes main_UI wait for user response (see UIRESUME)
-% uiwait(handles.figure1);
-
 
 % --- Outputs from this function are returned to the command line.
 function varargout = main_UI_OutputFcn(hObject, eventdata, handles)
@@ -72,12 +67,6 @@ function varargout = main_UI_OutputFcn(hObject, eventdata, handles)
 
 % Get default command line output from handles structure
 varargout{1} = handles.output;
-
-% --------------------------------------------------------------------
-function initialize_gui(fig_handle, handles, isreset)
-
-% Update handles structure
-guidata(handles.figure1, handles);
 
 
 % --- Executes on button press in run_btn.

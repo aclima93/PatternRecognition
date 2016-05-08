@@ -1,5 +1,6 @@
 
 global UI_MODE
+global SIMULATION_PATH
 
 global MATLAB_LDC_FLAG
 global EDC_FLAG
@@ -13,7 +14,7 @@ global KNN_FLAG
 % ------------------------------------ %
 
 % Split the data into stratified samples
-[train_X, test_X, train_y, test_y] = split_data(data.X, data.y);
+[train_X, test_X, train_y, expected_y] = split_data(data.X, data.y);
 
 % --------------------------- %
 % Classification + Prediction %
@@ -29,23 +30,19 @@ if MATLAB_LDC_FLAG == 1
 
     % Test the classifier with remaining data
     [predicted_y, ~, ~] = predict(classifier, test_X');
-
     predicted_y = predicted_y';
-    expected_y = test_y;
 
 % -----------------------------
 % Euclidian Linear Discriminant
 elseif EDC_FLAG == 1
     
     predicted_y = euclidean_discriminant(train_X, train_y, test_X);
-    expected_y = test_y;
 
 % -------------------------------
 % Mahalanobis Linear Discriminant
 elseif MDC_FLAG == 1
     
     predicted_y = mahalanobis_discriminant(train_X, train_y, test_X);
-    expected_y = test_y;
 
 % ---------------------------
 % Matlab Binary Decision Tree
@@ -60,15 +57,14 @@ elseif MATLAB_DT_FLAG == 1
     
     % test the decision tree    
     predicted_y = predict(tree, test_X');
-    expected_y = test_y';
+    predicted_y = predicted_y';
 
 % ----------------------
 % Support Vector Machine
 elseif SVN_FLAG == 1
     
     classifier = fitcsvm(train_X, train_y);
-    predicted_y = predict(classifier,test_X);
-    expected_y = test_y;
+    predicted_y = predict(classifier, test_X);
 
 
 % --------------------
@@ -82,8 +78,7 @@ elseif KNN_FLAG == 1
     k = sqrt( length(train_X) );
     
     classifier = fitcknn(train_X, train_y, 'NumNeighbors', k);
-    predicted_y = predict(classifier,test_X);
-    expected_y = test_y;
+    predicted_y = predict(classifier, test_X);
 
 end
 

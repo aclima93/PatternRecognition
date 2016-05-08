@@ -5,6 +5,8 @@ function [ classification_performance ] = classification_analysis( expected_y, p
 %   True negative = correctly rejected
 %   False negative = incorrectly rejected
 
+global SIMULATION_PATH
+
 % --------------------------------------------------------
 % Calculate accuracy based on predicted and actual results
 

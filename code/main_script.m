@@ -10,8 +10,10 @@ global REFERENCE_PATH
 global SIMULATION_COUNTER
 global SIMULATION_PATH
 
-if ~UI_MODE
+if UI_MODE == 0
     SIMULATION_PATH = sprintf('%s/%d', REFERENCE_PATH, SIMULATION_COUNTER);
+else
+    SIMULATION_PATH = REFERENCE_PATH;
 end
 
 % delete previously obtained results for same configuration

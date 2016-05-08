@@ -1,6 +1,10 @@
+clc;
+close all;
+clear;
+
 
 % Construct a questdlg with two options
-choice = questdlg('Which one would you like to run?', 'PR 2015/16', 'Custom Simulation','All Simulations', 'Interesting Simulations','GUI Simulation');
+choice = questdlg('Which one would you like to run?', 'PR 2015/16', 'Custom Simulation','All Simulations', 'Interesting Simulations','Custom Simulation');
 
 global UI_MODE
 global SAVE_FIG_FLAG
@@ -9,7 +13,7 @@ global REFERENCE_PATH
 
 % Handle response
 switch choice
-    case 'GUI Simulation'
+    case 'Custom Simulation'
         
         UI_MODE = 1;
         SAVE_FIG_FLAG = 1;
