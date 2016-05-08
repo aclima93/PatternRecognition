@@ -2,18 +2,10 @@
 % Compare Performance Results %
 % --------------------------- %
 
-% TODO compare all the simulations, don't just plot for each one
-% individually. Do somethign smart!!!
-
 global SIMULATION_PATH
 
-% for each simulation
-
-num_simulations = length(classifier_labels);
-
-% for each set of statistical results
-%cpa_label_groups = {'Condition Analysis', 'Accuracy' 'True Condition', 'Prevalence', 'Predicted Condition', 'Diagnostic Analysis'};
-%cpa_labels = {'True Positives', 'False Positives', 'False Negatives', 'True Negatives', 'Accuracy', 'True Positive Rate', 'False Negative Rate', 'False Positive Rate', 'True Negative Rate', 'Prevalence', 'Positive Likelyhood Ratio', 'Negative Likelyhood Ratio', 'Diagnostic Odds Ratio'};
+% TODO: for each simulation
+num_simulations = 0;
 
 accuracy = zeros(num_simulations, 1);
 recall = zeros(num_simulations, 1);
@@ -21,6 +13,7 @@ precision = zeros(num_simulations, 1);
 prevalence = zeros(num_simulations, 1);
 sensitivity = zeros(num_simulations, 1);
 specificity = zeros(num_simulations, 1);
+f_measure = zeros(num_simulations, 1);
     
 for i = 1:num_simulations
 
@@ -35,6 +28,7 @@ for i = 1:num_simulations
     prevalence(i) = stats.prevalence;
     sensitivity(i) = stats.sensitivity;
     specificity(i) = stats.specificity;
+    f_measure(i) = stats.f_measure;
 
 end
 
@@ -42,25 +36,39 @@ end
 figure;
 plot(accuracy)
 
-title('Accuracy of Classifier')
-ax = gca;
-ax.XTickLabel = classifier_labels;
-ax.XTick = 1:length(ax.XTickLabel);
+title('Accuracy of Simulations')
 ylabel('Accuracy')
-xlabel('Classifier')
+xlabel('Simulation')
 
 save_png(SIMULATION_PATH, 'accuracy'); 
+
+% Recall
+figure;
+plot(recall)
+
+title('Recall of Simulations')
+ylabel('Recall')
+xlabel('Simulation')
+
+save_png(SIMULATION_PATH, 'recall'); 
+
+% Precision
+figure;
+plot(precision)
+
+title('Precision of Simulations')
+ylabel('Precision')
+xlabel('Simulation')
+
+save_png(SIMULATION_PATH, 'precision'); 
 
 % Prevalence
 figure;
 plot(prevalence)
 
-title('Prevalence of Classifier')
-ax = gca;
-ax.XTickLabel = classifier_labels;
-ax.XTick = 1:length(ax.XTickLabel);
+title('Prevalence of Simulations')
 ylabel('Prevalence')
-xlabel('Classifier')
+xlabel('Simulation')
 
 save_png(SIMULATION_PATH, 'prevalence'); 
 
@@ -68,26 +76,30 @@ save_png(SIMULATION_PATH, 'prevalence');
 figure;
 plot(sensitivity)
 
-title('Sensitivity of Classifier')
-ax = gca;
-ax.XTickLabel = classifier_labels;
-ax.XTick = 1:length(ax.XTickLabel);
+title('Sensitivity of Simulations')
 ylabel('Sensitivity')
-xlabel('Classifier')
+xlabel('Simulation')
 
-save_png(SIMULATION_PATH, 'sensitivity'); 
+save_png(SIMULATION_PATH, 'sensitivity');
 
 % Specificity
 figure;
 plot(specificity)
 
-title('Specificity of Classifier')
-ax = gca;
-ax.XTickLabel = classifier_labels;
-ax.XTick = 1:length(ax.XTickLabel);
+title('Specificity of Simulations')
 ylabel('Specificity')
-xlabel('Classifier')
+xlabel('Simulation')
 
 save_png(SIMULATION_PATH, 'specificity'); 
+
+% F-Measure
+figure;
+plot(f_measure)
+
+title('F-Measure of Simulations')
+ylabel('F-Measure')
+xlabel('Simulation')
+
+save_png(SIMULATION_PATH, 'f_measure'); 
 
 %EOF

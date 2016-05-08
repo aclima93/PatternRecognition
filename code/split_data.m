@@ -1,4 +1,4 @@
-function [ classifier_data ] = split_data( X, y )
+function [ train_X, test_X, train_y, test_y ] = split_data( X, y )
 %SPLIT_DATA Create a stratified training dataset
 % 70% of 0 class samples and 70% of 1 class samples for training and
 % vice versa for testing. Random sampling can bias the classifier's
@@ -54,7 +54,5 @@ else
     
 end
 
-classifier_data = struct('train_X', train_X, 'test_X', test_X, 'train_y', train_y, 'test_y', test_y);
-
 end
-
+%EOF

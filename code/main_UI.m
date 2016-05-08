@@ -157,14 +157,14 @@ TRAINING_RATIO = str2double(get(handles.splitting_edt, 'String'));
 global STRATIFIED_FLAG
 STRATIFIED_FLAG = get(handles.splitting_chk, 'Value');
 
-global MATLAB_LDC_FLAG EDC_FLAG MDC_FLAG MATLAB_DT_FLAG
+global MATLAB_LDC_FLAG EDC_FLAG MDC_FLAG MATLAB_DT_FLAG SVN_FLAG KNN_FLAG
 item_list = get(handles.classifier_pop,'String');
 selected_item_value = get(handles.classifier_pop,'Value');
 selected_item_idx = item_list{selected_item_value};
 item_flags = zeros(1, length(item_list));
 item_flags(selected_item_idx) = 1;
 item_flags = num2cell(item_flags);
-[MATLAB_LDC_FLAG, EDC_FLAG, MDC_FLAG, MATLAB_DT_FLAG] = item_flags{:};
+[MATLAB_LDC_FLAG, EDC_FLAG, MDC_FLAG, MATLAB_DT_FLAG, SVN_FLAG, KNN_FLAG] = item_flags{:};
 
 close all;
 clc;
