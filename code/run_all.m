@@ -1,4 +1,6 @@
 
+rng(666); % For reproducibility
+
 global NORMALIZE_FLAG
 
 global FEATURE_SELECTION_FLAG

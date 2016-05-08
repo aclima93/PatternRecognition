@@ -22,15 +22,6 @@ figure;
 plotroc(expected_y, predicted_y);
 save_png(SIMULATION_PATH, 'roc'); 
 
-% TODO
-%{
-% ---------
-% F-measure
-
-
-%}
-
-
 % coherent payment
 false_negatives = CM(1,1);
 true_negatives = CM(1,2);

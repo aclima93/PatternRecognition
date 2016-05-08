@@ -6,11 +6,12 @@ global NORMALIZE_FLAG
 global FEATURE_SELECTION_FLAG 
 global FEATURE_REDUCTION_FLAG
 
+global REFERENCE_PATH
 global SIMULATION_COUNTER
 global SIMULATION_PATH
 
 if ~UI_MODE
-    SIMULATION_PATH = sprintf('%s/%d', SIMULATION_PATH, SIMULATION_COUNTER);
+    SIMULATION_PATH = sprintf('%s/%d', REFERENCE_PATH, SIMULATION_COUNTER);
 end
 
 % delete previously obtained results for same configuration
@@ -27,11 +28,18 @@ save_flags();
 
 % ------------
 % Load dataset
-original_data = load(DATASET_PATH);
-data = original_data;
-if VISUALIZE_DATA_FLAG
-    plot_data(data.X, data.labels, data.dim, data.num_data);
+% (if not already loaded)
+if ~exist('original_data', 'var')
+    
+    original_data = load(DATASET_PATH);
+    data = original_data;
+    if VISUALIZE_DATA_FLAG
+        plot_data(data.X, data.labels, data.dim, data.num_data);
+    end
 end
+
+% start simulation timer
+start_time = tic;
 
 % --------------
 % Normalize data

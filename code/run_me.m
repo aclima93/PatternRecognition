@@ -5,7 +5,7 @@ choice = questdlg('Which one would you like to run?', 'PR 2015/16', 'Custom Simu
 global UI_MODE
 global SAVE_FIG_FLAG
 global VISUALIZE_DATA_FLAG
-global SIMULATION_PATH
+global REFERENCE_PATH
 
 % Handle response
 switch choice
@@ -14,7 +14,7 @@ switch choice
         UI_MODE = 1;
         SAVE_FIG_FLAG = 1;
         VISUALIZE_DATA_FLAG = 1;
-        SIMULATION_PATH = '../images/custom_simulations';
+        REFERENCE_PATH = '../images/custom_simulations';
         
         run('main_UI');
         
@@ -23,7 +23,7 @@ switch choice
         UI_MODE = 0;
         SAVE_FIG_FLAG = 1;
         VISUALIZE_DATA_FLAG = 0;
-        SIMULATION_PATH = '../images/all_simulations';
+        REFERENCE_PATH = '../images/all_simulations';
         
         run('run_all');
         
@@ -32,7 +32,7 @@ switch choice
         UI_MODE = 0;
         SAVE_FIG_FLAG = 1;
         VISUALIZE_DATA_FLAG = 0;
-        SIMULATION_PATH = '../images/interesting_simulations';
+        REFERENCE_PATH = '../images/interesting_simulations';
         
         run('run_simulations');
         

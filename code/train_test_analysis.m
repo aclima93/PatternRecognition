@@ -65,12 +65,15 @@ elseif MATLAB_DT_FLAG == 1
 % ----------------------
 % Support Vector Machine
 elseif SVN_FLAG == 1
-
-    % TODO
+    
+    classifier = fitcsvm(train_X, train_y);
+    predicted_y = predict(classifier,test_X);
+    expected_y = test_y;
 
 
 % --------------------
 % k Nearest Neighbours
+% http://www.mathworks.com/help/stats/classification-using-nearest-neighbors.html#btap7nm
 elseif KNN_FLAG == 1
     
     % number of neighbours equal to the square root of the number of
@@ -86,7 +89,8 @@ end
 
 % Classification Analysis
 cpa_out = classification_analysis(expected_y, predicted_y);
-tta_out = struct('expected_y', expected_y, 'predicted_y', predicted_y, 'cpa_out', cpa_out);
+simulation_time = toc(start_time); % end simulation timer
+tta_out = struct('expected_y', expected_y, 'predicted_y', predicted_y, 'cpa_out', cpa_out, 'simulation_time', simulation_time);
 
 save( strcat(SIMULATION_PATH, '/results.mat'), 'tta_out');
 
