@@ -64,6 +64,6 @@ end
 % ----------------------------------------------------------------- %
 
 disp('Performing training and testing...');
-train_test_analysis( data.X, data.y);
+run('train_test_analysis');
 
 %EOF

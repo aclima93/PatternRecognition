@@ -1,6 +1,3 @@
-function train_test_analysis( X, y )
-%TRAIN_TEST_ANALYSE Summary of this function goes here
-%   Detailed explanation goes here
 
 global UI_MODE
 
@@ -8,72 +5,83 @@ global MATLAB_LDC_FLAG
 global EDC_FLAG
 global MDC_FLAG
 global MATLAB_DT_FLAG
+global SVN_FLAG
+global KNN_FLAG
 
 % ------------------------------------ %
 % Dataset Split + Training and Testing %
 % ------------------------------------ %
 
 % Split the data into stratified samples
-classifier_data = split_data(X, y);
-expected_y = [];
-predicted_y = [];
+[train_X, test_X, train_y, test_y] = split_data(data.X, data.y);
 
-% TODO: Matlab functions will without a doubt be better so we will only test them with regard to the final results
+% --------------------------- %
+% Classification + Prediction %
+% --------------------------- %
 
-% --------------------------------------- %
-% Matlab's Linear Discriminant Classifier %
-% --------------------------------------- %
+% ---------------------------------------
+% Matlab's Linear Discriminant Classifier
 % http://www.mathworks.com/help/stats/discriminant-analysis.html
-
-if MATLAB_LDC_FLAG
+if MATLAB_LDC_FLAG == 1
+    
     % Train the classifier
-    classifier = fitcdiscr(classifier_data.train_X', classifier_data.train_y', 'DiscrimType', 'linear');
+    classifier = fitcdiscr(train_X', train_y', 'DiscrimType', 'linear');
 
     % Test the classifier with remaining data
-    [predicted_y, ~, ~] = predict(classifier, classifier_data.test_X');
+    [predicted_y, ~, ~] = predict(classifier, test_X');
 
     predicted_y = predicted_y';
-    expected_y = classifier_data.test_y;
-end
-
-% ---------------------------- %
-% Minimum Distance Classifiers %
-% ---------------------------- %
+    expected_y = test_y;
 
 % -----------------------------
 % Euclidian Linear Discriminant
-
-if EDC_FLAG
-    predicted_y = euclidean_discriminant(classifier_data.train_X, classifier_data.train_y, classifier_data.test_X);
-    expected_y = classifier_data.test_y;
-end
-
-% -----------------------------
-% Normalized Euclidian Distance (maybe don't do this one because of assumption?)
+elseif EDC_FLAG == 1
+    
+    predicted_y = euclidean_discriminant(train_X, train_y, test_X);
+    expected_y = test_y;
 
 % -------------------------------
 % Mahalanobis Linear Discriminant
+elseif MDC_FLAG == 1
+    
+    predicted_y = mahalanobis_discriminant(train_X, train_y, test_X);
+    expected_y = test_y;
 
-if MDC_FLAG
-    predicted_y = mahalanobis_discriminant(classifier_data.train_X, classifier_data.train_y, classifier_data.test_X);
-    expected_y = classifier_data.test_y;
-end
-
-% --------------------------- %
-% Matlab Binary Decision Tree %
-% --------------------------- %
-
-if MATLAB_DT_FLAG
+% ---------------------------
+% Matlab Binary Decision Tree
+elseif MATLAB_DT_FLAG == 1
+    
     % train the decision tree
-    tree = fitctree(classifier_data.train_X', classifier_data.train_y');
+    tree = fitctree(train_X', train_y');
 
     if UI_MODE
         view(tree,'Mode','Graph');
     end
     
     % test the decision tree    
-    predicted_y = predict(tree, classifier_data.test_X');
-    expected_y = classifier_data.test_y';
+    predicted_y = predict(tree, test_X');
+    expected_y = test_y';
+
+% ----------------------
+% Support Vector Machine
+elseif SVN_FLAG == 1
+
+    % TODO
+
+
+% --------------------
+% k Nearest Neighbours
+elseif KNN_FLAG == 1
+    
+    % number of neighbours equal to the square root of the number of
+    % instances is an empirical rule-of-thumb popularized by the 
+    % "Pattern Classification" book by Duda et al.
+    k = sqrt( length(train_X) );
+    
+    classifier = fitcknn(train_X, train_y, 'NumNeighbors', k);
+    predicted_y = predict(classifier,test_X);
+    expected_y = test_y;
+
 end
 
 % Classification Analysis
@@ -82,5 +90,4 @@ tta_out = struct('expected_y', expected_y, 'predicted_y', predicted_y, 'cpa_out'
 
 save( strcat(SIMULATION_PATH, '/results.mat'), 'tta_out');
 
-end
-
+%EOF

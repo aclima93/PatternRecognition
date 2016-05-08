@@ -113,7 +113,9 @@ sensitivity = TPR;
 
 specificity = TNR;
 
-classification_performance = struct('confusion_matrix', CM, 'accuracy', accuracy, 'precision', precision, 'recall', recall, 'prevalence', prevalence, 'sensitivity', sensitivity, 'specificity', specificity, 'true_condition', true_condition, 'predicted_condition', predicted_condition, 'diagnostic_analysis', diagnostic_analysis);
+f_measure = precision * recall;
+
+classification_performance = struct('confusion_matrix', CM, 'accuracy', accuracy, 'precision', precision, 'recall', recall, 'prevalence', prevalence, 'sensitivity', sensitivity, 'specificity', specificity, 'f_measure', f_measure, 'true_condition', true_condition, 'predicted_condition', predicted_condition, 'diagnostic_analysis', diagnostic_analysis);
 
 end
 %EOF

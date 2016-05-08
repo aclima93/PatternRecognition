@@ -1,8 +1,4 @@
 
-clear;
-close all;
-clc;
-
 global NORMALIZE_FLAG
 
 global FEATURE_SELECTION_FLAG
@@ -30,6 +26,8 @@ global MATLAB_LDC_FLAG
 global EDC_FLAG
 global MDC_FLAG
 global MATLAB_DT_FLAG
+global SVN_FLAG
+global KNN_FLAG
 
 global SIMULATION_COUNTER
 SIMULATION_COUNTER = 1;
@@ -83,10 +81,10 @@ for NORMALIZE_FLAG = 0:1
                 % Classifier
                 
                 % Purpose: compare the results of different classifiers
-                permutations3 = num2cell(unique(perms([1,0,0,0]), 'rows'));
+                permutations3 = num2cell(unique(perms([1,0,0,0,0,0]), 'rows'));
                 [r3,~] = size(permutations3);
                 for i3 = 1:r3
-                    [MATLAB_LDC_FLAG, EDC_FLAG, MDC_FLAG, MATLAB_DT_FLAG] = permutations3{i3,:};
+                    [MATLAB_LDC_FLAG, EDC_FLAG, MDC_FLAG, MATLAB_DT_FLAG, SVN_FLAG, KNN_FLAG] = permutations3{i3,:};
                     
                     % run for this configuration
                     disp(SIMULATION_COUNTER)

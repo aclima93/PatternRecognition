@@ -1,8 +1,4 @@
 
-clear;
-close all;
-clc;
-
 global NORMALIZE_FLAG
 
 global FEATURE_SELECTION_FLAG
@@ -30,6 +26,8 @@ global MATLAB_LDC_FLAG
 global EDC_FLAG
 global MDC_FLAG
 global MATLAB_DT_FLAG
+global SVN_FLAG
+global KNN_FLAG
 
 global SIMULATION_COUNTER
 SIMULATION_COUNTER = 1;
@@ -138,6 +136,8 @@ MATLAB_LDC_FLAG = 1;
 EDC_FLAG = 0;
 MDC_FLAG = 0;
 MATLAB_DT_FLAG = 0;
+SVN_FLAG = 0;
+KNN_FLAG = 0;
 
 
 
