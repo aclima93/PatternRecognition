@@ -74,6 +74,6 @@ end
 % ----------------------------------------------------------------- %
 
 disp('Performing training and testing...');
-run('train_test_analysis');
+run('train_test_classify');
 
 %EOF

@@ -32,10 +32,13 @@ global SCREE_TEST_THRESHOLD
 global STRATIFIED_FLAG
 global TRAINING_RATIO
 
-global MATLAB_LDC_FLAG
-global EDC_FLAG
-global MDC_FLAG
-global MATLAB_DT_FLAG
+global VOTER_FLAG
+global C1_MATLAB_LDC_FLAG C1_EDC_FLAG C1_MDC_FLAG C1_MATLAB_DT_FLAG C1_SVN_FLAG C1_KNN_FLAG
+global C2_MATLAB_LDC_FLAG C2_EDC_FLAG C2_MDC_FLAG C2_MATLAB_DT_FLAG C2_SVN_FLAG C2_KNN_FLAG
+global C3_MATLAB_LDC_FLAG C3_EDC_FLAG C3_MDC_FLAG C3_MATLAB_DT_FLAG C3_SVN_FLAG C3_KNN_FLAG
+
+global VALIDATION_FLAG
+global VALIDATION_DATASET_PATH
 
 configuration = struct;
 
@@ -67,10 +70,31 @@ configuration(:).SCREE_TEST_THRESHOLD = SCREE_TEST_THRESHOLD;
 configuration(:).STRATIFIED_FLAG = STRATIFIED_FLAG;
 configuration(:).TRAINING_RATIO = TRAINING_RATIO;
 
-configuration(:).MATLAB_LDC_FLAG = MATLAB_LDC_FLAG;
-configuration(:).EDC_FLAG = EDC_FLAG;
-configuration(:).MDC_FLAG = MDC_FLAG;
-configuration(:).MATLAB_LDC_FLAG = MATLAB_DT_FLAG;
+configuration(:).VOTER_FLAG = VOTER_FLAG;
+
+configuration(:).C1_MATLAB_LDC_FLAG = C1_MATLAB_LDC_FLAG;
+configuration(:).C1_EDC_FLAG = C1_EDC_FLAG;
+configuration(:).C1_MDC_FLAG = C1_MDC_FLAG;
+configuration(:).C1_MATLAB_DT_FLAG = C1_MATLAB_DT_FLAG;
+configuration(:).C1_SVN_FLAG = C1_SVN_FLAG;
+configuration(:).C1_KNN_FLAG = C1_KNN_FLAG;
+
+configuration(:).C2_MATLAB_LDC_FLAG = C2_MATLAB_LDC_FLAG;
+configuration(:).C2_EDC_FLAG = C2_EDC_FLAG;
+configuration(:).C2_MDC_FLAG = C2_MDC_FLAG;
+configuration(:).C2_MATLAB_DT_FLAG = C2_MATLAB_DT_FLAG;
+configuration(:).C2_SVN_FLAG = C2_SVN_FLAG;
+configuration(:).C2_KNN_FLAG = C2_KNN_FLAG;
+
+configuration(:).C3_MATLAB_LDC_FLAG = C3_MATLAB_LDC_FLAG;
+configuration(:).C3_EDC_FLAG = C3_EDC_FLAG;
+configuration(:).C3_MDC_FLAG = C3_MDC_FLAG;
+configuration(:).C3_MATLAB_DT_FLAG = C3_MATLAB_DT_FLAG;
+configuration(:).C3_SVN_FLAG = C3_SVN_FLAG;
+configuration(:).C3_KNN_FLAG = C3_KNN_FLAG;
+
+configuration(:).VALIDATION_FLAG = VALIDATION_FLAG;
+configuration(:).VALIDATION_DATASET_PATH = VALIDATION_DATASET_PATH;
 
 % save flags struct into the specified path
 
