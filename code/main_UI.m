@@ -82,9 +82,6 @@ function run_btn_Callback(hObject, eventdata, handles)
 global DATASET_PATH
 DATASET_PATH = get(handles.dataset_path_edt, 'String');
 
-global VALIDATION_DATASET_PATH
-VALIDATION_DATASET_PATH = get(handles.validation_dataset_path_edt, 'String');
-
 global NORMALIZE_FLAG
 NORMALIZE_FLAG = get(handles.normalize_data_chk, 'Value');
 
@@ -157,6 +154,12 @@ item_flags = zeros(1, length(item_list));
 item_flags(selected_item_idx) = 1;
 item_flags = num2cell(item_flags);
 [MATLAB_LDC_FLAG, EDC_FLAG, MDC_FLAG, MATLAB_DT_FLAG, SVN_FLAG, KNN_FLAG] = item_flags{:};
+
+global VALIDATION_FLAG
+VALIDATION_FLAG = get(handles.validate_classifier_chk, 'Value');
+
+global VALIDATION_DATASET_PATH
+VALIDATION_DATASET_PATH = get(handles.validation_dataset_path_edt, 'String');
 
 close all;
 clc;
