@@ -22,7 +22,7 @@ function varargout = main_UI(varargin)
 
 % Edit the above text to modify the response to help main_UI
 
-% Last Modified by GUIDE v2.5 01-May-2016 03:29:54
+% Last Modified by GUIDE v2.5 16-May-2016 15:09:15
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -81,6 +81,9 @@ function run_btn_Callback(hObject, eventdata, handles)
 
 global DATASET_PATH
 DATASET_PATH = get(handles.dataset_path_edt, 'String');
+
+global VALIDATION_DATASET_PATH
+VALIDATION_DATASET_PATH = get(handles.validation_dataset_path_edt, 'String');
 
 global NORMALIZE_FLAG
 NORMALIZE_FLAG = get(handles.normalize_data_chk, 'Value');
@@ -199,6 +202,13 @@ set(handles.reduction_method_pop, 'Value', 1);
 
 set(handles.additional_reduction_method_pop, 'Value', 1);
 set(handles.additional_reduction_method_edt, 'String', '1');
+
+% --------------------- %
+% Classifier Validation %
+% --------------------- %
+
+set(handles.feature_reduction_chk, 'Value', 1);
+set(handles.dataset_path_edt, 'String', '../data/validation_dataset.mat');
 
 % ------------------- %
 % Performance Results %
@@ -524,3 +534,52 @@ function splitting_chk_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of splitting_chk
+
+
+% --- Executes on button press in validate_classifier_chk.
+function validate_classifier_chk_Callback(hObject, eventdata, handles)
+% hObject    handle to validate_classifier_chk (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of validate_classifier_chk
+state = get(hObject,'Value');
+if state
+    state = 'on';
+else
+    state = 'off';
+end
+set(findall(handles.validation_pnl, '-property', 'enable'), 'enable', state);
+
+
+
+function validation_dataset_path_edt_Callback(hObject, eventdata, handles)
+% hObject    handle to validation_dataset_path_edt (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of validation_dataset_path_edt as text
+%        str2double(get(hObject,'String')) returns contents of validation_dataset_path_edt as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function validation_dataset_path_edt_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to validation_dataset_path_edt (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in validation_browse_btn.
+function validation_browse_btn_Callback(hObject, eventdata, handles)
+% hObject    handle to validation_browse_btn (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+[FileName, PathName, ~] = uigetfile('*.mat');
+set(handles.validation_dataset_path_edt, 'String', sprintf('%s%s', PathName, FileName));
