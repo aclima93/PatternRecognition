@@ -22,7 +22,7 @@ function varargout = main_UI(varargin)
 
 % Edit the above text to modify the response to help main_UI
 
-% Last Modified by GUIDE v2.5 16-May-2016 15:09:15
+% Last Modified by GUIDE v2.5 16-May-2016 18:28:31
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -147,8 +147,8 @@ global STRATIFIED_FLAG
 STRATIFIED_FLAG = get(handles.splitting_chk, 'Value');
 
 global MATLAB_LDC_FLAG EDC_FLAG MDC_FLAG MATLAB_DT_FLAG SVN_FLAG KNN_FLAG
-item_list = get(handles.classifier_pop,'String');
-selected_item_value = get(handles.classifier_pop,'Value');
+item_list = get(handles.classifier_1_pop,'String');
+selected_item_value = get(handles.classifier_1_pop,'Value');
 selected_item_idx = item_list{selected_item_value};
 item_flags = zeros(1, length(item_list));
 item_flags(selected_item_idx) = 1;
@@ -210,8 +210,8 @@ set(handles.additional_reduction_method_edt, 'String', '1');
 % Classifier Validation %
 % --------------------- %
 
-set(handles.feature_reduction_chk, 'Value', 1);
-set(handles.dataset_path_edt, 'String', '../data/validation_dataset.mat');
+set(handles.voter_chk, 'Value', 1);
+set(handles.validation_dataset_path_edt, 'String', '../data/validation_dataset.mat');
 
 % ------------------- %
 % Performance Results %
@@ -484,19 +484,19 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-% --- Executes on selection change in classifier_pop.
-function classifier_pop_Callback(hObject, eventdata, handles)
-% hObject    handle to classifier_pop (see GCBO)
+% --- Executes on selection change in classifier_1_pop.
+function classifier_1_pop_Callback(hObject, eventdata, handles)
+% hObject    handle to classifier_1_pop (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: contents = cellstr(get(hObject,'String')) returns classifier_pop contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from classifier_pop
+% Hints: contents = cellstr(get(hObject,'String')) returns classifier_1_pop contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from classifier_1_pop
 
 
 % --- Executes during object creation, after setting all properties.
-function classifier_pop_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to classifier_pop (see GCBO)
+function classifier_1_pop_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to classifier_1_pop (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -586,3 +586,66 @@ function validation_browse_btn_Callback(hObject, eventdata, handles)
 
 [FileName, PathName, ~] = uigetfile('*.mat');
 set(handles.validation_dataset_path_edt, 'String', sprintf('%s%s', PathName, FileName));
+
+
+% --- Executes on selection change in classifier_2_pop.
+function classifier_2_pop_Callback(hObject, eventdata, handles)
+% hObject    handle to classifier_2_pop (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns classifier_2_pop contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from classifier_2_pop
+
+
+% --- Executes during object creation, after setting all properties.
+function classifier_2_pop_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to classifier_2_pop (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on selection change in classifier_3_pop.
+function classifier_3_pop_Callback(hObject, eventdata, handles)
+% hObject    handle to classifier_3_pop (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns classifier_3_pop contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from classifier_3_pop
+
+
+% --- Executes during object creation, after setting all properties.
+function classifier_3_pop_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to classifier_3_pop (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in voter_chk.
+function voter_chk_Callback(hObject, eventdata, handles)
+% hObject    handle to voter_chk (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of voter_chk
+state = get(hObject,'Value');
+if state
+    state = 'on';
+else
+    state = 'off';
+end
+set(findall(handles.classifier_2_pop, '-property', 'enable'), 'enable', state);
+set(findall(handles.classifier_3_pop, '-property', 'enable'), 'enable', state);
