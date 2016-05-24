@@ -36,7 +36,7 @@ end
 
 num_classifiers = size(classifier_flags, 1);
 voted_predicted_y = zeros(num_classifiers, data.num_data);
-voted_predicted_validation_y = zeros(num_classifiers, data.num_data);
+voted_predicted_application_y = zeros(num_classifiers, data.num_data);
 
 % -------------------------------------------------------------
 % cycle through the used classifiers and: train, test, validate
@@ -62,20 +62,20 @@ for i = 1:num_classifiers
         [predicted_y, ~, ~] = predict(classifier, test_X');
         predicted_y = predicted_y';
         
-        % -----------------------------
-        % Euclidian Linear Discriminant
+    % -----------------------------
+    % Euclidian Linear Discriminant
     elseif EDC_FLAG == 1
         
         predicted_y = euclidean_discriminant(train_X, train_y, test_X);
         
-        % -------------------------------
-        % Mahalanobis Linear Discriminant
+    % -------------------------------
+    % Mahalanobis Linear Discriminant
     elseif MDC_FLAG == 1
         
         predicted_y = mahalanobis_discriminant(train_X, train_y, test_X);
         
-        % ---------------------------
-        % Matlab Binary Decision Tree
+    % ---------------------------
+    % Matlab Binary Decision Tree
     elseif MATLAB_DT_FLAG == 1
         
         % train the decision tree
@@ -89,17 +89,16 @@ for i = 1:num_classifiers
         predicted_y = predict(classifier, test_X');
         predicted_y = predicted_y';
         
-        % ----------------------
-        % Support Vector Machine
+    % ----------------------
+    % Support Vector Machine
     elseif SVN_FLAG == 1
         
         classifier = fitcsvm(train_X, train_y);
         predicted_y = predict(classifier, test_X);
         
-        
-        % --------------------
-        % k Nearest Neighbours
-        % http://www.mathworks.com/help/stats/classification-using-nearest-neighbors.html#btap7nm
+    % --------------------
+    % k Nearest Neighbours
+    % http://www.mathworks.com/help/stats/classification-using-nearest-neighbors.html#btap7nm
     elseif KNN_FLAG == 1
         
         % number of neighbours equal to the square root of the number of
@@ -113,32 +112,39 @@ for i = 1:num_classifiers
     end
     
     if APPLICATION_FLAG == 1
-        validation_data = load(APPLICATION_DATASET_PATH);
+        application_data = load(APPLICATION_DATASET_PATH);
         
         if EDC_FLAG == 1
             
-            predicted_validation_y = euclidean_discriminant(train_X, train_y, validation_data.X);
+            predicted_application_y = euclidean_discriminant(train_X, train_y, application_data.X);
             
         elseif MDC_FLAG == 1
             
-            predicted_validation_y = mahalanobis_discriminant(train_X, train_y, validation_data.X);
+            predicted_application_y = mahalanobis_discriminant(train_X, train_y, application_data.X);
             
         else
-            predicted_validation_y = predict(classifier, validation_data.X);
+            predicted_application_y = predict(classifier, application_data.X);
         end
         
     end
     
     voted_predicted_y(i, :) = predicted_y;
-    voted_predicted_validation_y(i, :) = predicted_validation_y;
+    voted_predicted_application_y(i, :) = predicted_application_y;
     
 end
 
+%{
 % determine majority vote
 for i = 1:data.num_data
     predicted_y(i) = majority( voted_predicted_y(:, i) );
-    predicted_validation_y(i) = majority( voted_predicted_validation_y(:, i) );   
+    predicted_application_y(i) = majority( voted_predicted_application_y(:, i) );
 end
+%}
+% -------------------------------------
+% determine the rounded median of votes
+predicted_y = round(median( voted_predicted_y, 2)' );
+predicted_application_y = round(median( voted_predicted_application_y, 2)' );
+
 
 % -----------------------
 % Classification Analysis
@@ -147,7 +153,7 @@ cpa_out = classification_analysis(expected_y, predicted_y);
 
 simulation_time = toc(start_time); % end simulation timer
 
-tta_out = struct('expected_y', expected_y, 'predicted_y', predicted_y, 'predicted_validation_y', predicted_validation_y, 'cpa_out', cpa_out, 'simulation_time', simulation_time);
+tta_out = struct('expected_y', expected_y, 'predicted_y', predicted_y, 'predicted_application_y', predicted_application_y, 'cpa_out', cpa_out, 'simulation_time', simulation_time);
 
 save( strcat(SIMULATION_PATH, '/results.mat'), 'tta_out');
 
