@@ -106,8 +106,6 @@ end
 % Performance Results %
 % ------------------- %
 
-% TODO: do not run 'performance_results' untill all simulations have been ran
-
-%run('performance_results');
+run('performance_comparison');
 
 %EOF

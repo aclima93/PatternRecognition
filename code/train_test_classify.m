@@ -8,9 +8,6 @@ global C1_MATLAB_LDC_FLAG C1_EDC_FLAG C1_MDC_FLAG C1_MATLAB_DT_FLAG C1_SVN_FLAG 
 global C2_MATLAB_LDC_FLAG C2_EDC_FLAG C2_MDC_FLAG C2_MATLAB_DT_FLAG C2_SVN_FLAG C2_KNN_FLAG
 global C3_MATLAB_LDC_FLAG C3_EDC_FLAG C3_MDC_FLAG C3_MATLAB_DT_FLAG C3_SVN_FLAG C3_KNN_FLAG
 
-global APPLICATION_FLAG
-global APPLICATION_DATASET_PATH
-
 % ------------------------------------ %
 % Dataset Split + Training and Testing %
 % ------------------------------------ %
@@ -18,9 +15,9 @@ global APPLICATION_DATASET_PATH
 % Split the data into stratified samples
 [train_X, test_X, train_y, expected_y] = split_data(data.X, data.y);
 
-% ------------------------------------------ %
-% Classification + Prediction (+ Validation) %
-% ------------------------------------------ %
+% --------------------------- %
+% Classification + Prediction %
+% --------------------------- %
 
 if VOTER_FLAG == 1
     classifier_flags = [
@@ -35,11 +32,11 @@ else
 end
 
 num_classifiers = size(classifier_flags, 1);
-voted_predicted_y = zeros(num_classifiers, data.num_data);
-voted_predicted_application_y = zeros(num_classifiers, data.num_data);
+[~, num_test_samples] = size(test_X);
+voted_predicted_y = zeros(num_classifiers, num_test_samples);
 
-% -------------------------------------------------------------
-% cycle through the used classifiers and: train, test, validate
+% ----------------------------------------------------------
+% cycle through the used classifiers and: train, test, apply
 
 for i = 1:num_classifiers
     
@@ -59,7 +56,7 @@ for i = 1:num_classifiers
         classifier = fitcdiscr(train_X', train_y', 'DiscrimType', 'linear');
         
         % Test the classifier with remaining data
-        [predicted_y, ~, ~] = predict(classifier, test_X');
+        predicted_y = predict(classifier, test_X');
         predicted_y = predicted_y';
         
     % -----------------------------
@@ -111,40 +108,13 @@ for i = 1:num_classifiers
         
     end
     
-    if APPLICATION_FLAG == 1
-        application_data = load(APPLICATION_DATASET_PATH);
-        
-        if EDC_FLAG == 1
-            
-            predicted_application_y = euclidean_discriminant(train_X, train_y, application_data.X);
-            
-        elseif MDC_FLAG == 1
-            
-            predicted_application_y = mahalanobis_discriminant(train_X, train_y, application_data.X);
-            
-        else
-            predicted_application_y = predict(classifier, application_data.X);
-        end
-        
-    end
-    
     voted_predicted_y(i, :) = predicted_y;
-    voted_predicted_application_y(i, :) = predicted_application_y;
     
 end
 
-%{
-% determine majority vote
-for i = 1:data.num_data
-    predicted_y(i) = majority( voted_predicted_y(:, i) );
-    predicted_application_y(i) = majority( voted_predicted_application_y(:, i) );
-end
-%}
 % -------------------------------------
 % determine the rounded median of votes
-predicted_y = round(median( voted_predicted_y, 2)' );
-predicted_application_y = round(median( voted_predicted_application_y, 2)' );
-
+predicted_y = round( median( voted_predicted_y, 1) );
 
 % -----------------------
 % Classification Analysis
@@ -153,7 +123,7 @@ cpa_out = classification_analysis(expected_y, predicted_y);
 
 simulation_time = toc(start_time); % end simulation timer
 
-tta_out = struct('expected_y', expected_y, 'predicted_y', predicted_y, 'predicted_application_y', predicted_application_y, 'cpa_out', cpa_out, 'simulation_time', simulation_time);
+tta_out = struct('expected_y', expected_y, 'predicted_y', predicted_y, 'cpa_out', cpa_out, 'simulation_time', simulation_time);
 
 save( strcat(SIMULATION_PATH, '/results.mat'), 'tta_out');
 

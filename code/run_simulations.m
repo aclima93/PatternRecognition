@@ -149,13 +149,10 @@ KNN_FLAG = 0;
 
 
 
-%}
 % ------------------- %
 % Performance Results %
 % ------------------- %
 
-% TODO: do not run 'performance_comparison' untill all simulations have been ran
-
-%run('performance_comparison');
+run('performance_comparison');
 
 %EOF
