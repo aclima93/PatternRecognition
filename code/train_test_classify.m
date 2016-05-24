@@ -8,8 +8,8 @@ global C1_MATLAB_LDC_FLAG C1_EDC_FLAG C1_MDC_FLAG C1_MATLAB_DT_FLAG C1_SVN_FLAG 
 global C2_MATLAB_LDC_FLAG C2_EDC_FLAG C2_MDC_FLAG C2_MATLAB_DT_FLAG C2_SVN_FLAG C2_KNN_FLAG
 global C3_MATLAB_LDC_FLAG C3_EDC_FLAG C3_MDC_FLAG C3_MATLAB_DT_FLAG C3_SVN_FLAG C3_KNN_FLAG
 
-global VALIDATION_FLAG
-global VALIDATION_DATASET_PATH
+global APPLICATION_FLAG
+global APPLICATION_DATASET_PATH
 
 % ------------------------------------ %
 % Dataset Split + Training and Testing %
@@ -112,8 +112,8 @@ for i = 1:num_classifiers
         
     end
     
-    if VALIDATION_FLAG == 1
-        validation_data = load(VALIDATION_DATASET_PATH);
+    if APPLICATION_FLAG == 1
+        validation_data = load(APPLICATION_DATASET_PATH);
         
         if EDC_FLAG == 1
             

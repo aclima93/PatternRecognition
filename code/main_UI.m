@@ -22,7 +22,7 @@ function varargout = main_UI(varargin)
 
 % Edit the above text to modify the response to help main_UI
 
-% Last Modified by GUIDE v2.5 16-May-2016 18:28:31
+% Last Modified by GUIDE v2.5 24-May-2016 11:19:53
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -150,8 +150,8 @@ global VOTER_FLAG
 VOTER_FLAG = get(handles.voter_chk, 'Value');
 
 global C1_MATLAB_LDC_FLAG C1_EDC_FLAG C1_MDC_FLAG C1_MATLAB_DT_FLAG C1_SVN_FLAG C1_KNN_FLAG
-item_list = get(handles.classifier_1_pop,'String');
-selected_item_value = get(handles.classifier_1_pop,'Value');
+item_list = get(handles.classifier_pop,'String');
+selected_item_value = get(handles.classifier_pop,'Value');
 selected_item_idx = item_list{selected_item_value};
 item_flags = zeros(1, length(item_list));
 item_flags(selected_item_idx) = 1;
@@ -159,8 +159,8 @@ item_flags = num2cell(item_flags);
 [C1_MATLAB_LDC_FLAG C1_EDC_FLAG C1_MDC_FLAG C1_MATLAB_DT_FLAG C1_SVN_FLAG C1_KNN_FLAG] = item_flags{:};
 
 global C2_MATLAB_LDC_FLAG C2_EDC_FLAG C2_MDC_FLAG C2_MATLAB_DT_FLAG C2_SVN_FLAG C2_KNN_FLAG
-item_list = get(handles.classifier_1_pop,'String');
-selected_item_value = get(handles.classifier_1_pop,'Value');
+item_list = get(handles.classifier_pop,'String');
+selected_item_value = get(handles.classifier_pop,'Value');
 selected_item_idx = item_list{selected_item_value};
 item_flags = zeros(1, length(item_list));
 item_flags(selected_item_idx) = 1;
@@ -168,8 +168,8 @@ item_flags = num2cell(item_flags);
 [C2_MATLAB_LDC_FLAG, C2_EDC_FLAG, C2_MDC_FLAG, C2_MATLAB_DT_FLAG, C2_SVN_FLAG, C2_KNN_FLAG] = item_flags{:};
 
 global C3_MATLAB_LDC_FLAG C3_EDC_FLAG C3_MDC_FLAG C3_MATLAB_DT_FLAG C3_SVN_FLAG C3_KNN_FLAG
-item_list = get(handles.classifier_1_pop,'String');
-selected_item_value = get(handles.classifier_1_pop,'Value');
+item_list = get(handles.classifier_pop,'String');
+selected_item_value = get(handles.classifier_pop,'Value');
 selected_item_idx = item_list{selected_item_value};
 item_flags = zeros(1, length(item_list));
 item_flags(selected_item_idx) = 1;
@@ -180,11 +180,11 @@ item_flags = num2cell(item_flags);
 % Validation %
 % ---------- %
 
-global VALIDATION_FLAG
-VALIDATION_FLAG = get(handles.validate_classifier_chk, 'Value');
+global APPLICATION_FLAG
+APPLICATION_FLAG = get(handles.apply_classifier_chk, 'Value');
 
-global VALIDATION_DATASET_PATH
-VALIDATION_DATASET_PATH = get(handles.validation_dataset_path_edt, 'String');
+global APPLICATION_DATASET_PATH
+APPLICATION_DATASET_PATH = get(handles.application_dataset_path_edt, 'String');
 
 close all;
 clc;
@@ -236,7 +236,7 @@ set(handles.additional_reduction_method_edt, 'String', '1');
 % --------------------- %
 
 set(handles.voter_chk, 'Value', 1);
-set(handles.validation_dataset_path_edt, 'String', '../data/validation_dataset.mat');
+set(handles.application_dataset_path_edt, 'String', '../data/validation_dataset.mat');
 
 % ------------------- %
 % Performance Results %
@@ -509,19 +509,19 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-% --- Executes on selection change in classifier_1_pop.
-function classifier_1_pop_Callback(hObject, eventdata, handles)
-% hObject    handle to classifier_1_pop (see GCBO)
+% --- Executes on selection change in classifier_pop.
+function classifier_pop_Callback(hObject, eventdata, handles)
+% hObject    handle to classifier_pop (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: contents = cellstr(get(hObject,'String')) returns classifier_1_pop contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from classifier_1_pop
+% Hints: contents = cellstr(get(hObject,'String')) returns classifier_pop contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from classifier_pop
 
 
 % --- Executes during object creation, after setting all properties.
-function classifier_1_pop_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to classifier_1_pop (see GCBO)
+function classifier_pop_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to classifier_pop (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -564,13 +564,13 @@ function splitting_chk_Callback(hObject, eventdata, handles)
 % Hint: get(hObject,'Value') returns toggle state of splitting_chk
 
 
-% --- Executes on button press in validate_classifier_chk.
-function validate_classifier_chk_Callback(hObject, eventdata, handles)
-% hObject    handle to validate_classifier_chk (see GCBO)
+% --- Executes on button press in apply_classifier_chk.
+function apply_classifier_chk_Callback(hObject, eventdata, handles)
+% hObject    handle to apply_classifier_chk (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hint: get(hObject,'Value') returns toggle state of validate_classifier_chk
+% Hint: get(hObject,'Value') returns toggle state of apply_classifier_chk
 state = get(hObject,'Value');
 if state
     state = 'on';
@@ -581,18 +581,18 @@ set(findall(handles.validation_pnl, '-property', 'enable'), 'enable', state);
 
 
 
-function validation_dataset_path_edt_Callback(hObject, eventdata, handles)
-% hObject    handle to validation_dataset_path_edt (see GCBO)
+function application_dataset_path_edt_Callback(hObject, eventdata, handles)
+% hObject    handle to application_dataset_path_edt (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of validation_dataset_path_edt as text
-%        str2double(get(hObject,'String')) returns contents of validation_dataset_path_edt as a double
+% Hints: get(hObject,'String') returns contents of application_dataset_path_edt as text
+%        str2double(get(hObject,'String')) returns contents of application_dataset_path_edt as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function validation_dataset_path_edt_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to validation_dataset_path_edt (see GCBO)
+function application_dataset_path_edt_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to application_dataset_path_edt (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -603,14 +603,14 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-% --- Executes on button press in validation_browse_btn.
-function validation_browse_btn_Callback(hObject, eventdata, handles)
-% hObject    handle to validation_browse_btn (see GCBO)
+% --- Executes on button press in apply_browse_btn.
+function apply_browse_btn_Callback(hObject, eventdata, handles)
+% hObject    handle to apply_browse_btn (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
 [FileName, PathName, ~] = uigetfile('*.mat');
-set(handles.validation_dataset_path_edt, 'String', sprintf('%s%s', PathName, FileName));
+set(handles.application_dataset_path_edt, 'String', sprintf('%s%s', PathName, FileName));
 
 
 % --- Executes on selection change in classifier_2_pop.

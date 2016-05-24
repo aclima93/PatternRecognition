@@ -9,6 +9,10 @@ num_classes = length(k);
 
 g = zeros(num_classes, num_samples_test_X);
 
+% covariance matrix 
+C = cov(X');
+inv_C = inv(C);
+
 for i = 1:num_classes
     % all samples of same class
     idx = ( y == k(i) );
@@ -16,13 +20,10 @@ for i = 1:num_classes
     % class centroid
     m_k = mean( X(:, idx ), 2 );
     
-    % covariance matrix 
-    C = cov(X');
-    
     % mahalanobis distance between class centroid and each sample in test_X
     for j = 1:num_samples_test_X
         d = abs(m_k - test_X(:, j));
-        g(i, j) = d' * inv(C) * d;
+        g(i, j) = d' * inv_C * d;
     end
 end
 
