@@ -93,9 +93,6 @@ configuration(:).C3_MATLAB_DT_FLAG = C3_MATLAB_DT_FLAG;
 configuration(:).C3_SVN_FLAG = C3_SVN_FLAG;
 configuration(:).C3_KNN_FLAG = C3_KNN_FLAG;
 
-configuration(:).APPLICATION_FLAG = APPLICATION_FLAG;
-configuration(:).APPLICATION_DATASET_PATH = APPLICATION_DATASET_PATH;
-
 % save flags struct into the specified path
 
 global SIMULATION_PATH

@@ -175,16 +175,6 @@ item_flags(selected_item_idx) = 1;
 item_flags = num2cell(item_flags);
 [C3_MATLAB_LDC_FLAG, C3_EDC_FLAG, C3_MDC_FLAG, C3_MATLAB_DT_FLAG, C3_SVN_FLAG, C3_KNN_FLAG] = item_flags{:};
 
-% ---------- %
-% Validation %
-% ---------- %
-
-global APPLICATION_FLAG
-APPLICATION_FLAG = get(handles.apply_classifier_chk, 'Value');
-
-global APPLICATION_DATASET_PATH
-APPLICATION_DATASET_PATH = get(handles.application_dataset_path_edt, 'String');
-
 close all;
 clc;
 run('main_script');
@@ -201,7 +191,6 @@ function reset_btn_Callback(hObject, eventdata, handles)
 % -------------- %
 
 set(handles.dataset_path_edt, 'String', '../data/dataset.mat');
-
 set(handles.normalize_data_chk, 'Value', 1);
 
 % ----------------- %
@@ -230,12 +219,14 @@ set(handles.reduction_method_pop, 'Value', 1);
 set(handles.additional_reduction_method_pop, 'Value', 1);
 set(handles.additional_reduction_method_edt, 'String', '1');
 
-% --------------------- %
-% Classifier Validation %
-% --------------------- %
+% ---------- %
+% Classifier %
+% ---------- %
 
 set(handles.voter_chk, 'Value', 1);
-set(handles.application_dataset_path_edt, 'String', '../data/application_dataset.mat');
+set(handles.classifier_pop,'Value', 1);
+set(handles.classifier_2_pop,'Value', 2);
+set(handles.classifier_3_pop,'Value', 3);
 
 % ------------------- %
 % Performance Results %
@@ -561,55 +552,6 @@ function splitting_chk_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of splitting_chk
-
-
-% --- Executes on button press in apply_classifier_chk.
-function apply_classifier_chk_Callback(hObject, eventdata, handles)
-% hObject    handle to apply_classifier_chk (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hint: get(hObject,'Value') returns toggle state of apply_classifier_chk
-state = get(hObject,'Value');
-if state
-    state = 'on';
-else
-    state = 'off';
-end
-set(findall(handles.application_pnl, '-property', 'enable'), 'enable', state);
-
-
-
-function application_dataset_path_edt_Callback(hObject, eventdata, handles)
-% hObject    handle to application_dataset_path_edt (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of application_dataset_path_edt as text
-%        str2double(get(hObject,'String')) returns contents of application_dataset_path_edt as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function application_dataset_path_edt_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to application_dataset_path_edt (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-% --- Executes on button press in apply_browse_btn.
-function apply_browse_btn_Callback(hObject, eventdata, handles)
-% hObject    handle to apply_browse_btn (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-[FileName, PathName, ~] = uigetfile('*.mat');
-set(handles.application_dataset_path_edt, 'String', sprintf('%s%s', PathName, FileName));
 
 
 % --- Executes on selection change in classifier_2_pop.
