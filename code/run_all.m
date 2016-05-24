@@ -31,7 +31,7 @@ global MATLAB_DT_FLAG
 global SVN_FLAG
 global KNN_FLAG
 
-global SIMULATION_COUNTER
+global SIMULATION_COUNTER ITERATION_COUNTER
 SIMULATION_COUNTER = 1;
 
 % Constant Variables
@@ -88,9 +88,10 @@ for NORMALIZE_FLAG = 0:1
                 for i3 = 1:r3
                     [MATLAB_LDC_FLAG, EDC_FLAG, MDC_FLAG, MATLAB_DT_FLAG, SVN_FLAG, KNN_FLAG] = permutations3{i3,:};
                     
-                    % run for this configuration
-                    disp(SIMULATION_COUNTER)
-                    run('main_script');
+                    % run for this configuration 30 times
+                    for ITERATION_COUNTER = 1:30
+                        run('main_script');
+                    end
                     SIMULATION_COUNTER = SIMULATION_COUNTER + 1;
                     
                 end

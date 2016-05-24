@@ -2,14 +2,12 @@ clc;
 close all;
 clear;
 
+% If the global variables aren't first declared outside of the the UI
+% script they don't become global at all. Kind of stupid actually.
+run('declare_flags');
 
 % Construct a questdlg with two options
 choice = questdlg('Which one would you like to run?', 'PR 2015/16', 'Custom Simulation','All Simulations', 'Interesting Simulations','Custom Simulation');
-
-global UI_MODE
-global SAVE_FIG_FLAG
-global VISUALIZE_DATA_FLAG
-global REFERENCE_PATH
 
 % Handle response
 switch choice

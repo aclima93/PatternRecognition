@@ -12,13 +12,13 @@ global KRUSKAL_WALLIS_FLAG
 global KRUSKAL_WALLIS_THRESHOLD_FLAG
 
 global FEATURE_REDUCTION_FLAG
-global PCA_FLAG 
-global LDA_FLAG 
-global PCA_LDA_FLAG 
+global PCA_FLAG
+global LDA_FLAG
+global PCA_LDA_FLAG
 global LDA_PCA_FLAG
-global KAISER_CRITERIA_FLAG 
+global KAISER_CRITERIA_FLAG
 global KAISER_CRITERIA_THRESHOLD
-global SCREE_TEST_FLAG 
+global SCREE_TEST_FLAG
 global SCREE_TEST_THRESHOLD
 
 global STRATIFIED_FLAG
@@ -31,7 +31,7 @@ global MATLAB_DT_FLAG
 global SVN_FLAG
 global KNN_FLAG
 
-global SIMULATION_COUNTER
+global SIMULATION_COUNTER ITERATION_COUNTER
 SIMULATION_COUNTER = 1;
 
 X_COR_COV_THRESHOLD_FLAG = 0.90;
@@ -52,7 +52,7 @@ STRATIFIED_FLAG = 1;
 % ------ if PCA is in the winner:
 % --- Kaiser Criteria vs Skree Test
 % ----------------------------------------------------------------------- %
-% total tests = (30*2) + (30*3) + (30*4) + (30*2) = 30 * 11 = 330 which is 
+% total tests = (30*2) + (30*3) + (30*4) + (30*2) = 30 * 11 = 330 which is
 % less than the current 900~ tests
 % ----------------------------------------------------------------------- %
 
@@ -67,16 +67,18 @@ MATLAB_LDC_FLAG = 1;
 
 % no normalization
 NORMALIZE_FLAG = 0;
-disp(SIMULATION_COUNTER);
-run('main_script');
+for ITERATION_COUNTER = 1:30
+    run('main_script');
+end
 SIMULATION_COUNTER = SIMULATION_COUNTER + 1;
 
 % normalized
 NORMALIZE_FLAG = 1;
-disp(SIMULATION_COUNTER);
-run('main_script');
+for ITERATION_COUNTER = 1:30
+    run('main_script');
+end
 SIMULATION_COUNTER = SIMULATION_COUNTER + 1;
-    
+
 % -----------------
 % Feature Selection
 % Purpose: compare the results of using different types of feature
@@ -92,8 +94,9 @@ permutations1 = num2cell(unique(nchoosek([0,1,0,1,0,1], 3), 'rows'));
 [r1,~] = size(permutations1);
 for i1 = 1:r1
     [X_COR_COV_FLAG, XY_COR_COV_FLAG, KRUSKAL_WALLIS_FLAG] = permutations1{i1,:};
-    disp(SIMULATION_COUNTER);
-    run('main_script');
+    for ITERATION_COUNTER = 1:30
+        run('main_script');
+    end
     SIMULATION_COUNTER = SIMULATION_COUNTER + 1;
 end
 
@@ -114,7 +117,7 @@ LDA_PCA_FLAG = 0;
 
 % ----------------------------
 % Additional Feature Reduction
-% Purpose: compare the results of different methods of additional 
+% Purpose: compare the results of different methods of additional
 % feature reduction
 disp('Additional Feature Selection simulations...');
 
@@ -123,7 +126,7 @@ FEATURE_SELECTION_FLAG = 1;
 FEATURE_REDUCTION_FLAG = 1;
 PCA_FLAG = 1;
 MATLAB_LDC_FLAG = 1;
-            
+
 
 
 
