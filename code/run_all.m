@@ -28,7 +28,7 @@ global MATLAB_LDC_FLAG
 global EDC_FLAG
 global MDC_FLAG
 global MATLAB_DT_FLAG
-global SVN_FLAG
+global SVM_FLAG
 global KNN_FLAG
 
 global SIMULATION_COUNTER ITERATION_COUNTER
@@ -86,7 +86,7 @@ for NORMALIZE_FLAG = 0:1
                 permutations3 = num2cell(unique(perms([1,0,0,0,0,0]), 'rows'));
                 [r3,~] = size(permutations3);
                 for i3 = 1:r3
-                    [MATLAB_LDC_FLAG, EDC_FLAG, MDC_FLAG, MATLAB_DT_FLAG, SVN_FLAG, KNN_FLAG] = permutations3{i3,:};
+                    [MATLAB_LDC_FLAG, EDC_FLAG, MDC_FLAG, MATLAB_DT_FLAG, SVM_FLAG, KNN_FLAG] = permutations3{i3,:};
                     
                     % run for this configuration 30 times
                     for ITERATION_COUNTER = 1:30

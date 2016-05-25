@@ -22,7 +22,7 @@ switch choice
         UI_MODE = 1;
         SAVE_FIG_FLAG = 1;
         VISUALIZE_DATA_FLAG = 1;
-        REFERENCE_PATH = '../images/custom_simulations';
+        REFERENCE_PATH = fullfile(pwd, '../images/custom_simulations');
         
         run('main_UI');
         
@@ -31,8 +31,8 @@ switch choice
         UI_MODE = 0;
         SAVE_FIG_FLAG = 1;
         VISUALIZE_DATA_FLAG = 0;
-        DATASET_PATH = '../data/dataset.mat';
-        REFERENCE_PATH = '../images/all_simulations';
+        DATASET_PATH = fullfile(pwd, '../data/dataset.mat');
+        REFERENCE_PATH = fullfile(pwd, '../images/all_simulations');
         
         run('run_all');
         
@@ -41,8 +41,8 @@ switch choice
         UI_MODE = 0;
         SAVE_FIG_FLAG = 1;
         VISUALIZE_DATA_FLAG = 0;
-        DATASET_PATH = '../data/dataset.mat';
-        REFERENCE_PATH = '../images/interesting_simulations';
+        DATASET_PATH = fullfile(pwd, '../data/dataset.mat');
+        REFERENCE_PATH = fullfile(pwd, '../images/interesting_simulations');
         
         run('run_interesting');
         

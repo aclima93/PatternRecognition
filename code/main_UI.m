@@ -151,31 +151,32 @@ STRATIFIED_FLAG = get(handles.splitting_chk, 'Value');
 global VOTER_FLAG
 VOTER_FLAG = get(handles.voter_chk, 'Value');
 
-global C1_MATLAB_LDC_FLAG C1_EDC_FLAG C1_MDC_FLAG C1_MATLAB_DT_FLAG C1_SVN_FLAG C1_KNN_FLAG
+global C1_MATLAB_LDC_FLAG C1_EDC_FLAG C1_MDC_FLAG C1_MATLAB_DT_FLAG C1_SVM_FLAG C1_KNN_FLAG
 item_list = get(handles.classifier_pop,'String');
 selected_item_idx = get(handles.classifier_pop,'Value');
 item_flags = zeros(1, length(item_list));
 item_flags(selected_item_idx) = 1;
 item_flags = num2cell(item_flags);
-[C1_MATLAB_LDC_FLAG, C1_EDC_FLAG, C1_MDC_FLAG, C1_MATLAB_DT_FLAG, C1_SVN_FLAG, C1_KNN_FLAG] = item_flags{:};
+[C1_MATLAB_LDC_FLAG, C1_EDC_FLAG, C1_MDC_FLAG, C1_MATLAB_DT_FLAG, C1_SVM_FLAG, C1_KNN_FLAG] = item_flags{:};
 
-global C2_MATLAB_LDC_FLAG C2_EDC_FLAG C2_MDC_FLAG C2_MATLAB_DT_FLAG C2_SVN_FLAG C2_KNN_FLAG
+global C2_MATLAB_LDC_FLAG C2_EDC_FLAG C2_MDC_FLAG C2_MATLAB_DT_FLAG C2_SVM_FLAG C2_KNN_FLAG
 item_list = get(handles.classifier_2_pop,'String');
 selected_item_idx = get(handles.classifier_2_pop,'Value');
 item_flags = zeros(1, length(item_list));
 item_flags(selected_item_idx) = 1;
 item_flags = num2cell(item_flags);
-[C2_MATLAB_LDC_FLAG, C2_EDC_FLAG, C2_MDC_FLAG, C2_MATLAB_DT_FLAG, C2_SVN_FLAG, C2_KNN_FLAG] = item_flags{:};
+[C2_MATLAB_LDC_FLAG, C2_EDC_FLAG, C2_MDC_FLAG, C2_MATLAB_DT_FLAG, C2_SVM_FLAG, C2_KNN_FLAG] = item_flags{:};
 
-global C3_MATLAB_LDC_FLAG C3_EDC_FLAG C3_MDC_FLAG C3_MATLAB_DT_FLAG C3_SVN_FLAG C3_KNN_FLAG
+global C3_MATLAB_LDC_FLAG C3_EDC_FLAG C3_MDC_FLAG C3_MATLAB_DT_FLAG C3_SVM_FLAG C3_KNN_FLAG
 item_list = get(handles.classifier_3_pop,'String');
 selected_item_idx = get(handles.classifier_3_pop,'Value');
 item_flags = zeros(1, length(item_list));
 item_flags(selected_item_idx) = 1;
 item_flags = num2cell(item_flags);
-[C3_MATLAB_LDC_FLAG, C3_EDC_FLAG, C3_MDC_FLAG, C3_MATLAB_DT_FLAG, C3_SVN_FLAG, C3_KNN_FLAG] = item_flags{:};
+[C3_MATLAB_LDC_FLAG, C3_EDC_FLAG, C3_MDC_FLAG, C3_MATLAB_DT_FLAG, C3_SVM_FLAG, C3_KNN_FLAG] = item_flags{:};
 
-close all;
+% ------------------------------
+% run the simulation as detailed
 clc;
 run('main_script');
 

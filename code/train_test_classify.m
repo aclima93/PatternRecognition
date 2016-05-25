@@ -3,10 +3,10 @@ global UI_MODE
 global SIMULATION_PATH
 
 global VOTER_FLAG
-global MATLAB_LDC_FLAG EDC_FLAG MDC_FLAG MATLAB_DT_FLAG SVN_FLAG KNN_FLAG
-global C1_MATLAB_LDC_FLAG C1_EDC_FLAG C1_MDC_FLAG C1_MATLAB_DT_FLAG C1_SVN_FLAG C1_KNN_FLAG
-global C2_MATLAB_LDC_FLAG C2_EDC_FLAG C2_MDC_FLAG C2_MATLAB_DT_FLAG C2_SVN_FLAG C2_KNN_FLAG
-global C3_MATLAB_LDC_FLAG C3_EDC_FLAG C3_MDC_FLAG C3_MATLAB_DT_FLAG C3_SVN_FLAG C3_KNN_FLAG
+global MATLAB_LDC_FLAG EDC_FLAG MDC_FLAG MATLAB_DT_FLAG SVM_FLAG KNN_FLAG
+global C1_MATLAB_LDC_FLAG C1_EDC_FLAG C1_MDC_FLAG C1_MATLAB_DT_FLAG C1_SVM_FLAG C1_KNN_FLAG
+global C2_MATLAB_LDC_FLAG C2_EDC_FLAG C2_MDC_FLAG C2_MATLAB_DT_FLAG C2_SVM_FLAG C2_KNN_FLAG
+global C3_MATLAB_LDC_FLAG C3_EDC_FLAG C3_MDC_FLAG C3_MATLAB_DT_FLAG C3_SVM_FLAG C3_KNN_FLAG
 
 % ------------------------------------ %
 % Dataset Split + Training and Testing %
@@ -21,13 +21,13 @@ global C3_MATLAB_LDC_FLAG C3_EDC_FLAG C3_MDC_FLAG C3_MATLAB_DT_FLAG C3_SVN_FLAG 
 
 if VOTER_FLAG == 1
     classifier_flags = [
-        C1_MATLAB_LDC_FLAG C1_EDC_FLAG C1_MDC_FLAG C1_MATLAB_DT_FLAG C1_SVN_FLAG C1_KNN_FLAG ;
-        C2_MATLAB_LDC_FLAG C2_EDC_FLAG C2_MDC_FLAG C2_MATLAB_DT_FLAG C2_SVN_FLAG C2_KNN_FLAG ;
-        C3_MATLAB_LDC_FLAG C3_EDC_FLAG C3_MDC_FLAG C3_MATLAB_DT_FLAG C3_SVN_FLAG C3_KNN_FLAG
+        C1_MATLAB_LDC_FLAG C1_EDC_FLAG C1_MDC_FLAG C1_MATLAB_DT_FLAG C1_SVM_FLAG C1_KNN_FLAG ;
+        C2_MATLAB_LDC_FLAG C2_EDC_FLAG C2_MDC_FLAG C2_MATLAB_DT_FLAG C2_SVM_FLAG C2_KNN_FLAG ;
+        C3_MATLAB_LDC_FLAG C3_EDC_FLAG C3_MDC_FLAG C3_MATLAB_DT_FLAG C3_SVM_FLAG C3_KNN_FLAG
         ];
 else
     classifier_flags = [
-        C1_MATLAB_LDC_FLAG C1_EDC_FLAG C1_MDC_FLAG C1_MATLAB_DT_FLAG C1_SVN_FLAG C1_KNN_FLAG
+        C1_MATLAB_LDC_FLAG C1_EDC_FLAG C1_MDC_FLAG C1_MATLAB_DT_FLAG C1_SVM_FLAG C1_KNN_FLAG
         ];
 end
 
@@ -44,7 +44,7 @@ for i = 1:num_classifiers
     EDC_FLAG = classifier_flags(i, 2);
     MDC_FLAG = classifier_flags(i, 3);
     MATLAB_DT_FLAG = classifier_flags(i, 4);
-    SVN_FLAG = classifier_flags(i, 5);
+    SVM_FLAG = classifier_flags(i, 5);
     KNN_FLAG = classifier_flags(i, 6);
     
     % ---------------------------------------
@@ -88,7 +88,7 @@ for i = 1:num_classifiers
         
     % ----------------------
     % Support Vector Machine
-    elseif SVN_FLAG == 1
+    elseif SVM_FLAG == 1
         
         classifier = fitcsvm(train_X, train_y);
         predicted_y = predict(classifier, test_X);
