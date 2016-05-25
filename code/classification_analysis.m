@@ -7,6 +7,17 @@ function [ classification_performance ] = classification_analysis( expected_y, p
 
 global SIMULATION_PATH
 
+N = length(predicted_y);
+x = 1:N;
+figure;
+hold on;
+plot(x, expected_y, 'o');
+plot(x, predicted_y, 'x');
+hold off;
+axis([-inf, +inf, -1, 2])
+legend('Expected', 'Predicted')
+save_png(SIMULATION_PATH, 'expected_and_predicted'); 
+
 % --------------------------------------------------------
 % Calculate accuracy based on predicted and actual results
 
@@ -14,14 +25,18 @@ global SIMULATION_PATH
 
 % ----------------
 % confusion matrix
-figure;
 plotconfusion(expected_y, predicted_y);
 save_png(SIMULATION_PATH, 'confusion_matrix'); 
 
 % ----------
 % ROC Curves
+positive_class = 0;
+[roc_tpr, roc_fpr] = perfcurve(expected_y, predicted_y, positive_class);
 figure;
-plotroc(expected_y, predicted_y);
+plot(roc_tpr,roc_fpr)
+xlabel('False positive rate')
+ylabel('True positive rate')
+title('ROC Curve')
 save_png(SIMULATION_PATH, 'roc'); 
 
 % coherent payment

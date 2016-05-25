@@ -40,11 +40,6 @@ SCREE_TEST_THRESHOLD = 0.90;
 TRAINING_RATIO = 0.70;
 STRATIFIED_FLAG = 1;
 
-% ----------
-% Classifier
-% Purpose: compare the results of different classifiers & different training ratios
-disp('Classifier simulations...');
-
 %
 %TODO: add previous best configs here
 %

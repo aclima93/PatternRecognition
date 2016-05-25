@@ -40,11 +40,6 @@ SCREE_TEST_THRESHOLD = 0.90;
 TRAINING_RATIO = 0.70;
 STRATIFIED_FLAG = 1;
 
-% -----------------
-% Feature Reduction
-% Purpose: compare the results of different methods of feature reduction
-% and additional feature reduction
-disp('Feature Reduction simulations...');
 
 %
 %TODO: add previous best configs here

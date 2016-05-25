@@ -6,7 +6,7 @@ global REFERENCE_PATH
 simulation_folders = subdirectories(REFERENCE_PATH);
 num_simulations = length(simulation_folders);
 
-% 30 iterations per simulation
+% N iterations per simulation
 accuracy = zeros(num_simulations, 1);
 recall = zeros(num_simulations, 1);
 precision = zeros(num_simulations, 1);
@@ -29,8 +29,7 @@ for i = 1:num_simulations
         % go to iteration folder
         iteration_path = sprintf('%s/%s', simulation_path, iteration_folders(i).name);
         
-        cd(iteration_path);
-        load('tta_out');
+        load( sprintf('%s/results', iteration_path) );
         
         stats = tta_out.cpa_out;
         
@@ -41,118 +40,52 @@ for i = 1:num_simulations
         sensitivity(i, j) = stats.sensitivity;
         specificity(i, j) = stats.specificity;
         f_measure(i, j) = stats.f_measure;
-        simulation_time(i, j) = stats.simulation_time;
+        simulation_time(i, j) = tta_out.simulation_time;
     end
     
 end
 
-% calculate the average of every property
-avg_accuracy = mean(accuracy, 2);
-avg_recall = mean(recall, 2);
-avg_precision = mean(precision, 2);
-avg_prevalence = mean(prevalence, 2);
-avg_sensitivity = mean(sensitivity, 2);
-avg_specificity = mean(specificity, 2);
-avg_f_measure = mean(f_measure, 2);
-avg_simulation_time = mean(simulation_time, 2);
+% calculate the average of every property and save it in a struct
+avg_data = struct;
 
-% get back to reference directory, just in case
-cd(REFERENCE_PATH);
+avg_accuracy = mean(accuracy, 2); avg_data.avg_accuracy = avg_accuracy;
+avg_recall = mean(recall, 2); avg_data.avg_recall = avg_recall;
+avg_precision = mean(precision, 2); avg_data.avg_precision = avg_precision;
+avg_prevalence = mean(prevalence, 2); avg_data.avg_prevalence = avg_prevalence;
+avg_sensitivity = mean(sensitivity, 2); avg_data.avg_sensitivity = avg_sensitivity;
+avg_specificity = mean(specificity, 2); avg_data.avg_specificity = avg_specificity;
+avg_f_measure = mean(f_measure, 2); avg_data.avg_f_measure = avg_f_measure;
+avg_simulation_time = mean(simulation_time, 2); avg_data.avg_simulation_time = avg_simulation_time;
+
+% save these averages for post-analysis
+save( sprintf('%s/avg_data.mat', REFERENCE_PATH), 'avg_data');
+
+% the 'findpeaks' function only works if we have at least 3 points to
+% analyse... because matlab
+display_peaks_flag = (num_simulations >= 3);
 
 % Accuracy
-[Peak, PeakIdx] = findpeaks(accuracy);
-figure;
-plot(avg_accuracy)
-text(X(PeakIdx), Peak, sprintf('Peak = %6.3f', Peak))
-
-title('Average Simulation Accuracy')
-ylabel('Accuracy')
-xlabel('Simulation')
-
-save_png(REFERENCE_PATH, 'accuracy');
+plot_data_and_peaks( avg_accuracy, display_peaks_flag, 'Average Simulation Accuracy', 'Simulation', 'Accuracy', REFERENCE_PATH, 'accuracy');
 
 % Recall
-[Peak, PeakIdx] = findpeaks(recall);
-figure;
-plot(avg_recall)
-text(X(PeakIdx), Peak, sprintf('Peak = %6.3f', Peak))
-
-title('Average Simulation Recall')
-ylabel('Recall')
-xlabel('Simulation')
-
-save_png(REFERENCE_PATH, 'recall');
+plot_data_and_peaks( avg_recall, display_peaks_flag, 'Average Simulation Recall', 'Simulation', 'Recall', REFERENCE_PATH, 'recall');
 
 % Precision
-[Peak, PeakIdx] = findpeaks(precision);
-figure;
-plot(avg_precision)
-text(X(PeakIdx), Peak, sprintf('Peak = %6.3f', Peak))
-
-title('Average Simulation Precision')
-ylabel('Precision')
-xlabel('Simulation')
-
-save_png(REFERENCE_PATH, 'precision');
+plot_data_and_peaks( avg_precision, display_peaks_flag, 'Average Simulation Precision', 'Simulation', 'Precision', REFERENCE_PATH, 'precision');
 
 % Prevalence
-[Peak, PeakIdx] = findpeaks(prevalence);
-figure;
-plot(avg_prevalence)
-text(X(PeakIdx), Peak, sprintf('Peak = %6.3f', Peak))
-
-title('Average Simulation Prevalence')
-ylabel('Prevalence')
-xlabel('Simulation')
-
-save_png(REFERENCE_PATH, 'prevalence');
+plot_data_and_peaks( avg_prevalence, display_peaks_flag, 'Average Simulation Prevalence', 'Simulation', 'Prevalence', REFERENCE_PATH, 'prevalence');
 
 % Sensitivity
-[Peak, PeakIdx] = findpeaks(sensitivity);
-figure;
-plot(avg_sensitivity)
-text(X(PeakIdx), Peak, sprintf('Peak = %6.3f', Peak))
-
-title('Average Simulation Sensitivity')
-ylabel('Sensitivity')
-xlabel('Simulation')
-
-save_png(REFERENCE_PATH, 'sensitivity');
+plot_data_and_peaks( avg_sensitivity, display_peaks_flag, 'Average Simulation Sensitivity', 'Simulation', 'Sensitivity', REFERENCE_PATH, 'sensitivity');
 
 % Specificity
-[Peak, PeakIdx] = findpeaks(specificity);
-figure;
-plot(avg_specificity)
-text(X(PeakIdx), Peak, sprintf('Peak = %6.3f', Peak))
-
-title('Average Simulation Specificity')
-ylabel('Specificity')
-xlabel('Simulation')
-
-save_png(REFERENCE_PATH, 'specificity');
+plot_data_and_peaks( avg_specificity, display_peaks_flag, 'Average Simulation Specificity', 'Simulation', 'Specificity', REFERENCE_PATH, 'specificity');
 
 % F-Measure
-[Peak, PeakIdx] = findpeaks(f_measure);
-figure;
-plot(avg_f_measure)
-text(X(PeakIdx), Peak, sprintf('Peak = %6.3f', Peak))
-
-title('Average Simulation F-Measure')
-ylabel('F-Measure')
-xlabel('Simulation')
-
-save_png(REFERENCE_PATH, 'f_measure');
+plot_data_and_peaks( avg_f_measure, display_peaks_flag, 'Average Simulation F-Measure', 'Simulation', 'F-Measure', REFERENCE_PATH, 'f_measure');
 
 % Simulation Time
-[Peak, PeakIdx] = findpeaks(simulation_time);
-figure;
-plot(avg_simulation_time)
-text(X(PeakIdx), Peak, sprintf('Peak = %6.3f', Peak))
-
-title('Average Simulation Time')
-ylabel('Time (s)')
-xlabel('Simulation')
-
-save_png(REFERENCE_PATH, 'f_measure');
+plot_data_and_peaks( avg_simulation_time, display_peaks_flag, 'Average Simulation Time', 'Simulation', 'Time (s)', REFERENCE_PATH, 'simulation_time');
 
 %EOF
