@@ -44,6 +44,6 @@ switch choice
         DATASET_PATH = '../data/dataset.mat';
         REFERENCE_PATH = '../images/interesting_simulations';
         
-        run('run_simulations');
+        run('run_interesting');
         
 end
