@@ -27,7 +27,7 @@ for i = 1:num_simulations
     for j = 1:num_iterations
         
         % go to iteration folder
-        iteration_path = sprintf('%s/%s', simulation_path, iteration_folders(i).name);
+        iteration_path = sprintf('%s/%s', simulation_path, iteration_folders(j).name);
         
         load( sprintf('%s/results', iteration_path) );
         

@@ -33,8 +33,6 @@ ylabel(y_label_str)
 ax = gca;
 ax.XTickLabel = 1:N;
 ax.XTick = 1:length(ax.XTickLabel);
-ax.YTickLabel = 1:M;
-ax.YTick = 1:length(ax.YTickLabel);
 
 save_png(path, filename);
 
