@@ -12,6 +12,9 @@ global VISUALIZE_DATA_FLAG
 global DATASET_PATH
 global REFERENCE_PATH
 
+global NUM_ITERATIONS
+NUM_ITERATIONS = 10;
+
 % Construct a questdlg with two options
 choice = questdlg('Which one would you like to run?', 'PR 2015/16', 'Custom Simulation','All Simulations', 'Interesting Simulations','Custom Simulation');
 

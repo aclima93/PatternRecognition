@@ -180,6 +180,10 @@ item_flags = num2cell(item_flags);
 clc;
 run('main_script');
 
+disp('---------')
+disp('Finished!')
+disp('---------')
+
 
 % --- Executes on button press in reset_btn.
 function reset_btn_Callback(hObject, eventdata, handles)

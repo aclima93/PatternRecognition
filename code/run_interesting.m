@@ -6,13 +6,14 @@ global SIMULATION_COUNTER
 SIMULATION_COUNTER = 1;
 
 backup_reference_path = REFERENCE_PATH;
-
+%{
 % --------------
 % Pre-Processing
 % Purpose: compare normalized VS non-normalized results
 REFERENCE_PATH = sprintf('%s/s1_pre_processing', backup_reference_path);
 disp('Pre-Processing simulations...');
 run('interesting_simulations/s1_pre_processing');
+%}
 %{
 % -----------------
 % Feature Selection
@@ -21,6 +22,7 @@ run('interesting_simulations/s1_pre_processing');
 REFERENCE_PATH = sprintf('%s/s2_feature_selection', backup_reference_path);
 disp('Feature Selection simulations...');
 run('interesting_simulations/s2_feature_selection');
+%}
 
 % -----------------
 % Feature Reduction
@@ -30,6 +32,7 @@ REFERENCE_PATH = sprintf('%s/s3_feature_reduction', backup_reference_path);
 disp('Feature Reduction simulations...');
 run('interesting_simulations/s3_feature_reduction');
 
+%{
 % ----------
 % Classifier
 % Purpose: compare the results of different classifiers & different training ratios
@@ -39,5 +42,9 @@ run('interesting_simulations/s4_classifier');
 %}
 
 REFERENCE_PATH = backup_reference_path;
+
+disp('---------')
+disp('Finished!')
+disp('---------')
 
 %EOF

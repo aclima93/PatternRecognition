@@ -24,13 +24,12 @@ global SCREE_TEST_THRESHOLD
 global STRATIFIED_FLAG
 global TRAINING_RATIO
 
-global MATLAB_LDC_FLAG
-global EDC_FLAG
-global MDC_FLAG
-global MATLAB_DT_FLAG
-global SVM_FLAG
-global KNN_FLAG
+global VOTER_FLAG
+global C1_MATLAB_LDC_FLAG C1_EDC_FLAG C1_MDC_FLAG C1_MATLAB_DT_FLAG C1_SVM_FLAG C1_KNN_FLAG
+global C2_MATLAB_LDC_FLAG C2_EDC_FLAG C2_MDC_FLAG C2_MATLAB_DT_FLAG C2_SVM_FLAG C2_KNN_FLAG
+global C3_MATLAB_LDC_FLAG C3_EDC_FLAG C3_MDC_FLAG C3_MATLAB_DT_FLAG C3_SVM_FLAG C3_KNN_FLAG
 
+global NUM_ITERATIONS
 global SIMULATION_COUNTER ITERATION_COUNTER
 SIMULATION_COUNTER = 1;
 
@@ -82,19 +81,48 @@ for NORMALIZE_FLAG = 0:1
                 % ----------
                 % Classifier
                 
+                VOTER_FLAG = 0;
                 % Purpose: compare the results of different classifiers
                 permutations3 = num2cell(unique(perms([1,0,0,0,0,0]), 'rows'));
                 [r3,~] = size(permutations3);
                 for i3 = 1:r3
-                    [MATLAB_LDC_FLAG, EDC_FLAG, MDC_FLAG, MATLAB_DT_FLAG, SVM_FLAG, KNN_FLAG] = permutations3{i3,:};
+                    [C1_MATLAB_LDC_FLAG, C1_EDC_FLAG, C1_MDC_FLAG, C1_MATLAB_DT_FLAG, C1_SVM_FLAG, C1_KNN_FLAG] = permutations3{i3,:};
                     
-                    % run for this configuration 30 times
-                    for ITERATION_COUNTER = 1:30
+
+                    for ITERATION_COUNTER = 1:NUM_ITERATIONS
                         run('main_script');
                     end
                     SIMULATION_COUNTER = SIMULATION_COUNTER + 1;
                     
                 end
+                
+                % Purpose: compare the results of different classifiers
+                % using a triple modular redundancy voter
+                VOTER_FLAG = 1;
+                permutations5 = num2cell(unique(perms([1,1,1,0,0,0]), 'rows'));
+                [r5,~] = size(permutations5);
+                for i5 = 1:r5
+
+                    temp_i = find( [permutations5{i5,:}] == 1);
+
+                    temp_permut1 = num2cell([0,0,0,0,0,0]);
+                    temp_permut2 = temp_permut1;
+                    temp_permut3 = temp_permut2;
+
+                    temp_permut1{temp_i(1)} = 1;
+                    [C1_MATLAB_LDC_FLAG, C1_EDC_FLAG, C1_MDC_FLAG, C1_MATLAB_DT_FLAG, C1_SVM_FLAG, C1_KNN_FLAG] = temp_permut1{:};
+                    temp_permut2{temp_i(2)} = 1;
+                    [C2_MATLAB_LDC_FLAG, C2_EDC_FLAG, C2_MDC_FLAG, C2_MATLAB_DT_FLAG, C2_SVM_FLAG, C2_KNN_FLAG] = temp_permut2{:};
+                    temp_permut3{temp_i(3)} = 1;
+                    [C3_MATLAB_LDC_FLAG, C3_EDC_FLAG, C3_MDC_FLAG, C3_MATLAB_DT_FLAG, C3_SVM_FLAG, C3_KNN_FLAG] = temp_permut3{:};
+                    
+                    for ITERATION_COUNTER = 1:NUM_ITERATIONS
+                        run('main_script');
+                    end
+                    SIMULATION_COUNTER = SIMULATION_COUNTER + 1;
+                    
+                end
+                
             end
         end
     end
@@ -107,5 +135,9 @@ end
 % ------------------- %
 
 run('performance_comparison');
+
+disp('---------')
+disp('Finished!')
+disp('---------')
 
 %EOF
