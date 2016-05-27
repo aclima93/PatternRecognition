@@ -1,18 +1,40 @@
-function plot_data_and_peaks( X, display_peaks_flag, title_str, x_label_str, y_label_str, path, filename)
+function plot_data_and_peaks( X, title_str, x_label_str, y_label_str, path, filename)
 %PLOT_DATA_AND_PEAKS Summary of this function goes here
 %   Detailed explanation goes here
 
 figure;
 plot(X)
 
-if display_peaks_flag == 1
-    [Peak, PeakIdx] = findpeaks(X);
-    text( X(PeakIdx), Peak, sprintf('Peak = %6.3f', Peak) )
+peaks_str = '';
+
+% maxima
+[max_value, max_idx] = max(X);
+num_max = 1:length(max_idx);
+for idx = num_max
+    peaks_str = sprintf('%s\nMax %s = %6.3f, %s = %d', peaks_str,  y_label_str, max_value(idx), x_label_str, max_idx(idx));
 end
 
+peaks_str = sprintf('%s\n', peaks_str);
+
+% minima
+[min_value, min_idx] = min(X);
+num_min = 1:length(min_idx);
+for idx = num_min
+    peaks_str = sprintf('%s\nMin %s = %6.3f, %s = %d', peaks_str, y_label_str, min_value(idx), x_label_str, min_idx(idx));
+end
+
+legend( peaks_str , 'Location', 'Best')
+
 title(title_str)
-ylabel(x_label_str)
-xlabel(y_label_str)
+xlabel(x_label_str)
+ylabel(y_label_str)
+
+[N, M] = size(X);
+ax = gca;
+ax.XTickLabel = 1:N;
+ax.XTick = 1:length(ax.XTickLabel);
+ax.YTickLabel = 1:M;
+ax.YTick = 1:length(ax.YTickLabel);
 
 save_png(path, filename);
 

@@ -90,8 +90,9 @@ for i = 1:num_classifiers
     % Support Vector Machine
     elseif SVM_FLAG == 1
         
-        classifier = fitcsvm(train_X, train_y);
-        predicted_y = predict(classifier, test_X);
+        classifier = fitcsvm(train_X', train_y');
+        predicted_y = predict(classifier, test_X');
+        predicted_y = predicted_y';
         
     % --------------------
     % k Nearest Neighbours
@@ -101,10 +102,11 @@ for i = 1:num_classifiers
         % number of neighbours equal to the square root of the number of
         % instances is an empirical rule-of-thumb popularized by the
         % "Pattern Classification" book by Duda et al.
-        k = sqrt( length(train_X) );
+        k = round( sqrt( length(train_X) ) );
         
-        classifier = fitcknn(train_X, train_y, 'NumNeighbors', k);
-        predicted_y = predict(classifier, test_X);
+        classifier = fitcknn(train_X', train_y', 'NumNeighbors', k);
+        predicted_y = predict(classifier, test_X');
+        predicted_y = predicted_y';
         
     end
     

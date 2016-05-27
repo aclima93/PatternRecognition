@@ -60,32 +60,30 @@ avg_simulation_time = mean(simulation_time, 2); avg_data.avg_simulation_time = a
 % save these averages for post-analysis
 save( sprintf('%s/avg_data.mat', REFERENCE_PATH), 'avg_data');
 
-% the 'findpeaks' function only works if we have at least 3 points to
-% analyse... because matlab
-display_peaks_flag = (num_simulations >= 3);
-
 % Accuracy
-plot_data_and_peaks( avg_accuracy, display_peaks_flag, 'Average Simulation Accuracy', 'Simulation', 'Accuracy', REFERENCE_PATH, 'accuracy');
+plot_data_and_peaks( avg_accuracy, 'Average Simulation Accuracy', 'Simulation', 'Accuracy', REFERENCE_PATH, 'accuracy');
 
 % Recall
-plot_data_and_peaks( avg_recall, display_peaks_flag, 'Average Simulation Recall', 'Simulation', 'Recall', REFERENCE_PATH, 'recall');
+plot_data_and_peaks( avg_recall, 'Average Simulation Recall', 'Simulation', 'Recall', REFERENCE_PATH, 'recall');
 
 % Precision
-plot_data_and_peaks( avg_precision, display_peaks_flag, 'Average Simulation Precision', 'Simulation', 'Precision', REFERENCE_PATH, 'precision');
+plot_data_and_peaks( avg_precision, 'Average Simulation Precision', 'Simulation', 'Precision', REFERENCE_PATH, 'precision');
 
 % Prevalence
-plot_data_and_peaks( avg_prevalence, display_peaks_flag, 'Average Simulation Prevalence', 'Simulation', 'Prevalence', REFERENCE_PATH, 'prevalence');
+plot_data_and_peaks( avg_prevalence, 'Average Simulation Prevalence', 'Simulation', 'Prevalence', REFERENCE_PATH, 'prevalence');
 
 % Sensitivity
-plot_data_and_peaks( avg_sensitivity, display_peaks_flag, 'Average Simulation Sensitivity', 'Simulation', 'Sensitivity', REFERENCE_PATH, 'sensitivity');
+plot_data_and_peaks( avg_sensitivity, 'Average Simulation Sensitivity', 'Simulation', 'Sensitivity', REFERENCE_PATH, 'sensitivity');
 
 % Specificity
-plot_data_and_peaks( avg_specificity, display_peaks_flag, 'Average Simulation Specificity', 'Simulation', 'Specificity', REFERENCE_PATH, 'specificity');
+plot_data_and_peaks( avg_specificity, 'Average Simulation Specificity', 'Simulation', 'Specificity', REFERENCE_PATH, 'specificity');
 
 % F-Measure
-plot_data_and_peaks( avg_f_measure, display_peaks_flag, 'Average Simulation F-Measure', 'Simulation', 'F-Measure', REFERENCE_PATH, 'f_measure');
+plot_data_and_peaks( avg_f_measure, 'Average Simulation F-Measure', 'Simulation', 'F-Measure', REFERENCE_PATH, 'f_measure');
 
 % Simulation Time
-plot_data_and_peaks( avg_simulation_time, display_peaks_flag, 'Average Simulation Time', 'Simulation', 'Time (s)', REFERENCE_PATH, 'simulation_time');
+plot_data_and_peaks( avg_simulation_time, 'Average Simulation Time', 'Simulation', 'Time (s)', REFERENCE_PATH, 'simulation_time');
+
+disp('Finished performance comparison.');
 
 %EOF
