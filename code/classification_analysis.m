@@ -39,13 +39,11 @@ ylabel('True positive rate')
 title('ROC Curve')
 save_png(SIMULATION_PATH, 'roc'); 
 
-% coherent payment
-false_negatives = CM(1,1);
-true_negatives = CM(1,2);
 
-% default payment
-true_positives = CM(2,1);
-false_positives = CM(2,2);
+true_positives = CM(1,1);
+true_negatives = CM(2,2);
+false_positives = CM(1,2);
+false_negatives = CM(2,1);
 
 % ------------------- %
 % Analysis of results %
