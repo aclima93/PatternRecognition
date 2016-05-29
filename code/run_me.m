@@ -13,7 +13,6 @@ global DATASET_PATH
 global REFERENCE_PATH
 
 global NUM_ITERATIONS
-NUM_ITERATIONS = 10;
 
 % Construct a questdlg with two options
 choice = questdlg('Which one would you like to run?', 'PR 2015/16', 'Custom Simulation','All Simulations', 'Interesting Simulations','Custom Simulation');
@@ -26,6 +25,7 @@ switch choice
         SAVE_FIG_FLAG = 1;
         VISUALIZE_DATA_FLAG = 1;
         REFERENCE_PATH = fullfile(pwd, '../results/custom_simulations');
+        NUM_ITERATIONS = 1;
         
         run('main_UI');
         
@@ -36,6 +36,7 @@ switch choice
         VISUALIZE_DATA_FLAG = 0;
         DATASET_PATH = fullfile(pwd, '../data/dataset.mat');
         REFERENCE_PATH = fullfile(pwd, '../results/all_simulations');
+        NUM_ITERATIONS = 3;
         
         run('run_all');
         
@@ -46,6 +47,7 @@ switch choice
         VISUALIZE_DATA_FLAG = 0;
         DATASET_PATH = fullfile(pwd, '../data/dataset.mat');
         REFERENCE_PATH = fullfile(pwd, '../results/interesting_simulations');
+        NUM_ITERATIONS = 10;
         
         run('run_interesting');
         

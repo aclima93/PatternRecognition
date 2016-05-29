@@ -289,7 +289,7 @@ if state
 else
     state = 'off';
 end
-set(findall(handles.kruskal_wallis_edt, '-property', 'enable'), 'enable', state);
+set(handles.kruskal_wallis_edt, 'enable', state);
 
 
 % --- Executes on button press in cor_cov_x_chk.
@@ -305,7 +305,7 @@ if state
 else
     state = 'off';
 end
-set(findall(handles.cor_cov_x_edt, '-property', 'enable'), 'enable', state);
+set(handles.cor_cov_x_edt, 'enable', state);
 
 
 % --- Executes on button press in cor_cov_xy_chk.
@@ -321,7 +321,7 @@ if state
 else
     state = 'off';
 end
-set(findall(handles.cor_cov_xy_edt, '-property', 'enable'), 'enable', state);
+set(handles.cor_cov_xy_edt, 'enable', state);
 
 
 

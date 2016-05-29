@@ -11,8 +11,8 @@ N = length(predicted_y);
 x = 1:N;
 figure;
 hold on;
-plot(x, expected_y, 'o');
-plot(x, predicted_y, 'x');
+plot(x, expected_y, 'O');
+plot(x, predicted_y, '.');
 hold off;
 axis([-inf, +inf, -1, 2])
 legend('Expected', 'Predicted')
