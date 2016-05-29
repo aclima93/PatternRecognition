@@ -22,7 +22,8 @@ if KAISER_CRITERIA_FLAG
     % original variable, we drop it.
     new_dim = length(find(model.eigval >= KAISER_CRITERIA_THRESHOLD));
 elseif SCREE_TEST_FLAG
-    % Scree Test
+    % Scree Test. The Cumulative sum of the dimension's representability 
+    % (eigenvalue) is greater or equal to a threshold regarding the sum of all eigenvalues.
     proportion_of_variance = cumsum(model.eigval) ./ sum(model.eigval);
     new_dim = length(find(proportion_of_variance >= SCREE_TEST_THRESHOLD));
 else

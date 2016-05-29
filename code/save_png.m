@@ -1,6 +1,7 @@
 function save_png( path, filename, handle )
-%SAVE_PNG Summary of this function goes here
-%   Detailed explanation goes here
+%SAVE_PNG Saves the figure passed as a handle at the specified path, with
+% the specified filename. The file handle is optional, and if it is missing
+% the current figure handle will be used instead.
 
 global UI_MODE
 global SAVE_FIG_FLAG

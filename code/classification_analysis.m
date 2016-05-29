@@ -49,7 +49,7 @@ false_negatives = CM(2,1);
 % Analysis of results %
 % ------------------- %
 
-population = length(predicted_y);
+population = true_positives + true_negatives + false_positives + false_negatives;
 
 true_condition_positive = true_positives + false_negatives;
 true_condition_negative = false_positives + true_negatives;
@@ -109,7 +109,7 @@ diagnostic_analysis = [PLR, NLR, DOR];
 % Statistical Relevance
 accuracy = (true_positives + true_negatives) / population;
 
-precision = true_positives / false_positives;
+precision = true_positives / (true_positives + false_positives);
 
 recall = true_positives / true_condition_positive;
 
@@ -119,7 +119,7 @@ sensitivity = TPR;
 
 specificity = TNR;
 
-f_measure = precision * recall;
+f_measure = 2 * ((precision * recall)/(precision + recall));
 
 classification_performance = struct('confusion_matrix', CM, 'accuracy', accuracy, 'precision', precision, 'recall', recall, 'prevalence', prevalence, 'sensitivity', sensitivity, 'specificity', specificity, 'f_measure', f_measure, 'true_condition', true_condition, 'predicted_condition', predicted_condition, 'diagnostic_analysis', diagnostic_analysis);
 

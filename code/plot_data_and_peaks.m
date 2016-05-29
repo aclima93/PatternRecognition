@@ -31,8 +31,8 @@ ylabel(y_label_str)
 
 [N, M] = size(X);
 ax = gca;
-ax.XTickLabel = 1:N;
-ax.XTick = 1:length(ax.XTickLabel);
+ax.XTickLabel = 1:round(N/20):N;
+ax.XTick = 1:round(N/20):N;
 
 save_png(path, filename);
 

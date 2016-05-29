@@ -107,7 +107,9 @@ for i = 1:num_classifiers
         classifier = fitcknn(train_X', train_y', 'NumNeighbors', k);
         predicted_y = predict(classifier, test_X');
         predicted_y = predicted_y';
-        
+
+    else
+        error('Error. \nNo classifier chosen.');        
     end
     
     voted_predicted_y(i, :) = predicted_y;

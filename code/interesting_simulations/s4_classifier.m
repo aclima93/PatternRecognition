@@ -39,9 +39,21 @@ SCREE_TEST_THRESHOLD = 0.90;
 TRAINING_RATIO = 0.70;
 STRATIFIED_FLAG = 1;
 
-%
-%TODO: add previous best configs here
-%
+NORMALIZE_FLAG = 1;
+
+FEATURE_SELECTION_FLAG = 1;
+X_COR_COV_FLAG = 1;
+XY_COR_COV_FLAG = 1;
+KRUSKAL_WALLIS_FLAG = 1;
+
+FEATURE_REDUCTION_FLAG = 1;
+PCA_FLAG = 1;
+LDA_FLAG = 0;
+PCA_LDA_FLAG = 0;
+LDA_PCA_FLAG = 0;
+
+KAISER_CRITERIA_FLAG = 0;
+SCREE_TEST_FLAG = 1;
 
 
 VOTER_FLAG = 0;
@@ -53,7 +65,7 @@ for i3 = 1:r3
     
     
     for ITERATION_COUNTER = 1:NUM_ITERATIONS
-        run('main_script');
+        run('../main_script');
     end
     SIMULATION_COUNTER = SIMULATION_COUNTER + 1;
     
@@ -80,7 +92,7 @@ for i5 = 1:r5
     [C3_MATLAB_LDC_FLAG, C3_EDC_FLAG, C3_MDC_FLAG, C3_MATLAB_DT_FLAG, C3_SVM_FLAG, C3_KNN_FLAG] = temp_permut3{:};
     
     for ITERATION_COUNTER = 1:NUM_ITERATIONS
-        run('main_script');
+        run('../main_script');
     end
     SIMULATION_COUNTER = SIMULATION_COUNTER + 1;
 end

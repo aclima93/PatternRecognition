@@ -47,7 +47,7 @@ switch choice
         VISUALIZE_DATA_FLAG = 0;
         DATASET_PATH = fullfile(pwd, '../data/dataset.mat');
         REFERENCE_PATH = fullfile(pwd, '../results/interesting_simulations');
-        NUM_ITERATIONS = 10;
+        NUM_ITERATIONS = 5;
         
         run('run_interesting');
         
